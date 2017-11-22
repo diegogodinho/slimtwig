@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\Domain;
+namespace App\Domain;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,11 +13,11 @@ class Question extends Model
 
     public function awnser()
     {
-        return $this->hasMany('Api\Domain\Awnser');
+        return $this->hasMany('App\Domain\Awnser');
     }
 
     public function user()
     {
-        return $this->hasOne('Api\Domain\User');
+        return $this->hasOne('App\Domain\User');
     }
 }

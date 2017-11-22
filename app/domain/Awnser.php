@@ -12,6 +12,6 @@ class Awnser extends Model
 
     public function question()
     {
-        return $this->belongsTo('Api\Domain\Question');
+        return $this->belongsTo('App\Domain\Question');
     }
 }
