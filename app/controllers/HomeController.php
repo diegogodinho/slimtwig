@@ -9,6 +9,3 @@ class HomeController extends BaseController
         return $this->view->render($response, 'home/home.twig');
     }
 }
-
-
-

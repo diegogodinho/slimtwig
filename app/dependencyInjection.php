@@ -13,6 +13,10 @@ $container['view'] = function($container) {
     return $view;
 };
 
+$ontainer['db'] = function($container) use ($capsule) {
+    return $capsule;
+};
+
 
 $container['HomeController'] = function($container) {
     return new App\Controllers\HomeController($container);
