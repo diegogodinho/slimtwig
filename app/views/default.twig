@@ -61,7 +61,9 @@
 			<div class="preloader" style="display:none">
 				<img src="{{base_url()}}/app/template/img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
 			</div>
-			<div id="ajax-content"></div>
+			<div id="ajax-content">
+        {% block content %} {% endblock %}
+      </div>
 		</div>
 		<!--End Content-->
 	</div>
@@ -78,6 +80,8 @@
 <script src="{{base_url()}}/app/template/plugins/tinymce/jquery.tinymce.min.js"></script>
 <!-- All functions for this theme + document.ready processing -->
 <script src="{{base_url()}}/app/template/js/devoops.js"></script>
+
+{% block script %} {% endblock %}
 </body>
 </html>
 

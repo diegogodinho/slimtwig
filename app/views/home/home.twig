@@ -1,12 +1,160 @@
-{% extends 'default.twig'  %}
+{% extends 'default.twig' %}
 
 {% block content %}
-      <div class="jumbotron">
-        <h1>Navbar example Diego</h1>
-        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>To see the difference between static and fixed top navbars, just scroll.</p>
-        <p>
-          <a class="btn btn-lg btn-primary" href="" role="button">View navbar docs »</a>
-        </p>
-      </div>    
+  <div class="row">
+    <div id="breadcrumb" class="col-md-12">
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">Dashboard</a>
+        </li>
+        <li>
+          <a href="#">Tables</a>
+        </li>
+        <li>
+          <a href="#">Data Tables</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <div class="box-name">
+            <i class="fa fa-table"></i>
+            <span>Striped rows</span>
+          </div>
+          <div class="box-icons">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+              <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+          <div class="no-move"></div>
+        </div>
+        <div class="box-content">
+          <p>Use
+            <code>.table-striped</code>
+            to add zebra-striping to any table row within the
+            <code>&lt;tbody&gt;</code>.</p>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Homepage</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Nginx</td>
+                <td>http://nginx.org</td>
+                <td>webserver</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Apache</td>
+                <td>http://apache.org</td>
+                <td>webserver</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Skype</td>
+                <td>http://www.skype.com</td>
+                <td>Messenger</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Blender</td>
+                <td>http://www.blender.org</td>
+                <td>3D-modeller</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <div class="box">
+        <div class="box-header">
+          <div class="box-name">
+            <i class="fa fa-table"></i>
+            <span>Striped rows</span>
+          </div>
+          <div class="box-icons">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="expand-link">
+              <i class="fa fa-expand"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+          <div class="no-move"></div>
+        </div>
+        <div class="box-content">
+          <p>Use
+            <code>.table-striped</code>
+            to add zebra-striping to any table row within the
+            <code>&lt;tbody&gt;</code>.</p>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Homepage</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Nginx</td>
+                <td>http://nginx.org</td>
+                <td>webserver</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Apache</td>
+                <td>http://apache.org</td>
+                <td>webserver</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Skype</td>
+                <td>http://www.skype.com</td>
+                <td>Messenger</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Blender</td>
+                <td>http://www.blender.org</td>
+                <td>3D-modeller</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+$(function(){
+  debugger;
+
+});
+</script>
 {% endblock %}
