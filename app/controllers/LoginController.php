@@ -7,11 +7,11 @@ use App\Domain\User;
 use App\Exceptions\NotFoundException;
 use \DateInterval;
 
-class UserController extends BaseController
+class LoginController extends BaseController
 {
     public function Index($request, $response)
     {
-        return $this->view->render($response, 'login/signUp.twig');
+        return $this->view->render($response, 'login/login.twig');
     }
 
     // public function Login($request, $response)

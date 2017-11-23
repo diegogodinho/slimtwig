@@ -2,4 +2,4 @@
 
 $app->get('/', 'HomeController:Index');
 
-$app->get('/user', 'UserController:Index')->setName('user.signUp');
+$app->get('/login', 'LoginController:Index')->setName('user.signUp');

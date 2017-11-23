@@ -5,7 +5,7 @@ Controllers
 */
 require __DIR__ . '/controllers/BaseController.php';
 require __DIR__ . '/controllers/HomeController.php';
-require __DIR__ . '/controllers/UserController.php';
+require __DIR__ . '/controllers/LoginController.php';
 
 /*
 Domain
