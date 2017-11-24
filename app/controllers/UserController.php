@@ -74,8 +74,7 @@ class UserController extends CRUDController {
 		
 		if (!$this->validator->Valid())
 		{
-			$response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
-			return $response;
+			return $response->withRedirect($this->router->pathFor('signup'));
 		}
 
 		User::create([

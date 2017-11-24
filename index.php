@@ -3,6 +3,8 @@
 session_start();
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/app/references.php';
+
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
@@ -38,8 +40,9 @@ $capsule->addConnection($config['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
+
 require __DIR__ . '/app/routes.php';
 require __DIR__ . '/app/dependencyInjection.php';
-require __DIR__ . '/app/references.php';
+
 
 $app->run();

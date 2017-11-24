@@ -29,9 +29,10 @@ class Validator
             catch(NestedValidationException $e)
             {
                 $this->erros[$field] = $e->getMessages();
-
             }            
-        }       
+        }   
+        
+        $_SESSION['validation_erros'] = $this->erros;
     }
 
     public function Valid()

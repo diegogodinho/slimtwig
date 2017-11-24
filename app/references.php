@@ -30,3 +30,8 @@ require __DIR__ . '/domain/Question.php';
 require __DIR__ . '/domain/User.php';
 require __DIR__ . '/domain/ErrorJson.php';
 
+/*
+Middleware
+*/
+require __DIR__ . '/middleware/Middleware.php';
+require __DIR__ . '/middleware/ValidationErrorsMiddleware.php';
