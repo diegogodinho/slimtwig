@@ -16,9 +16,13 @@ abstract class CRUDController extends BaseController
 
     public function All($request, $response) 
     {
+
+        
+
+
         try {            
             $validation = $this->validator->Validate($request, [
-                'page'=> v::intVal()
+                'draw'=> v::intVal()
             ]);
 
             if (!$this->validator->Valid())

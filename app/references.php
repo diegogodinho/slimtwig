@@ -35,3 +35,4 @@ Middleware
 */
 require __DIR__ . '/middleware/Middleware.php';
 require __DIR__ . '/middleware/ValidationErrorsMiddleware.php';
+require __DIR__ . '/middleware/OldMiddleware.php';

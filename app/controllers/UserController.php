@@ -12,6 +12,11 @@ use Exception;
 
 class UserController extends CRUDController {
 	
+	public function Index($request, $response)
+	{
+		return $this->view->render($response, 'user/user.list.twig');
+	}
+
 	public function SignUp($request, $response)
 	{
 		return $this->view->render($response, 'user/signUp.twig');
@@ -20,12 +25,12 @@ class UserController extends CRUDController {
 	public function _all($request, $response, $data)
 	{
 		$total = User::count();
-		$page = (int)$request->getAttribute('page');			
+		$page = (int)$request->getAttribute('draw');			
 		$result = $this->DoPagination(User::select('id','name','email','login'), $page)->get();
 
 		return $response->withJson([
 			"data"=>$result,
-			"total"=>$total
+			"recordsTotal"=>$total
 		]);
 	}
 

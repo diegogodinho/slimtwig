@@ -1,88 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>DevOOPS</title>
-		<meta name="description" content="description">
-		<meta name="author" content="DevOOPS">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="{{base_url()}}/app/template/plugins/bootstrap/bootstrap.css" rel="stylesheet">
-		<link href="{{base_url()}}/app/template/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-		<link href="{{base_url()}}/app/template/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
-		<link href="{{base_url()}}/app/template/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
-		<link href="{{base_url()}}/app/template/plugins/xcharts/xcharts.min.css" rel="stylesheet">
-		<link href="{{base_url()}}/app/template/plugins/select2/select2.css" rel="stylesheet">
-		<link href="{{base_url()}}/app/template/css/style.css" rel="stylesheet">
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-				<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
-				<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
-		<![endif]-->
-	</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <title>DevOOPS</title>
+        <meta name="description" content="description">
+        <meta name="author" content="DevOOPS">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{base_url()}}/app/template/plugins/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="{{base_url()}}/app/template/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+        <link href="{{base_url()}}/app/template/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+        <link href="{{base_url()}}/app/template/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+        <link href="{{base_url()}}/app/template/plugins/xcharts/xcharts.min.css" rel="stylesheet">
+        <link href="{{base_url()}}/app/template/plugins/select2/select2.css" rel="stylesheet">
+        <link href="{{base_url()}}/app/template/css/style.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]> <script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script> <script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script> <![endif]-->
+    </head>
+    <body>
 
-{# http://usebootstrap.com/preview/devoops/index.html# #}
+        {# http://usebootstrap.com/preview/devoops/index.html# #}
 
-<!--Start Header-->
-<div id="screensaver">
-	<canvas id="canvas"></canvas>
-	<i class="fa fa-lock" id="screen_unlock"></i>
-</div>
-<div id="modalbox">
-	<div class="devoops-modal">
-		<div class="devoops-modal-header">
-			<div class="modal-header-name">
-				<span>Basic table</span>
-			</div>
-			<div class="box-icons">
-				<a class="close-link">
-					<i class="fa fa-times"></i>
-				</a>
-			</div>
-		</div>
-		<div class="devoops-modal-inner">
-		</div>
-		<div class="devoops-modal-bottom">
-		</div>
-	</div>
-</div>
-<header class="navbar">
-	{% include 'templates/navigation.twig' %}
-</header>
-<!--End Header-->
-<!--Start Container-->
-<div id="main" class="container-fluid">
-	<div class="row">
-		{% include 'templates/sideBar.twig' %}
-		<!--Start Content-->
-		<div id="content" class="col-xs-12 col-sm-10">
-			<div class="preloader" style="display:none">
-				<img src="{{base_url()}}/app/template/img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
-			</div>
-			<div id="ajax-content">
-        {% block content %} {% endblock %}
-      </div>
-		</div>
-		<!--End Content-->
-	</div>
-</div>
-<!--End Container-->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<!--<script src="http://code.jquery.com/jquery.js"></script>-->
-<script src="{{base_url()}}/app/template/plugins/jquery/jquery-2.1.0.min.js"></script>
-<script src="{{base_url()}}/app/template/plugins/jquery-ui/jquery-ui.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{{base_url()}}/app/template/plugins/bootstrap/bootstrap.min.js"></script>
-<script src="{{base_url()}}/app/template/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
-<script src="{{base_url()}}/app/template/plugins/tinymce/tinymce.min.js"></script>
-<script src="{{base_url()}}/app/template/plugins/tinymce/jquery.tinymce.min.js"></script>
-<!-- All functions for this theme + document.ready processing -->
-<script src="{{base_url()}}/app/template/js/devoops.js"></script>
+        <!--Start Header-->
+        <div id="screensaver">
+            <canvas id="canvas"></canvas>
+            <i class="fa fa-lock" id="screen_unlock"></i>
+        </div>
+        <div id="modalbox">
+            <div class="devoops-modal">
+                <div class="devoops-modal-header">
+                    <div class="modal-header-name">
+                        <span>Basic table</span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="devoops-modal-inner"></div>
+                <div class="devoops-modal-bottom"></div>
+            </div>
+        </div>
+        <div id="modal-validation-errors" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        {% for erro in errors %}
+                            {% for item in erro %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Got it!</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
-{% block script %} {% endblock %}
-</body>
+        <header class="navbar">
+            {% include 'templates/navigation.twig' %}
+        </header>
+        <!--End Header-->
+        <!--Start Container-->
+        <div id="main" class="container-fluid">
+            <div class="row">
+                {% include 'templates/sideBar.twig' %}
+                <!--Start Content-->
+                <div id="content" class="col-xs-12 col-sm-10">
+                    <div class="preloader" style="display:none">
+                        <img src="{{base_url()}}/app/template/img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
+                    </div>
+                    <div id="ajax-content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+                <!--End Content-->
+            </div>
+        </div>
+        <!--End Container-->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+        <script src="{{base_url()}}/app/template/plugins/jquery/jquery-2.1.0.min.js"></script>
+        <script src="{{base_url()}}/app/template/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="{{base_url()}}/app/template/plugins/bootstrap/bootstrap.min.js"></script>
+        <script src="{{base_url()}}/app/template/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
+        <script src="{{base_url()}}/app/template/plugins/tinymce/tinymce.min.js"></script>
+        <script src="{{base_url()}}/app/template/plugins/tinymce/jquery.tinymce.min.js"></script>
+        <!-- All functions for this theme + document.ready processing -->
+        <script src="{{base_url()}}/app/template/js/devoops.js"></script>
+
+        {% block script %}{% endblock %}
+    </body>
 </html>
-
-    

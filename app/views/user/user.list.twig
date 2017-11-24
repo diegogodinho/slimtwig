@@ -1,0 +1,68 @@
+{% extends 'default.twig' %}
+{% block content %}
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">User</a>
+                </li>
+                <li>
+                    <a href="{{ path_for('signup') }}">New User</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="box-content">
+        <h4 class="page-header">New User form</h4>
+        <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Login</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.js"></script>
+    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+
+            $('#usertable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "user/list",
+                    "type": "POST"
+                },
+                "columns": [
+                    {
+                        "data": "id"
+                    }, {
+                        "data": "name"
+                    }, {
+                        "data": "email"
+                    }, {
+                        "data": "login"
+                    }
+                ]
+            });
+
+        });
+    </script>
+
+    {% if errors %}
+        <script type="text/javascript">
+            $(function() {
+                //$('#modal-validation-errors').modal('show');
+            });
+        </script>
+    {% endif %}
+
+{% endblock %}
