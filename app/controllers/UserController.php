@@ -25,12 +25,12 @@ class UserController extends CRUDController {
 	public function _all($request, $response, $data)
 	{
 		$total = User::count();
-		$page = (int)$request->getAttribute('draw');			
-		$result = $this->DoPagination(User::select('id','name','email','login'), $page)->get();
-
+		$result = $this->Pagination(User::select('id','name','email','login'), (int)$data['start'], (int)$data['length'])->get();
+		
 		return $response->withJson([
-			"data"=>$result,
-			"recordsTotal"=>$total
+			"data" => $result,
+			"recordsTotal" => $total,
+			"recordsFiltered"=> $total,			
 		]);
 	}
 
@@ -89,7 +89,7 @@ class UserController extends CRUDController {
 			'login' => $data['login']
 		]);
 
-		return $response->withRedirect($this->router->pathFor('home'));
+		return $response->withRedirect($this->router->pathFor('user.index'));
 	}
 
 	public function _find($id)

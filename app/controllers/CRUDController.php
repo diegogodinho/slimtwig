@@ -17,19 +17,19 @@ abstract class CRUDController extends BaseController
     public function All($request, $response) 
     {
 
-        
-
+        // var_dump($request->getParams());
+        // die();
 
         try {            
-            $validation = $this->validator->Validate($request, [
-                'draw'=> v::intVal()
-            ]);
+            // $validation = $this->validator->Validate($request, [
+            //     'start'=> v::intVal()
+            // ]);
 
-            if (!$this->validator->Valid())
-            {
-                $response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
-                return $response;
-            }
+            // if (!$this->validator->Valid())
+            // {
+            //     $response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
+            //     return $response;
+            // }
 
             $data = $request->getParsedBody();
 

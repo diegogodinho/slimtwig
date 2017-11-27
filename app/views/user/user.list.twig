@@ -4,16 +4,18 @@
         <div id="breadcrumb" class="col-md-12">
             <ol class="breadcrumb">
                 <li>
-                    <a href="#">User</a>
-                </li>
-                <li>
-                    <a href="{{ path_for('signup') }}">New User</a>
-                </li>
+                    <a href="#">Users</a>
+                </li>                
             </ol>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-offset-10 col-md-2">
+            <a href="{{ path_for('signup') }}" class="btn btn-classic">new User</a>            
+        </div>
+    </div>
     <div class="box-content">
-        <h4 class="page-header">New User form</h4>
+        <h4 class="page-header">User list</h4>
         <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
             <thead>
                 <tr>
@@ -34,9 +36,9 @@
     <script type="text/javascript">
         $(function() {
 
-            $('#usertable').DataTable({
-                "processing": true,
+            $('#usertable').DataTable({                
                 "serverSide": true,
+                "bFilter": false,
                 "ajax": {
                     "url": "user/list",
                     "type": "POST"

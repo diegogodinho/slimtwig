@@ -24,4 +24,9 @@ abstract class BaseController
     {
         return $query->skip(($page - 1) * $this->records_per_page)->take($this->records_per_page);
     }
+
+    public function Pagination($query, $page, $lenght)
+    {
+        return $query->skip($page)->take($lenght);
+    }
 }
