@@ -26,7 +26,7 @@
         <div id="screensaver">
             <canvas id="canvas"></canvas>
             <i class="fa fa-lock" id="screen_unlock"></i>
-        </div>
+        </div>        
         <div id="modalbox">
             <div class="devoops-modal">
                 <div class="devoops-modal-header">
@@ -57,6 +57,27 @@
                                 <li>{{ item }}</li>
                             {% endfor %}
                         {% endfor %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Got it!</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+        <div id="modal-confirmation-excluded" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label>Item excluded successfuly</label>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal">Got it!</button>
@@ -100,6 +121,7 @@
         <script src="{{base_url()}}/app/template/plugins/tinymce/jquery.tinymce.min.js"></script>
         <!-- All functions for this theme + document.ready processing -->
         <script src="{{base_url()}}/app/template/js/devoops.js"></script>
+        <script src="{{base_url()}}/app/template/js/bootbox.min.js"></script>
 
         {% block script %}{% endblock %}
     </body>

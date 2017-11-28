@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Domain\User;
-// use Respect\Validation\Validator as v;
+use Respect\Validation\Validator as v;
 // use \Datetime;
 use App\Exceptions\NotFoundException;
 use \DateInterval;
@@ -14,66 +14,75 @@ class LoginController extends BaseController
         return $this->view->render($response, 'login/login.twig');
     }
 
-    // public function Login($request, $response)
-    // {
-    //     // $validation = $this->validator->Validate($request,[
-	// 	// 	'login'=> v::notEmpty()->noWhitespace(),
-	// 	// 	'password'=> v::noWhitespace()->notEmpty()
-    //     // ]);
+    public function Login($request, $response)
+    {
+        $validation = $this->validator->Validate($request,[
+			'login'=> v::notEmpty()->noWhitespace(),
+			'password'=> v::noWhitespace()->notEmpty()
+        ]);
         
-    //     // if (!$this->validator->Valid())
-	// 	// {
-	// 	// 	// $response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
-	// 	// 	return $response;
-    //     // }
+        if (!$this->validator->Valid())
+		{
+			// $response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
+            //return $response;
+            return $response->withRedirect($this->router->pathFor('login'));
+        }
         
-    //     try	{
+        try	{
 			
-	// 		$data = $request->getParsedBody();				
+			$data = $request->getParsedBody();				
             
-    //         $user = User::where('login', $data['login'])->first();
+            $user = User::where('login', $data['login'])->first();
             
             
-    //         if(!$user)
-    //         {                
-    //             throw new NotFoundException("Login or Password invalid!");
-    //         }
+            if(!$user)
+            {            
+                    
+                //throw new NotFoundException("Login or Password invalid!");
+                return $response->withRedirect($this->router->pathFor('login'));
+            }
 
-    //         if (password_verify($data['password'],$user->password))
-    //         {
-    //             // $now = new DateTime();                
-    //             // $future = new DateTime();                
-    //             // $future->add(new DateInterval('PT4H'));               
+            if (password_verify($data['password'],$user->password))
+            {
+                $_SESSION['user'] = $user->id;
+
+                // $now = new DateTime();                
+                // $future = new DateTime();                
+                // $future->add(new DateInterval('PT4H'));               
                 
-    //             // $secret = "your_secret_key";
+                // $secret = "your_secret_key";
                 
-    //             // $payload = [                    
-    //             //     "iat" => $now->getTimeStamp(),
-    //             //     "nbf" => $now->getTimeStamp(),
-    //             //     "exp" => $future->getTimeStamp(),
-    //             //     "user"=> [
-    //             //         "id" => $user->id,
-    //             //         "name"=> $user->name
-    //             //     ]
-    //             // ];
+                // $payload = [                    
+                //     "iat" => $now->getTimeStamp(),
+                //     "nbf" => $now->getTimeStamp(),
+                //     "exp" => $future->getTimeStamp(),
+                //     "user"=> [
+                //         "id" => $user->id,
+                //         "name"=> $user->name
+                //     ]
+                // ];
                 
-    //             // $token = JWT::encode($payload, $secret);
-    //             // // $response = $response->withJson($token);
-    //             // $response = $response->withJson(["token" => $token,
-    //             //                                 "user"=>[
-    //             //                                     "name"=> $user->name,
-    //             //                                     "email"=> $user->email
-    //             //                                     ]
-    //             //                                 ]);
-    //             return $response;
-    //         }
-    //         throw new NotFoundException("Login or Password invalid!");
-    //     }        
-    //     catch(NotFoundException $e){			
-	// 	}
-	// 	catch(Exception $e)
-	// 	{
+                // $token = JWT::encode($payload, $secret);
+                // // $response = $response->withJson($token);
+                // $response = $response->withJson(["token" => $token,
+                //                                 "user"=>[
+                //                                     "name"=> $user->name,
+                //                                     "email"=> $user->email
+                //                                     ]
+                //                                 ]);
+                // return $response;
+
+                return $response->withRedirect($this->router->pathFor('home'));
+            }
+            return $response->withRedirect($this->router->pathFor('login'));
+
+            throw new NotFoundException("Login or Password invalid!");
+        }        
+        catch(NotFoundException $e){			
+		}
+		catch(Exception $e)
+		{
 			
-	// 	}
-    // }
+		}
+    }
 }

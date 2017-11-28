@@ -36,8 +36,7 @@ abstract class CRUDController extends BaseController
             return $this->_all($request, $response, $data);
         }
         catch(Exception $e)
-        {
-            $this->logger->addInfo($e->getMessage());
+        {            
             $response = $response->withStatus(400)->withJson(array(new ErrorJson($e->getMessage())));
             return $response;
         }
@@ -71,8 +70,7 @@ abstract class CRUDController extends BaseController
             return $this->_update($request, $response, $data, $entity);
         }
         catch(Exception $e)
-        {
-            $this->logger->addInfo($e->getMessage());
+        {            
             $response = $response->withStatus(400)->withJson(array(new ErrorJson($e->getMessage())));
             return $response;
         }        
@@ -105,8 +103,7 @@ abstract class CRUDController extends BaseController
             return $response->withStatus(200);
         }       
         catch(Exception $e)
-        {
-            $this->logger->addInfo($e->getMessage());
+        {            
             $response = $response->withStatus(400)->withJson(array(new ErrorJson($e->getMessage())));
             return $response;
         }          

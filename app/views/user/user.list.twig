@@ -5,13 +5,13 @@
             <ol class="breadcrumb">
                 <li>
                     <a href="#">Users</a>
-                </li>                
+                </li>
             </ol>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('signup') }}" class="btn btn-classic">new User</a>            
+            <a href="{{ path_for('signup') }}" class="btn btn-classic">new User</a>
         </div>
     </div>
     <div class="box-content">
@@ -23,6 +23,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Login</th>
+                    <th></th>
                 </tr>
             </thead>
         </table>
@@ -36,7 +37,7 @@
     <script type="text/javascript">
         $(function() {
 
-            $('#usertable').DataTable({                
+            var table = $('#usertable').DataTable({
                 "serverSide": true,
                 "bFilter": false,
                 "ajax": {
@@ -52,10 +53,43 @@
                         "data": "email"
                     }, {
                         "data": "login"
+                    }, {
+                        "data": null,
+                        orderable: false,
+                        "className": "center",
+                        "defaultContent": '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a>  <a href="#" class="btn excluir-grid" rel="tooltip" title="Delete" data-original-title="Excluir" style="color:red;"><i class="fa fa-times"></i>	</a>'
                     }
                 ]
-            });
+            });            
 
+            $('#usertable').on('draw.dt', function () {
+                $(".editar-grid").click(function () {                       
+                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();                 
+                    var _url = "{{ path_for('user.edit',{'id' : 0 }) }}";
+                    _url = _url.replace(0, data.id);
+                    window.location = _url;
+                });
+
+                $(".excluir-grid").click(function () {
+                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
+                    var titulo = data.name;
+                    var _urlDelete = "{{ path_for('user.del',{'id' : 0 }) }}";
+                    _urlDelete = _urlDelete.replace('0', data.id);
+                    bootbox.confirm("Are you sure about deleting the item {0}?".replace("{0}", titulo), function (result) {
+                        if (result) {
+                            $.post(_urlDelete, {
+                                ID: data.ID
+                            }, function (retorno) {
+                                table.ajax.reload();
+                                $('#modal-confirmation-excluded').modal('show');                               
+
+                            }).error(function (result) {
+                                bootbox.alert('Failed');
+                            });
+                        }
+                    });
+                });         
+            });
         });
     </script>
 

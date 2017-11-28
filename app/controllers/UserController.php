@@ -22,6 +22,31 @@ class UserController extends CRUDController {
 		return $this->view->render($response, 'user/signUp.twig');
 	}
 
+
+	public function Edit($request, $response)
+	{
+		$validation = $this->validator->Validate($request,[
+			'id'=> v::intVal()->positive()
+		]);
+
+		if (!$this->validator->Valid())
+		{			
+			return $response->withRedirect($this->router->pathFor('user/user.list.twig'));
+		}	
+
+		$user = User::find((int)$request->getAttribute('id'));
+
+		$_SESSION['old'] = [
+			'name' => $user->name,
+			'email' => $user->email,
+			'login' => $user->login,
+			'id' => $user->id
+		];	
+		$this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old']: null);
+
+		return $this->view->render($response, 'user/signUp.twig');
+	}
+
 	public function _all($request, $response, $data)
 	{
 		$total = User::count();
@@ -38,15 +63,14 @@ class UserController extends CRUDController {
 	{
 		$validation = $this->validator->Validate($request,[
 			'email'=> v::notEmpty()->noWhitespace()->email(),
-			'name'=> v::noWhitespace()->notEmpty(),
+			'name'=> v::notEmpty(),
 			'login' =>v::noWhitespace()->notEmpty(),
 			'password'=> v::noWhitespace()->notEmpty()
 		]);
 		
 		if (!$this->validator->Valid())
 		{
-			$response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
-			return $response;
+			return $this->view->render($response, 'user/signUp.twig');
 		}			
 
 		$user->email = $data['email'];
@@ -55,7 +79,7 @@ class UserController extends CRUDController {
 		$user->password = password_hash($data['password'], PASSWORD_DEFAULT);
 		$user->save();		
 
-		return $response->withStatus(201);		
+		return $response->withRedirect($this->router->pathFor('user.index'));
 	}
 
 	public function _getByID($request, $response, $id)
@@ -72,7 +96,7 @@ class UserController extends CRUDController {
 	{		
 		$validation = $this->validator->Validate($request,[
 			'email'=> v::notEmpty()->noWhitespace()->email()->EmailValidator(),
-			'name'=> v::noWhitespace()->notEmpty(),
+			'name'=> v::notEmpty(),
 			'login' =>v::noWhitespace()->notEmpty()->LoginValidator(),
 			'password'=> v::noWhitespace()->notEmpty()
 		]);
