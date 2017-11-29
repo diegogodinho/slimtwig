@@ -4,21 +4,21 @@
     <div id="breadcrumb" class="col-md-12">
       <ol class="breadcrumb">
         <li>
-          <a href="#">User</a>
+          <a href="{{ path_for('user.index') }}">User</a>
         </li>
         <li>
-          <a href="{{ path_for('signup') }}">New User</a>
+          <a href="{{ path_for('signup') }}">Maintain User</a>
         </li>
       </ol>
     </div>
   </div>  
   <div class="box-content">
-    <h4 class="page-header">New User form</h4>
-     {% if old.id %}          
+    <h4 class="page-header">Maintain User</h4>
+     {% if old.id %}
           <form novalidate="novalidate" class="form-horizontal" role="form" action="{{ path_for('user.edit',{ id: old.id }) }}" method="post">
       {% else %}
           <form novalidate="novalidate" class="form-horizontal" role="form" action="{{ path_for('signup') }}" method="post">
-      {% endif %}          
+      {% endif %}
       <input type="hidden" name="id" value="{{ old.id }}"/>
       <div class="form-group {{ errors.name ? 'has-error': '' }}">
         <label for="inputEmail3" class="col-md-2 control-label">Name</label>

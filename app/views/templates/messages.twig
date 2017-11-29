@@ -1,0 +1,7 @@
+{% if flash.getMessage('message') %}
+<div class="alert alert-danger">
+    {% for message in flash.getMessage('message') %}        
+        <li>{{ message }}</li>        
+    {% endfor %}
+</div>
+{% endif %}

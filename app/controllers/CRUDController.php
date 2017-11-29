@@ -9,27 +9,14 @@ use App\Domain\ErrorJson;
 abstract class CRUDController extends BaseController
 {    
     abstract public function _all($request, $response, $data);
-    abstract public function _update($request, $response, $data, $entity);
-    abstract public function _getByID($request, $response, $id);
+    abstract public function _update($request, $response, $data, $entity);    
     abstract public function _create($request, $response, $data);
     abstract public function _find($id);    
 
     public function All($request, $response) 
-    {
+    {       
 
-        // var_dump($request->getParams());
-        // die();
-
-        try {            
-            // $validation = $this->validator->Validate($request, [
-            //     'start'=> v::intVal()
-            // ]);
-
-            // if (!$this->validator->Valid())
-            // {
-            //     $response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
-            //     return $response;
-            // }
+        try {           
 
             $data = $request->getParsedBody();
 
@@ -109,31 +96,7 @@ abstract class CRUDController extends BaseController
         }          
         
     }
-
-    public function GetByID($request, $response)
-    {
-        try {
-            $validation = $this->validator->Validate($request, [
-                'id'=> v::intVal()->numeric()->positive()
-            ]);
-            
-            if (!$this->validator->Valid())
-            {
-                $response = $response->withStatus(400)->withJson($this->validator->GetJsonMessages());
-                return $response;
-            }
-            
-            $id = (int)$request->getAttribute('id');
-                        
-            return $this->_getByID($request, $response, $id);
-        }        
-        catch(Exception $e) {
-            $response = $response->withStatus(400)->withJson(array(new ErrorJson($e->getMessage())));
-            return $response;
-        }
-
-    }
-
+    
     public function Create($request, $response)
     {
         try

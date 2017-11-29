@@ -8,24 +8,21 @@ class AuthorizationMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)
     {
-        $openUrls = array("/","login");
-
-        $_url = $request->getUri()->getPath();        
-
-        if (in_array($_url, $openUrls) || isset($_SESSION["user"]))
+        if (isset($_SESSION["user"]))
         {
             $response = $next($request, $response);
         }
         else
         {
-            $headerValueString = $request->getHeaderLine('Accept');            
-            
+            $headerValueString = $request->getHeaderLine('Accept');
+            $this->container->flash->addMessage('message','Session expired');
+
             if(strpos($headerValueString, 'application/json') !== false || $request->isXhr())
             {
                 $response = $response->withStatus(403)->withJson(new ErrorJson("Content Forbiden"));
             }
             else
-            {
+            {                
                 $response = $response->withRedirect($this->container->router->pathFor('login'));
             }
         }

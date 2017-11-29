@@ -32,19 +32,19 @@ class LoginController extends BaseController
 			
 			$data = $request->getParsedBody();				
             
-            $user = User::where('login', $data['login'])->first();
-            
+            $user = User::where('login', $data['login'])->first();            
             
             if(!$user)
-            {            
-                    
+            {      
                 //throw new NotFoundException("Login or Password invalid!");
                 return $response->withRedirect($this->router->pathFor('login'));
             }
 
             if (password_verify($data['password'],$user->password))
             {
-                $_SESSION['user'] = $user->id;                
+                $_SESSION['user'] = ["id" => $user->id, 
+                    "name" => $user->name
+                ];
 
                 return $response->withRedirect($this->router->pathFor('home'));
             }
@@ -62,5 +62,15 @@ class LoginController extends BaseController
     {
         unset($_SESSION['user']);
         return $response->withRedirect($this->router->pathFor('login'));
+    }
+
+    public function isAuthenticated()
+    {
+        return isset($_SESSION['user']);
+    }
+
+    public function getUserSession()
+    {
+        return $_SESSION['user'];
     }
 }

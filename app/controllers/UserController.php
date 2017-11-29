@@ -79,17 +79,7 @@ class UserController extends CRUDController {
 		$user->save();		
 
 		return $response->withRedirect($this->router->pathFor('user.index'));
-	}
-
-	public function _getByID($request, $response, $id)
-	{
-		$result = User::select('id','name','email','login')->find($id);
-		if ($result == null)
-		{
-			throw new NotFoundException();	
-		}			
-		return $response->withJson($result);
-	}
+	}	
 
 	public function _create($request, $response, $data)
 	{		

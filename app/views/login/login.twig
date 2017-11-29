@@ -3,17 +3,26 @@
 {% block content %}
 <form method="POST" action="{{ path_for('login')}}"
   <div class="box-content">
+  {% include 'templates/messages.twig' %}
     <div class="text-center">
       <h3 class="page-header">Login Page</h3>
     </div>
-    <div class="form-group">
+    <div class="form-group {{ errors.login ? 'has-error': '' }}">
       <label class="control-label">Username</label>
       <input type="text" class="form-control" name="login" value="{{old.login}}"/>
+      {% if errors.login %}
+          <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.login | first }}</small>
+    {% endif %}
     </div>
-    <div class="form-group">
+    
+    <div class="form-group {{ errors.password ? 'has-error': '' }}">
       <label class="control-label">Password</label>
       <input type="password" class="form-control" name="password"/>
+      {% if errors.password %}
+          <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.password | first }}</small>
+    {% endif %}
     </div>
+    
     <div class="text-center">
       <button type="submit" class="btn btn-primary">Sign in</a>
     </div>
