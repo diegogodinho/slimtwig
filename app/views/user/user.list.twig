@@ -14,7 +14,7 @@
             <a href="{{ path_for('signup') }}" class="btn btn-classic">new User</a>
         </div>
     </div>
-    <div class="box-content">
+    <div class="box-content">    
         <h4 class="page-header">User list</h4>
         <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
             <thead>
@@ -38,6 +38,7 @@
         $(function() {
 
             var table = $('#usertable').DataTable({
+                "ordering": false,
                 "serverSide": true,
                 "bFilter": false,
                 "ajax": {
@@ -60,7 +61,7 @@
                         "defaultContent": '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a>  <a href="#" class="btn excluir-grid" rel="tooltip" title="Delete" data-original-title="Excluir" style="color:red;"><i class="fa fa-times"></i>	</a>'
                     }
                 ]
-            });            
+            });
 
             $('#usertable').on('draw.dt', function () {
                 $(".editar-grid").click(function () {                       
@@ -77,13 +78,13 @@
                     _urlDelete = _urlDelete.replace('0', data.id);
                     bootbox.confirm("Are you sure about deleting the item {0}?".replace("{0}", titulo), function (result) {
                         if (result) {
-                            $.post(_urlDelete, {
+                            $.post(_urlDelete, {                                
                                 ID: data.ID
-                            }, function (retorno) {
+                            }, function (retorno) {                                
                                 table.ajax.reload();
                                 $('#modal-confirmation-excluded').modal('show');                               
 
-                            }).error(function (result) {
+                            }).error(function (result) {                                
                                 bootbox.alert('Failed');
                             });
                         }

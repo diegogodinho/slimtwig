@@ -21,8 +21,7 @@ class UserController extends CRUDController {
 	{
 		return $this->view->render($response, 'user/signUp.twig');
 	}
-
-
+	
 	public function Edit($request, $response)
 	{
 		$validation = $this->validator->Validate($request,[

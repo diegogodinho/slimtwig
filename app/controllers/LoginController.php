@@ -44,33 +44,7 @@ class LoginController extends BaseController
 
             if (password_verify($data['password'],$user->password))
             {
-                $_SESSION['user'] = $user->id;
-
-                // $now = new DateTime();                
-                // $future = new DateTime();                
-                // $future->add(new DateInterval('PT4H'));               
-                
-                // $secret = "your_secret_key";
-                
-                // $payload = [                    
-                //     "iat" => $now->getTimeStamp(),
-                //     "nbf" => $now->getTimeStamp(),
-                //     "exp" => $future->getTimeStamp(),
-                //     "user"=> [
-                //         "id" => $user->id,
-                //         "name"=> $user->name
-                //     ]
-                // ];
-                
-                // $token = JWT::encode($payload, $secret);
-                // // $response = $response->withJson($token);
-                // $response = $response->withJson(["token" => $token,
-                //                                 "user"=>[
-                //                                     "name"=> $user->name,
-                //                                     "email"=> $user->email
-                //                                     ]
-                //                                 ]);
-                // return $response;
+                $_SESSION['user'] = $user->id;                
 
                 return $response->withRedirect($this->router->pathFor('home'));
             }
@@ -78,11 +52,15 @@ class LoginController extends BaseController
 
             throw new NotFoundException("Login or Password invalid!");
         }        
-        catch(NotFoundException $e){			
-		}
 		catch(Exception $e)
 		{
 			
 		}
+    }
+
+    public function LogOut($request, $response)
+    {
+        unset($_SESSION['user']);
+        return $response->withRedirect($this->router->pathFor('login'));
     }
 }

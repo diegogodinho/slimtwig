@@ -122,7 +122,13 @@
         <!-- All functions for this theme + document.ready processing -->
         <script src="{{base_url()}}/app/template/js/devoops.js"></script>
         <script src="{{base_url()}}/app/template/js/bootbox.min.js"></script>
-
-        {% block script %}{% endblock %}
+        <script type="text/javascript">           
+            $(document).ajaxError(function( event, jqxhr, settings, thrownError ) {                
+                if (jqxhr.status == 403) {
+                    window.location.href ="{{ path_for('login') }}"; 
+                }           
+            });
+        </script>
+        {% block script %}{% endblock %}        
     </body>
 </html>
