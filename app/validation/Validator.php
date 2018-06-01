@@ -13,8 +13,7 @@ class Validator
     public $erros;
 
     public function Validate($request, array $rules)
-    {         
-
+    {
         foreach ($rules as $field => $rule) {
             try 
             {
@@ -30,9 +29,8 @@ class Validator
             {
                 $this->erros[$field] = $e->getMessages();
             }            
-        }   
-        
-        $_SESSION['validation_erros'] = $this->erros;
+        }        
+        $_SESSION['validation_erros'] = $this->erros;        
     }
 
     public function Valid()

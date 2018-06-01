@@ -36,7 +36,7 @@ class LoginController extends BaseController
 
             if (!$user || !password_verify($data['password'],$user->password))
             {
-                $_SESSION['validation_erros'] = [0=>"Login or Password Invalid"];
+                $this->container->flash->addMessage('message','Login or Password invalid!');
                 return $response->withRedirect($this->router->pathFor('login'));                
             }
             else
