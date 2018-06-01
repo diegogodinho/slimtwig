@@ -32,23 +32,19 @@ class LoginController extends BaseController
 			
 			$data = $request->getParsedBody();				
             
-            $user = User::where('login', $data['login'])->first();            
-            
-            if(!$user)
-            {      
-                //throw new NotFoundException("Login or Password invalid!");
-                return $response->withRedirect($this->router->pathFor('login'));
-            }
+            $user = User::where('login', $data['login'])->first();
 
-            if (password_verify($data['password'],$user->password))
+            if (!$user || !password_verify($data['password'],$user->password))
             {
-                $_SESSION['user'] = ["id" => $user->id, 
-                    "name" => $user->name
-                ];
+                $_SESSION['validation_erros'] = [0=>"Login or Password Invalid"];
+                return $response->withRedirect($this->router->pathFor('login'));                
+            }
+            else
+            {
+                $_SESSION['user'] = ["id" => $user->id, "name" => $user->name];
 
                 return $response->withRedirect($this->router->pathFor('home'));
-            }
-            return $response->withRedirect($this->router->pathFor('login'));
+            }           
 
             throw new NotFoundException("Login or Password invalid!");
         }        

@@ -69,7 +69,7 @@ class UserController extends CRUDController {
 		
 		if (!$this->validator->Valid())
 		{
-			return $this->view->render($response, 'user/signUp.twig');
+			return $response->withRedirect($this->router->pathFor('user.edit',["id" => $user->id]));
 		}			
 
 		$user->email = $data['email'];

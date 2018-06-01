@@ -29,3 +29,16 @@
   </div>
   </form>
 {% endblock %}
+
+{% block script %}
+{{errors| json_encode}}
+
+  {% if errors %}
+    <script type="text/javascript">
+      $(function() {
+        $('#modal-validation-errors').modal('show');
+      });
+    </script>
+  {% endif %}
+
+{% endblock %}
