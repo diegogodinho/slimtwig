@@ -69,7 +69,8 @@ class ImagesController extends BaseController
                     default:
                         die('Invalid image type.');
                 }
-                $im2 = imagecrop($source, ['x' => 0, 'y' => 0, 'width' => $data["width"], 'height' => $data["height"]]);
+                $size = min(imagesx($source), imagesy($source));
+                $im2 = imagecrop($source, ['x' => 0, 'y' => 0, 'width' => imagesx($source) - $data["width"], 'height' => imagesy($source) - $data["height"]]);
                 if ($im2 !== FALSE) 
                 {
                     imagejpeg($im2, $directory.$newFileName);
