@@ -38,6 +38,7 @@ $container['view'] = function($container) {
 };
 
 $container['upload_directory'] = __DIR__ . '/uploads'. DIRECTORY_SEPARATOR;
+$container['upload_directory_relative'] = '/uploads//';
 
 $capsule = new \Illuminate\Database\Capsule\Manager;
 $capsule->addConnection($config['db']);

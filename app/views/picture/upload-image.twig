@@ -1,0 +1,179 @@
+{% extends 'default.twig' %}
+{% block content %}  
+
+<style>
+img {
+  max-width: 100%; /* This rule is very important, please do not ignore this! */
+}
+</style> 
+
+
+<div class="input-group">
+    <img src="" id="fotoUploaded" alt="Foto uploaded">    
+</div>
+
+<div class="input-group">
+    <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="margin-top: 10px">
+        <input type="file" class="sr-only" id="inputImage" name="file"  accept="image/*">
+        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
+            <span class="fa fa-upload"></span>&nbsp;Upload
+        </span>
+    </label>	    
+</div>
+<div class="modal fade" id="modalCropper" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="{{ path_for('saveimage') }}" method="post" enctype="multipart/form-data" id="formUploadImagem">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalLabel">Seleção de Imagem</h4>
+                </div>
+                
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <!-- <h3>Demo:</h3> -->
+                                <div class="img-container">
+                                    <img id="imgprincipal" src="" alt="Picture">
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="salveFoto">Salvar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block script %}  
+<script type="text/javascript">
+    $(function() {        
+
+        var URL = window.URL || window.webkitURL;        
+
+        var blobURL;
+
+        var $image = $('#imgprincipal');       
+
+        var file;
+
+        var options = {
+            viewMode : 3,
+            toggleDragModeOnDblclick: false,
+            cropBoxResizable: false,
+            movable: true,
+            rotatable: false,
+            scalable: true,
+            zoomable: true,
+            zoomOnTouch: false,
+            zoomOnWheel: true,
+            aspectRatio: 16 / 9,
+            dragMode: 'move',
+            preview: '.img-preview',
+            cropBoxResizable: true,
+            //minCanvasWidth: 800,
+            //minCanvasHeight:600,
+            //minCropBoxWidth: 800,
+            //minCropBoxHeight:600,
+            wheelZoomRatio:0.05,
+            crop: function (data) {
+            },            
+            ready: function() {
+            },
+            cropmove: function (e) {
+            },
+            cropend: function (e) {                
+            },
+            crop: function (e) {
+                console.log(e.type);
+            },
+            zoom: function (e) {                
+            }
+        };      
+
+
+        $image.cropper('destroy').cropper(options);        
+        
+
+        $('#inputImage').change(function(){            
+            if (URL) {                
+                var files = this.files;
+                if (!$image.data('cropper')) {
+                    return;
+                }
+                if (files && files.length) {
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {                        
+                        blobURL = URL.createObjectURL(file);
+                        $('#modalCropper').modal('show'); 
+                    } else {
+                        window.alert('Please choose an image file.');
+                    }
+                }                
+            } 
+            else {
+                $('#inputImage').prop('disabled', true).parent().addClass('disabled');
+            }
+
+        });
+
+        $('#modalCropper').on('shown.bs.modal', function (e) {            
+            $image.cropper('destroy').attr('src', blobURL).cropper(options);
+            $('#inputImage').val('');
+        });
+
+
+
+        $("#salveFoto").click(function () {
+            $('#modalCropper').modal('hide');
+            $('#modalCropper #formUploadImagem').unbind('submit').on('submit', (function (e) {                
+                e.preventDefault();
+                if (window.FormData) {
+                    debugger;
+
+                    var dataCropBox = $image.cropper('getCropBoxData');                    
+
+                    var formData = new FormData();
+                    formData.append("foto", file);
+                    formData.append("left", dataCropBox.left);
+                    formData.append("top", dataCropBox.top);
+                    formData.append("width", dataCropBox.width);
+                    formData.append("height", dataCropBox.height);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: $(this).attr('action'),
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {                            
+                            debugger;
+                            $('#fotoUploaded').attr('src', data);
+                        },
+                        error: function (data) {
+                            //console.log("error");
+                            debugger;
+                            console.log(data);
+                        }
+                    });
+                    return false;
+                }
+            }));
+            $("#modalCropper #formUploadImagem").submit();
+        });
+
+    });
+</script>
+  
+
+{% endblock %}
+

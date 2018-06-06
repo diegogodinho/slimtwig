@@ -25,8 +25,8 @@ $container['UserController'] = function($container) {
     return new App\Controllers\UserController($container);
 };
 
-$container['PictureController'] = function($container) {
-    return new App\Controllers\PictureController($container);
+$container['ImagesController'] = function($container) {
+    return new App\Controllers\ImagesController($container);
 };
 
 $container['view'] = function($container) {

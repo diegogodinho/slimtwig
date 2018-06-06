@@ -42,19 +42,21 @@
 						<li><a class="ajax-link" href="ajax/forms_file_uploader.html">File Uploader</a></li> #}
 					</ul>
 				</li>
-				{# <li class="dropdown">
+				 <li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-desktop"></i>
-						 <span class="hidden-xs">UI Elements</span>
+						 <span class="hidden-xs">Management Images</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a class="ajax-link" href="ajax/ui_grid.html">Grid</a></li>
-						<li><a class="ajax-link" href="ajax/ui_buttons.html">Buttons</a></li>
+						<li><a class="ajax-link" href="{{ path_for('uploadImage') }}">Images Cropper</a></li>
+						<li><a class="ajax-link" href="{{ path_for('uploadImageNoCropper') }}">Images</a></li>
+						{# <li><a class="ajax-link" href="ajax/ui_buttons.html">Buttons</a></li>
 						<li><a class="ajax-link" href="ajax/ui_progressbars.html">Progress Bars</a></li>
 						<li><a class="ajax-link" href="ajax/ui_jquery-ui.html">Jquery UI</a></li>
-						<li><a class="ajax-link" href="ajax/ui_icons.html">Icons</a></li>
+						<li><a class="ajax-link" href="ajax/ui_icons.html">Icons</a></li> #}
 					</ul>
 				</li>
+				{#
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-list"></i>

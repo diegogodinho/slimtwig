@@ -22,7 +22,7 @@ require __DIR__ . '/controllers/CRUDController.php';
 require __DIR__ . '/controllers/HomeController.php';
 require __DIR__ . '/controllers/LoginController.php';
 require __DIR__ . '/controllers/UserController.php';
-require __DIR__ . '/controllers/PictureController.php';
+require __DIR__ . '/controllers/ImagesController.php';
 /*
 Domain
 */

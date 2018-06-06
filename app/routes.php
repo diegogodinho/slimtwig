@@ -5,8 +5,9 @@ $app->get('/', 'HomeController:Index')->setName('home');
 $app->get('/login', 'LoginController:Index')->setName('login');
 $app->post('/login', 'LoginController:Login');
 $app->get('/Picture/Test', 'PictureController:CreateImageTest');
-$app->post('/Picture/SavePicture', 'PictureController:SaveImage');
-$app->get('/Picture', 'PictureController:Index');
+$app->post('/Images/Save', 'ImagesController:SaveImage')->setName('saveimage');
+$app->get('/Images', 'ImagesController:Index')->setName('uploadImage');
+$app->get('/Images/NoCropper', 'ImagesController:IndexNoCropper')->setName('uploadImageNoCropper');
 
 $app->group('', function() {
     $this->get('/login/logout', 'LoginController:LogOut')->setName('logout');
