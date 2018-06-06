@@ -75,7 +75,7 @@ a.show-sidebar:hover {
 }
 #content {
   position: relative;
-  z-index: 10;
+  /* z-index: 10; */
   background: #ebebeb;
   box-shadow: 0 0 6px #131313;
   padding-bottom: 3000px !important;

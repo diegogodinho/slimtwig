@@ -25,6 +25,10 @@ $container['UserController'] = function($container) {
     return new App\Controllers\UserController($container);
 };
 
+$container['PictureController'] = function($container) {
+    return new App\Controllers\PictureController($container);
+};
+
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [
         'cache' => false,

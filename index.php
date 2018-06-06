@@ -6,6 +6,8 @@ require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/app/references.php';
 
 
+
+
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
@@ -34,6 +36,8 @@ $container = $app->getContainer();
 $container['view'] = function($container) {
     $view = new \Slim\View\Twig('/app/views/');
 };
+
+$container['upload_directory'] = __DIR__ . '/uploads'. DIRECTORY_SEPARATOR;
 
 $capsule = new \Illuminate\Database\Capsule\Manager;
 $capsule->addConnection($config['db']);
