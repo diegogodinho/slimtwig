@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Domain\Foto;
+
 class FotoController extends BaseController
 {
     public function Index($request,$response)
@@ -76,6 +78,11 @@ class FotoController extends BaseController
                 }
                 imagedestroy($source);
                 imagedestroy($im2);
+                
+                Foto::create([
+                    'name' => $newFileName
+                ]);
+                
                 $response = $response->withStatus(200)->withJson($request->getUri()->getBaseUrl().$this->container->get('upload_directory_relative').$newFileName);
             }
         return $response;

@@ -30,6 +30,7 @@ require __DIR__ . '/domain/Awnser.php';
 require __DIR__ . '/domain/Question.php';
 require __DIR__ . '/domain/User.php';
 require __DIR__ . '/domain/ErrorJson.php';
+require __DIR__ . '/domain/Foto.php';
 
 /*
 Middleware
