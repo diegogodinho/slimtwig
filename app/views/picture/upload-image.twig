@@ -23,7 +23,7 @@ img {
 <div class="modal fade" id="modalCropper" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form action="{{ path_for('saveimage') }}" method="post" enctype="multipart/form-data" id="formUploadImagem">
+            <form action="{{ path_for('fotosave') }}" method="post" enctype="multipart/form-data" id="formUploadImagem">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="modalLabel">Seleção de Imagem</h4>
@@ -65,7 +65,7 @@ img {
         var file;
 
         var options = {
-            viewMode : 3,
+            viewMode : 1,
             toggleDragModeOnDblclick: false,
             cropBoxResizable: false,
             movable: true,
@@ -74,7 +74,7 @@ img {
             zoomable: true,
             zoomOnTouch: false,
             zoomOnWheel: true,
-            aspectRatio: 16 / 9,
+            //aspectRatio: 16 / 9,
             dragMode: 'move',
             preview: '.img-preview',
             cropBoxResizable: true,

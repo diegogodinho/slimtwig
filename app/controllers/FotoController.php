@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class ImagesController extends BaseController
+class FotoController extends BaseController
 {
     public function Index($request,$response)
     {
