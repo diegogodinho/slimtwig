@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-
 class ImagesController extends BaseController
 {
     public function Index($request,$response)
@@ -70,7 +69,7 @@ class ImagesController extends BaseController
                         die('Invalid image type.');
                 }
                 $size = min(imagesx($source), imagesy($source));
-                $im2 = imagecrop($source, ['x' => 0, 'y' => 0, 'width' => imagesx($source) - $data["width"], 'height' => imagesy($source) - $data["height"]]);
+                $im2 = imagecrop($source, ['x' => $data["x"], 'y' => $data["y"], 'width' => $data["width"], 'height' => $data["height"]]);
                 if ($im2 !== FALSE) 
                 {
                     imagejpeg($im2, $directory.$newFileName);

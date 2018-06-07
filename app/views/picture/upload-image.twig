@@ -9,7 +9,7 @@ img {
 
 
 <div class="input-group">
-    <img src="" id="fotoUploaded" alt="Foto uploaded">    
+    <img src="" id="fotoUploaded" alt="Foto uploaded" width="750" height="500">    
 </div>
 
 <div class="input-group">
@@ -139,12 +139,12 @@ img {
                 if (window.FormData) {
                     debugger;
 
-                    var dataCropBox = $image.cropper('getCropBoxData');                    
+                    var dataCropBox = $image.cropper('getData');
 
                     var formData = new FormData();
                     formData.append("foto", file);
-                    formData.append("left", dataCropBox.left);
-                    formData.append("top", dataCropBox.top);
+                    formData.append("x", dataCropBox.x);
+                    formData.append("y", dataCropBox.y);
                     formData.append("width", dataCropBox.width);
                     formData.append("height", dataCropBox.height);
 

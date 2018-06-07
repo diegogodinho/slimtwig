@@ -19,19 +19,21 @@ img {
     <div class="box-content">
         <form action="/Images/SavePicture" method="post" enctype="multipart/form-data" id="formUploadImagem">    
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                         <!-- <h3>Demo:</h3> -->
                     <div class="img-container">
-                        <img id="imgprincipal" src="uploads/imagetest.jpg" width="700" height="400" alt="Picture">
+                        <img id="imgprincipal" src="uploads/imagetest.jpg" width="750" height="500"  alt="Picture">
                     </div>
-                </div>                
-                 <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="margin-top: 10px">
-        <input type="file" class="sr-only" id="inputImage" name="file"  accept="image/*">
-        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
-            <span class="fa fa-upload"></span>&nbsp;Upload
-        </span>
-    </label>	    
+                </div>                                
             </div>                
+            <div class"row">
+                <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="margin-top: 10px">
+                    <input type="file" class="sr-only" id="inputImage" name="file"  accept="image/*">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
+                        <span class="fa fa-upload"></span>&nbsp;Upload
+                    </span>
+                </label>
+            </div>
         </form>
     </div>
 </div>
@@ -50,50 +52,17 @@ img {
         var blobURL;
 
         var $image = $('#imgprincipal');       
-
-        {# var options = {
-            toggleDragModeOnDblclick: false,
-            cropBoxResizable: false,
-            movable: true,
-            rotatable: false,
-            scalable: false,
-            zoomable: true,
-            zoomOnTouch: false,
-            zoomOnWheel: true,
-            aspectRatio: 16 / 9,
-            dragMode: 'move',
-            preview: '.img-preview',
-            cropBoxResizable: false,
-            crop: function (data) {                
-                $('#EixoX').val(Math.round(data.x));
-                $('#EixoY').val(Math.round(data.y));
-                $('#Altura').val(Math.round(data.height));
-                $('#Largura').val(Math.round(data.width));
-            },            
-            ready:function(){                                
-            }
-        };      
-
-
-        $image.cropper('destroy').cropper(options);         #}
         
 
         $('#inputImage').change(function(){            
-            //$('#inputImage').val('');
             if (URL) {                
-                var files = this.files;
-                //if (!$image.data('cropper')) {
-                    //return;
-                //}
+                var files = this.files;                
 
                 if (files && files.length) {
                     file = files[0];
 
                     if (/^image\/\w+$/.test(file.type)) {                        
                         blobURL = URL.createObjectURL(file);
-                        //$('#modalCropper').modal('show'); 
-                        //$image.cropper('destroy').attr('src', blobURL).cropper(options);
-                        
                         $('#imgprincipal').attr('src', blobURL);
                     } else {
                         window.alert('Please choose an image file.');
