@@ -1,5 +1,7 @@
 <?php
 
+//ini_set("memory_limit","256M");
+
 session_start();
 
 require __DIR__ . '/vendor/autoload.php';
@@ -37,7 +39,7 @@ $container['view'] = function($container) {
     $view = new \Slim\View\Twig('/app/views/');
 };
 
-$container['upload_directory'] = __DIR__ . '/uploads'. DIRECTORY_SEPARATOR;
+$container['upload_directory'] = __DIR__ . '\uploads'. DIRECTORY_SEPARATOR;
 $container['upload_directory_relative'] = '/uploads/';
 
 $capsule = new \Illuminate\Database\Capsule\Manager;

@@ -21,7 +21,7 @@ $app->group('', function() {
     $this->post('/user/{id}', 'UserController:Update');
     
     $this->post('/user/del/{id}', 'UserController:Delete')->setName('user.del');
-    $this->post('/Foto/Save', 'FotoController:SaveImage')->setName('fotosave');
+    $this->post('/Foto/Save', 'FotoController:Create')->setName('fotosave');
     $this->get('/Foto', 'FotoController:Index')->setName('foto');
     $this->get('/Foto/NoCropper', 'FotoController:IndexNoCropper')->setName('uploadImageNoCropper');
 

@@ -8,7 +8,7 @@ img {
 </style> 
 
 
-<div class="input-group">
+<div class="input-group" id="image-display" style="display:none">
     <img src="" id="fotoUploaded" alt="Foto uploaded" width="750" height="500">    
 </div>
 
@@ -103,6 +103,7 @@ img {
         
 
         $('#inputImage').change(function(){            
+            $('#image-display').hide();
             if (URL) {                
                 var files = this.files;
                 if (!$image.data('cropper')) {
@@ -158,6 +159,7 @@ img {
                         success: function (data) {                            
                             debugger;
                             $('#fotoUploaded').attr('src', data);
+                            $('#image-display').show();
                         },
                         error: function (data) {
                             //console.log("error");
