@@ -10,7 +10,7 @@ class FotoController extends BaseController
 	{
         $data = $request->getParsedBody();
 		$total = Foto::count();
-		$result = $this->Pagination(Foto::select('urlrelative','name','id'), (int)$data['start'], (int)$data['length'])->get();
+		$result = $this->Pagination(Foto::select('urlrelative','name','id'), (int)$data['start'], (int)$data['length'])->orderBy('id')->get();
 		
 		return $response->withJson([
 			"data" => $result,
@@ -123,9 +123,7 @@ class FotoController extends BaseController
         $newFileName = $this->_getFileName() . '.jpeg';
 
         if (isset($uploadedFile)) {
-            $source = $this->_getImage($filename);
-            // var_dump($source);
-            // die();
+            $source = $this->_getImage($filename);           
 
             $size = min(imagesx($source), imagesy($source));
 

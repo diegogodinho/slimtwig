@@ -1,32 +1,54 @@
 {% extends 'default.twig' %}
 {% block content %}
 
-    <div class="row">
-        <div id="breadcrumb" class="col-md-12">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="#">Fotos</a>
-                </li>
-            </ol>
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Fotos</a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-10 col-md-2">
+        <a href="{{ path_for('fotoNew') }}" class="btn btn-classic">new Foto</a>
+    </div>
+</div>
+<div class="box-content">    
+    <h4 class="page-header">Fotos</h4>
+    <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="modal fade" id="modalCropper" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">Foto</h4>
+            </div>            
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">                            
+                        <div class="img-container">
+                            <img id="imgprincipal" src="" width="750" height="500" alt="Picture">
+                        </div>
+                    </div>                            
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="salveFoto">Close</button>                        
+            </div>            
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('fotoNew') }}" class="btn btn-classic">new Foto</a>
-        </div>
-    </div>
-    <div class="box-content">    
-        <h4 class="page-header">Fotos</h4>
-        <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
-            <thead>
-                <tr>
-                    <th>Foto</th>
-                    <th>Name</th>
-                    <th></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -34,6 +56,11 @@
     <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
+        function ShowModal(url){
+            $('#imgprincipal').attr('src',url); 
+            $('#modalCropper').modal('show');
+        }
+
         $(function() {
 
             var table = $('#usertable').DataTable({
@@ -50,7 +77,10 @@
                         },
                         "width":"20%"
                     },{
-                        "data": "name"
+                        "data": "name",
+                        "render": function(data, type, row) {                            
+                            return '<a href="#" onclick="ShowModal(\''+row.urlrelative+'\');">'+row.name+'</a> ';
+                        },
                     },{
                         "data": null,
                         orderable: false,
