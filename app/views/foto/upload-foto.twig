@@ -138,17 +138,13 @@ img {
             $('#modalCropper #formUploadImagem').unbind('submit').on('submit', (function (e) {                
                 e.preventDefault();
                 if (window.FormData) {
-                    debugger;
-
                     var dataCropBox = $image.cropper('getData');
-
                     var formData = new FormData();
                     formData.append("foto", file);
                     formData.append("x", dataCropBox.x);
                     formData.append("y", dataCropBox.y);
                     formData.append("width", dataCropBox.width);
                     formData.append("height", dataCropBox.height);
-
                     $.ajax({
                         type: 'POST',
                         url: $(this).attr('action'),
@@ -157,13 +153,9 @@ img {
                         contentType: false,
                         processData: false,
                         success: function (data) {                            
-                            debugger;
-                            $('#fotoUploaded').attr('src', data);
-                            $('#image-display').show();
+                            window.location.href ="{{ path_for('foto') }}"; 
                         },
-                        error: function (data) {
-                            //console.log("error");
-                            debugger;
+                        error: function (data) {                            
                             console.log(data);
                         }
                     });

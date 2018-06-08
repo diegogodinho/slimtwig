@@ -1,0 +1,95 @@
+{% extends 'default.twig' %}
+{% block content %}
+
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">Fotos</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-10 col-md-2">
+            <a href="{{ path_for('fotoNew') }}" class="btn btn-classic">new Foto</a>
+        </div>
+    </div>
+    <div class="box-content">    
+        <h4 class="page-header">Fotos</h4>
+        <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.js"></script>
+    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+
+            var table = $('#usertable').DataTable({
+                "ordering": false,
+                "serverSide": true,
+                "bFilter": false,
+                "ajax": {
+                    "url": "foto/list",
+                    "type": "POST"
+                },
+                "columns": [{                           
+                        "render": function(data, type, row) {                            
+                            return '<img src="'+row.urlrelative+'" />';
+                        },
+                        "width":"20%"
+                    },{
+                        "data": "name"
+                    },{
+                        "data": null,
+                        orderable: false,
+                        "className": "center",
+                        "defaultContent": '<a href="#" class="btn excluir-grid" rel="tooltip" title="Delete" data-original-title="Excluir" style="color:red;"><i class="fa fa-times"></i>	</a>'
+                    }
+                ]
+            });
+
+            $('#usertable').on('draw.dt', function () {
+                $(".excluir-grid").click(function () {
+                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
+                    var titulo = data.name;
+                    var _urlDelete = "{{ path_for('foto.del',{'id' : 0 }) }}";
+                    _urlDelete = _urlDelete.replace('0', data.id);
+                    bootbox.confirm("Are you sure about deleting the item {0}?".replace("{0}", titulo), function (result) {
+                        if (result) {
+                            $.post(_urlDelete, {                                
+                                ID: data.ID
+                            }, function (retorno) {                                
+                                table.ajax.reload();
+                                $('#modal-confirmation-excluded').modal('show');                               
+
+                            }).error(function (result) {                                
+                                bootbox.alert('Failed');
+                            });
+                        }
+                    });
+                });         
+            });
+        });
+    </script>
+
+    {% if errors %}
+        <script type="text/javascript">
+            $(function() {
+                //$('#modal-validation-errors').modal('show');
+            });
+        </script>
+    {% endif %}
+
+{% endblock %}

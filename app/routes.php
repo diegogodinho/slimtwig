@@ -18,12 +18,19 @@ $app->group('', function() {
     $this->post('/user/list', 'UserController:All')->setName('user.list');
     
     $this->get('/user/{id}', 'UserController:Edit')->setName('user.edit');
-    $this->post('/user/{id}', 'UserController:Update');
-    
+    $this->post('/user/{id}', 'UserController:Update');    
     $this->post('/user/del/{id}', 'UserController:Delete')->setName('user.del');
+
+
     $this->post('/Foto/Save', 'FotoController:Create')->setName('fotosave');
     $this->get('/Foto', 'FotoController:Index')->setName('foto');
+    $this->get('/Foto/New', 'FotoController:NewFoto')->setName('fotoNew');
+
     $this->get('/Foto/NoCropper', 'FotoController:IndexNoCropper')->setName('uploadImageNoCropper');
+    $this->get('/Foto/waterMark', 'FotoController:Watermark')->setName('uploadWatermark');
+    $this->post('/Foto/SavewaterMark', 'FotoController:WatermarkCreate')->setName('savewatermark');
+    $this->post('/foto/list', 'FotoController:IndexJson');
+    $this->post('/foto/Delete/{id}', 'FotoController:Delete')->setName('foto.del');
 
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
