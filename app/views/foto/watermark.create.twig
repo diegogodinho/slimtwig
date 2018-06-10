@@ -1,91 +1,83 @@
 {% extends 'default.twig' %}
 {% block content %}
 
-    <style>
-        img {
-            max-width: 100%;
-            /* This rule is very important, please do not ignore this! */
-        }
-    </style>
-
-    <form action="{{ path_for('foto.watermark.create') }}" method="post" enctype="multipart/form-data" id="formUploadImagem">
-        <div class="input-group fotocontent" id="image-display" style="display:none">
-            <img src="" id="fotoUploaded" alt="Foto uploaded" width="750" height="500">
-        </div>
-        <div class="row fotocontent" style="display:none">
-            <button type="submit" class="btn btn-primary" id="salveFoto">Salvar</button>
-        </div>
-        <div class="input-group">
-            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="margin-top: 10px">
-                <input type="file" class="sr-only" id="inputImage" name="foto" accept="image/*">
-                <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
-                    <span class="fa fa-upload"></span>&nbsp;Upload
-                </span>
-            </label>
-        </div>
-    </form>
+<form action="{{ path_for('foto.watermark.create') }}" method="post" enctype="multipart/form-data" id="formUploadImagem">
+    <div class="input-group fotocontent" id="image-display" style="display:none">
+        <img src="" id="fotoUploaded" alt="Foto uploaded" width="750" height="500">
+    </div>
+    <div class="row fotocontent" style="display:none">
+        <button type="submit" class="btn btn-primary" id="salveFoto">Salvar</button>
+    </div>
+    <div class="input-group">
+        <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="margin-top: 10px">
+            <input type="file" class="sr-only" id="inputImage" name="foto" accept="image/*">
+            <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
+                <span class="fa fa-upload"></span>&nbsp;Upload
+            </span>
+        </label>
+    </div>
+</form>
 
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript">
-        $(function () {
+<script type="text/javascript">
+    $(function () {
 
-            var URL = window.URL || window.webkitURL;
+        var URL = window.URL || window.webkitURL;
 
-            var blobURL;
+        var blobURL;
 
-            var $image = $('#imgprincipal');
+        var $image = $('#imgprincipal');
 
-            var file;
+        var file;
 
-            $('#inputImage').change(function () {
-                $('.fotocontent').hide();
-                if (URL) {
-                    var files = this.files;
-                    if (files && files.length) {
-                        file = files[0];
-
-                        if (/^image\/\w+$/.test(file.type)) {
-                            blobURL = URL.createObjectURL(file);
-                            $('#fotoUploaded').attr('src', blobURL);
-                            $('.fotocontent').show();
-
-                        } else {
-                            window.alert('Please choose an image file.');
-                        }
-                    }
-                } else {
-                    $('#inputImage').prop('disabled', true).parent().addClass('disabled');
-                }
-            });
-            /*
-        $('#formUploadImagem').unbind('submit').on('submit', (function (e) {
-            e.preventDefault();
+        $('#inputImage').change(function () {
             $('.fotocontent').hide();
-            var formData = new FormData();
-            formData.append("foto", file);
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    debugger;
-                    $('#fotoUploaded').attr('src', data);
-                    $('.fotocontent').show();
-                },
-                error: function (data) {
-                    alert(data);
-                }
-            });
-            return false;
-        }));
-        */
+            if (URL) {
+                var files = this.files;
+                if (files && files.length) {
+                    file = files[0];
 
+                    if (/^image\/\w+$/.test(file.type)) {
+                        blobURL = URL.createObjectURL(file);
+                        $('#formUploadImagem').submit();
+
+                    } else {
+                        window.alert('Please choose an image file.');
+                    }
+                }
+            } else {
+                $('#inputImage').prop('disabled', true).parent().addClass('disabled');
+            }
         });
-    </script>
+        /*
+    $('#formUploadImagem').unbind('submit').on('submit', (function (e) {
+        e.preventDefault();
+        $('.fotocontent').hide();
+        var formData = new FormData();
+        formData.append("foto", file);
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                debugger;
+                $('#fotoUploaded').attr('src', data);
+                $('.fotocontent').show();
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+        return false;
+    }));
+    */
+
+    });
+</script>
 
 {% endblock %}
