@@ -11,10 +11,10 @@
     </div>
     <div class="row">
         <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('signup') }}" class="btn btn-classic">new User</a>
+            <a href="{{ path_for('user.createview') }}" class="btn btn-classic">new User</a>
         </div>
     </div>
-    <div class="box-content">    
+    <div class="box-content">
         <h4 class="page-header">Users</h4>
         <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
             <thead>
@@ -35,14 +35,14 @@
     <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript">
-        $(function() {
+        $(function () {
 
             var table = $('#usertable').DataTable({
                 "ordering": false,
                 "serverSide": true,
                 "bFilter": false,
                 "ajax": {
-                    "url": "user/list",
+                    "url": "{{path_for('user')}}",
                     "type": "POST"
                 },
                 "columns": [
@@ -64,9 +64,9 @@
             });
 
             $('#usertable').on('draw.dt', function () {
-                $(".editar-grid").click(function () {                       
-                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();                 
-                    var _url = "{{ path_for('user.edit',{'id' : 0 }) }}";
+                $(".editar-grid").click(function () {
+                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
+                    var _url = "{{ path_for('user.editview',{'id' : 0 }) }}";
                     _url = _url.replace(0, data.id);
                     window.location = _url;
                 });
@@ -78,25 +78,25 @@
                     _urlDelete = _urlDelete.replace('0', data.id);
                     bootbox.confirm("Are you sure about deleting the item {0}?".replace("{0}", titulo), function (result) {
                         if (result) {
-                            $.post(_urlDelete, {                                
+                            $.post(_urlDelete, {
                                 ID: data.ID
-                            }, function (retorno) {                                
+                            }, function (retorno) {
                                 table.ajax.reload();
-                                $('#modal-confirmation-excluded').modal('show');                               
+                                $('#modal-confirmation-excluded').modal('show');
 
-                            }).error(function (result) {                                
+                            }).error(function (result) {
                                 bootbox.alert('Failed');
                             });
                         }
                     });
-                });         
+                });
             });
         });
     </script>
 
     {% if errors %}
         <script type="text/javascript">
-            $(function() {
+            $(function () {
                 //$('#modal-validation-errors').modal('show');
             });
         </script>

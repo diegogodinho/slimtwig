@@ -6,7 +6,12 @@ use App\Domain\Foto;
 
 class FotoController extends BaseController
 {
-    public function IndexJson($request, $response, $data)
+    public function IndexView($request, $response)
+    {
+        return $this->view->render($response, 'foto/foto-index.twig');
+    }
+
+    public function All($request, $response, $data)
 	{
         $data = $request->getParsedBody();
 		$total = Foto::count();
@@ -17,14 +22,9 @@ class FotoController extends BaseController
 			"recordsTotal" => $total,
 			"recordsFiltered"=> $total,			
 		]);
-	}
+	}    
 
-    public function Index($request, $response)
-    {
-        return $this->view->render($response, 'foto/foto-index.twig');
-    }
-
-    public function NewFoto($request, $response)
+    public function CreateView($request, $response)
     {
         return $this->view->render($response, 'foto/upload-foto.twig');
     }

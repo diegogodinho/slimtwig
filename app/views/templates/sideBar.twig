@@ -1,12 +1,12 @@
 <div id="sidebar-left" class="col-xs-2 col-sm-2">
-			<ul class="nav main-menu">
-				<li>
-					<a href="ajax/dashboard.html" class="active ajax-link">
-						<i class="fa fa-dashboard"></i>
-						<span class="hidden-xs">Dashboard</span>
-					</a>
-				</li>
-				{# <li class="dropdown">
+    <ul class="nav main-menu">
+        <li>
+            <a href="ajax/dashboard.html" class="active ajax-link">
+                <i class="fa fa-dashboard"></i>
+                <span class="hidden-xs">Dashboard</span>
+            </a>
+        </li>
+        {# <li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-bar-chart-o"></i>
 						<span class="hidden-xs">Charts</span>
@@ -19,8 +19,8 @@
 						<li><a class="ajax-link" href="ajax/charts_coindesk.html">CoinDesk realtime</a></li>
 					</ul>
 				</li> #}
-				
-				{# <li class="dropdown">
+
+        {# <li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-table"></i>
 						 <span class="hidden-xs">Tables</span>
@@ -31,32 +31,38 @@
 						<li><a class="ajax-link" href="ajax/tables_beauty.html">Beauty Tables</a></li>
 					</ul>
 				</li> #}
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle">
-						<i class="fa fa-pencil-square-o"></i>
-						 <span class="hidden-xs">Users</span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a class="ajax-link" href="{{ path_for('user.index') }}">Users</a></li>
-						{# <li><a class="ajax-link" href="ajax/forms_layouts.html">Layouts</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-pencil-square-o"></i>
+                <span class="hidden-xs">Users</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="ajax-link" href="{{ path_for('user.indexview') }}">Users</a>
+                </li>
+                {# <li><a class="ajax-link" href="ajax/forms_layouts.html">Layouts</a></li>
 						<li><a class="ajax-link" href="ajax/forms_file_uploader.html">File Uploader</a></li> #}
-					</ul>
-				</li>
-				 <li class="dropdown">
-					<a href="#" class="dropdown-toggle">
-						<i class="fa fa-desktop"></i>
-						 <span class="hidden-xs">Management Images</span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a class="ajax-link" href="{{ path_for('foto') }}">Upload Image</a></li>
-						<li><a class="ajax-link" href="{{ path_for('uploadWatermark') }}">Upload WatherMark</a></li>
-						{# <li><a class="ajax-link" href="ajax/ui_buttons.html">Buttons</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class="fa fa-desktop"></i>
+                <span class="hidden-xs">Fotos</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="ajax-link" href="{{ path_for('foto.indexview') }}">Fotos</a>
+                </li>
+                <li>
+                    <a class="ajax-link" href="{{ path_for('foto.watermarkview') }}">Marca d'agua</a>
+                </li>
+                {# <li><a class="ajax-link" href="ajax/ui_buttons.html">Buttons</a></li>
 						<li><a class="ajax-link" href="ajax/ui_progressbars.html">Progress Bars</a></li>
 						<li><a class="ajax-link" href="ajax/ui_jquery-ui.html">Jquery UI</a></li>
 						<li><a class="ajax-link" href="ajax/ui_icons.html">Icons</a></li> #}
-					</ul>
-				</li>
-				{#
+            </ul>
+        </li>
+        {#
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-list"></i>
@@ -169,5 +175,5 @@
 						</li>
 					</ul>
 				</li> #}
-			</ul>
-		</div>
+    </ul>
+</div>
