@@ -51,32 +51,6 @@
                 $('#inputImage').prop('disabled', true).parent().addClass('disabled');
             }
         });
-        /*
-    $('#formUploadImagem').unbind('submit').on('submit', (function (e) {
-        e.preventDefault();
-        $('.fotocontent').hide();
-        var formData = new FormData();
-        formData.append("foto", file);
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                debugger;
-                $('#fotoUploaded').attr('src', data);
-                $('.fotocontent').show();
-            },
-            error: function (data) {
-                alert(data);
-            }
-        });
-        return false;
-    }));
-    */
-
     });
 </script>
 
