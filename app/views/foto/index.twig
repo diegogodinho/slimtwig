@@ -12,7 +12,7 @@
 </div>
 <div class="row">
     <div class="col-md-offset-10 col-md-2">
-        <a href="{{ path_for('fotoNew') }}" class="btn btn-classic">new Foto</a>
+        <a href="{{ path_for('foto.createview') }}" class="btn btn-classic">new Foto</a>
     </div>
 </div>
 <div class="box-content">    
@@ -68,7 +68,7 @@
                 "serverSide": true,
                 "bFilter": false,
                 "ajax": {
-                    "url": "foto/list",
+                    "url": "{{path_for('foto')}}",
                     "type": "POST"
                 },
                 "columns": [{                           

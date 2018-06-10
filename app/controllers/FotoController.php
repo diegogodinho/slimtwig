@@ -8,7 +8,7 @@ class FotoController extends BaseController
 {
     public function IndexView($request, $response)
     {
-        return $this->view->render($response, 'foto/foto-index.twig');
+        return $this->view->render($response, 'foto/index.twig');
     }
 
     public function All($request, $response, $data)
@@ -20,23 +20,24 @@ class FotoController extends BaseController
 		return $response->withJson([
 			"data" => $result,
 			"recordsTotal" => $total,
-			"recordsFiltered"=> $total,			
+			"recordsFiltered"=> $total,
 		]);
-	}    
+	}
 
     public function CreateView($request, $response)
     {
-        return $this->view->render($response, 'foto/upload-foto.twig');
-    }
-    public function Watermark($request, $response)
-    {
-        return $this->view->render($response, 'foto/watermark-upload.twig');
+        return $this->view->render($response, 'foto/create.twig');
     }
 
     public function Create($request, $response)
     {
         return $this->_createFoto($request, $response);
     }
+
+    public function Watermark($request, $response)
+    {
+        return $this->view->render($response, 'foto/watermark.create.twig');
+    }    
 
     public function WatermarkCreate($request, $response)
     {
