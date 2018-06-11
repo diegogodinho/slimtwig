@@ -119,5 +119,4 @@ class UserController extends CRUDController
     {
         return User::find($id);
     }
-
 }

@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 20, 2017 at 01:23 PM
--- Server version: 10.1.24-MariaDB
--- PHP Version: 7.0.8
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jun 11, 2018 at 02:03 PM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `id3142383_diego`
+-- Database: `diego`
 --
 
 -- --------------------------------------------------------
@@ -26,14 +28,17 @@ SET time_zone = "+00:00";
 -- Table structure for table `awnser`
 --
 
-CREATE TABLE `awnser` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `awnser`;
+CREATE TABLE IF NOT EXISTS `awnser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(4000) NOT NULL,
   `question_id` int(11) NOT NULL,
   `right_awnser` bit(1) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `question_id` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=276 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `awnser`
@@ -44,10 +49,9 @@ INSERT INTO `awnser` (`id`, `description`, `question_id`, `right_awnser`, `creat
 (9, '5', 3, b'1', '2017-10-12 11:58:57', '2017-10-12 11:58:57'),
 (10, '3', 3, b'0', '2017-10-12 11:58:57', '2017-10-12 11:58:57'),
 (11, '4', 3, b'0', '2017-10-12 11:58:57', '2017-10-12 11:58:57'),
-(12, 'Flamengo', 4, b'0', '2017-10-12 12:00:06', '2017-10-12 12:00:06'),
+(12, 'Flamengo', 4, b'1', '2017-10-24 10:53:53', '2017-10-24 09:53:53'),
 (13, 'Corinthians', 4, b'0', '2017-10-12 12:00:07', '2017-10-12 12:00:07'),
 (14, 'Vasco', 4, b'0', '2017-10-12 12:00:07', '2017-10-12 12:00:07'),
-(15, 'Palmeiras', 4, b'1', '2017-10-12 12:00:07', '2017-10-12 12:00:07'),
 (16, '3', 5, b'0', '2017-10-12 12:01:02', '2017-10-12 12:01:02'),
 (17, '4', 5, b'1', '2017-10-12 12:01:02', '2017-10-12 12:01:02'),
 (18, '1', 5, b'0', '2017-10-12 12:01:02', '2017-10-12 12:01:02'),
@@ -274,7 +278,41 @@ INSERT INTO `awnser` (`id`, `description`, `question_id`, `right_awnser`, `creat
 (266, 'Beira-Rio', 59, b'0', '2017-10-18 14:46:33', '2017-10-18 14:46:33'),
 (267, 'Beira-Mar', 59, b'0', '2017-10-18 14:46:33', '2017-10-18 14:46:33'),
 (268, 'Estádio dos Eucaliptos', 59, b'1', '2017-10-18 14:46:33', '2017-10-18 14:46:33'),
-(269, 'Estádio das Laranjeiras', 59, b'0', '2017-10-18 14:46:33', '2017-10-18 14:46:33');
+(269, 'Estádio das Laranjeiras', 59, b'0', '2017-10-18 14:46:33', '2017-10-18 14:46:33'),
+(275, 'Palmeiras', 4, b'0', '2017-10-24 10:53:53', '2017-10-24 09:53:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `foto`
+--
+
+DROP TABLE IF EXISTS `foto`;
+CREATE TABLE IF NOT EXISTS `foto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(400) NOT NULL,
+  `physicaldirectory` varchar(4000) NOT NULL,
+  `urlrelative` varchar(4000) NOT NULL,
+  `isWaterMark` bit(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=155 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `foto`
+--
+
+INSERT INTO `foto` (`id`, `name`, `physicaldirectory`, `urlrelative`, `isWaterMark`) VALUES
+(154, '8b2814a5fc3a53f7.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\8b2814a5fc3a53f7.jpeg', 'http://localhost:8080/slimtwig/uploads/8b2814a5fc3a53f7.jpeg', b'0'),
+(153, 'd09c848ad3034b39.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\d09c848ad3034b39.jpeg', 'http://localhost:8080/slimtwig/uploads/d09c848ad3034b39.jpeg', b'0'),
+(152, 'a9db6f549b4cb52b.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\a9db6f549b4cb52b.jpeg', 'http://localhost:8080/slimtwig/uploads/a9db6f549b4cb52b.jpeg', b'0'),
+(151, '867d4a7f70505926.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\867d4a7f70505926.jpeg', 'http://localhost:8080/slimtwig/uploads/867d4a7f70505926.jpeg', b'0'),
+(150, 'ca756601e2e9a46d.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\ca756601e2e9a46d.jpeg', 'http://localhost:8080/slimtwig/uploads/ca756601e2e9a46d.jpeg', b'0'),
+(149, '3d8b0ed93ac3b1bc.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\3d8b0ed93ac3b1bc.jpeg', 'http://localhost:8080/slimtwig/uploads/3d8b0ed93ac3b1bc.jpeg', b'0'),
+(147, 'e83ad9c58a4e93cb.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\e83ad9c58a4e93cb.jpeg', 'http://localhost:8080/slimtwig/uploads/e83ad9c58a4e93cb.jpeg', b'0'),
+(143, '920c49331d3d2ca1.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\920c49331d3d2ca1.jpeg', 'http://localhost:8080/slimtwig/uploads/920c49331d3d2ca1.jpeg', b'0'),
+(148, '80e6b49d4b676ba1.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\80e6b49d4b676ba1.jpeg', 'http://localhost:8080/slimtwig/uploads/80e6b49d4b676ba1.jpeg', b'0'),
+(141, '2d8fec12b345ac8c.png', 'C:\\wamp64\\www\\slimtwig\\uploads\\2d8fec12b345ac8c.png', 'http://localhost:8080/slimtwig/uploads/2d8fec12b345ac8c.png', b'1'),
+(146, '94efe1464af51198.jpeg', 'C:\\wamp64\\www\\slimtwig\\uploads\\94efe1464af51198.jpeg', 'http://localhost:8080/slimtwig/uploads/94efe1464af51198.jpeg', b'0');
 
 -- --------------------------------------------------------
 
@@ -282,8 +320,9 @@ INSERT INTO `awnser` (`id`, `description`, `question_id`, `right_awnser`, `creat
 -- Table structure for table `question`
 --
 
-CREATE TABLE `question` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE IF NOT EXISTS `question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(4000) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -291,8 +330,10 @@ CREATE TABLE `question` (
   `short_description` varchar(200) DEFAULT NULL,
   `difficulty` int(11) NOT NULL,
   `enable` bit(1) NOT NULL,
-  `DescriptionRigthAwnser` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `DescriptionRigthAwnser` text,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `question`
@@ -353,69 +394,63 @@ INSERT INTO `question` (`id`, `description`, `user_id`, `created_at`, `updated_a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tag`
+--
+
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE IF NOT EXISTS `tag` (
+  `id` int(1) NOT NULL AUTO_INCREMENT,
+  `name` varchar(4000) NOT NULL,
+  `active` bit(1) NOT NULL DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tag`
+--
+
+INSERT INTO `tag` (`id`, `name`, `active`) VALUES
+(1, 'Esquadrias de aluminio', b'1'),
+(6, 'Gargem Livre, demarcada', b'1'),
+(5, 'Piso em ceramica', b'1'),
+(14, 'Aceita financiamento', b'1'),
+(7, 'Vaga Livre, demarcada e coberta', b'1'),
+(8, 'Sol da manha', b'1'),
+(9, 'Agua individual', b'1'),
+(10, 'Medidor de agua individual', b'1'),
+(11, 'Não possui vaga de garagem', b'1'),
+(12, 'Armário embutido', b'1'),
+(13, 'Jardim', b'1'),
+(15, 'Sol da manhã', b'1'),
+(16, 'Varanda', b'1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(400) NOT NULL,
   `email` varchar(400) NOT NULL,
   `login` varchar(400) NOT NULL,
   `password` varchar(4000) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `active` bit(1) NOT NULL DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `login`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'diego', 'diego@diego.com', 'diego', '$2y$10$tOJtTS1aT.LuqRuEKPRk2OLY8kCZP53cv18QCSuabUBLTQ2OkKdoi', '2017-10-09 15:45:25', '2017-10-09 15:45:25');
+INSERT INTO `user` (`id`, `name`, `email`, `login`, `password`, `created_at`, `updated_at`, `active`) VALUES
+(1, 'diego', 'diego@diego.com', 'diego', '$2y$10$x2RSZehnk8Ve9heb8kUHo.eY2wi1eyerWH2fHbs8W2C/vWikqmVcC', '2018-06-11 09:37:42', '2018-06-11 08:37:42', b'1'),
+(32, 'Test', 'test@test.com', 'test', '$2y$10$Q6OMwN8sIsZVH3l0R4RkOORUuQ9rWpK03Xg49xCCY95KLkdiPqUFK', '2018-06-11 11:17:34', '2018-06-11 10:17:34', b'0');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `awnser`
---
-ALTER TABLE `awnser`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `question_id` (`question_id`);
-
---
--- Indexes for table `question`
---
-ALTER TABLE `question`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `awnser`
---
-ALTER TABLE `awnser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
---
--- AUTO_INCREMENT for table `question`
---
-ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- Constraints for dumped tables
 --
@@ -431,6 +466,7 @@ ALTER TABLE `awnser`
 --
 ALTER TABLE `question`
   ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

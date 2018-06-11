@@ -23,9 +23,8 @@ $app->group('/restrict', function() {
     $this->post('/foto', 'FotoController:All')->setName('foto');
     $this->get('/foto/new', 'FotoController:CreateView')->setName('foto.createview');
     $this->post('/foto/new', 'FotoController:Create')->setName('foto.create');
-    $this->post('/foto/del/{id}', 'FotoController:Delete')->setName('foto.del');
-    $this->get('/foto/watermark', 'FotoController:Watermark')->setName('foto.watermarkview');
-    $this->post('/foto/watermark', 'FotoController:WatermarkCreate')->setName('foto.watermark.create');    
+    $this->post('/foto/del/{id}', 'FotoController:Delete')->setName('foto.del');    
+    $this->post('/foto/setwatermark', 'FotoController:SetWaterMark')->setName('foto.setwatermark');    
     //Tags
     $this->get('/tag', 'TagController:IndexView')->setName('tag.indexview');
     $this->post('/tag', 'TagController:All')->setName('tag');

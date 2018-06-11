@@ -29,7 +29,7 @@ class TagController extends CRUDController
         }
         $total = $query->count();
 
-        $result = $this->Pagination($query->orderby('id'), (int) $data['start'], (int) $data['length'])->get();
+        $result = $this->Pagination($query->orderby('id','desc'), (int) $data['start'], (int) $data['length'])->get();
 
         return $response->withJson([
             "data" => $result,

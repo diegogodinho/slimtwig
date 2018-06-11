@@ -12,17 +12,17 @@ class FotoController extends BaseController
     }
 
     public function All($request, $response, $data)
-	{
+    {
         $data = $request->getParsedBody();
-		$total = Foto::count();
-		$result = $this->Pagination(Foto::select('urlrelative','name','id'), (int)$data['start'], (int)$data['length'])->orderBy('id')->get();
-		
-		return $response->withJson([
-			"data" => $result,
-			"recordsTotal" => $total,
-			"recordsFiltered"=> $total,
-		]);
-	}
+        $total = Foto::count();
+        $result = $this->Pagination(Foto::select('urlrelative', 'name', 'id', 'iswatermark')->orderby('id', 'desc'), (int) $data['start'], (int) $data['length'])->orderBy('id')->get();
+
+        return $response->withJson([
+            "data" => $result,
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+        ]);
+    }
 
     public function CreateView($request, $response)
     {
@@ -37,25 +37,28 @@ class FotoController extends BaseController
     public function Watermark($request, $response)
     {
         return $this->view->render($response, 'foto/watermark.create.twig');
-    }    
+    }
 
-    public function WatermarkCreate($request, $response)
+    public function SetWaterMark($request, $response)
     {
-        $this->_DeleteAllwaterMarks();
-        return $this->_CreateFotowaterMark($request, $response);
+        Foto::where('iswaterMark', 1)->update(['iswatermark' => 0]);
+        $data = $request->getParsedBody();                
+        $fotoupd = Foto::find($data['id']);
+        $fotoupd->iswatermark = $fotoupd->iswatermark ? 0 : 1;
+        $fotoupd->save();
     }
 
     public function Delete($request, $response)
     {
-        $id = (int)$request->getAttribute('id');        
+        $id = (int) $request->getAttribute('id');
         $this->_DeleteImage($id);
         $response = $response->withStatus(200);
     }
 
     private function _DeleteImage($id)
-    {        
+    {
         $fotoDel = Foto::find($id);
-        if ($fotoDel) {            
+        if ($fotoDel) {
             if (file_exists($fotoDel->physicaldirectory)) {
                 unlink($fotoDel->physicaldirectory);
             }
@@ -65,13 +68,16 @@ class FotoController extends BaseController
 
     private function _DeleteAllwaterMarks()
     {
-        $waterMarks = Foto::where('iswaterMark', 1)->get();
-        foreach ($waterMarks as $waterMark) {
-            if (file_exists($waterMark->physicaldirectory)) {
-                unlink($waterMark->physicaldirectory);
-            }
-        }
-        Foto::where('iswaterMark', 1)->delete();
+        Foto::where('iswaterMark', 1)->update(['iswatermark' => 1]);
+
+        /*
+    foreach ($waterMarks as $waterMark) {
+    if (file_exists($waterMark->physicaldirectory)) {
+    unlink($waterMark->physicaldirectory);
+    }
+    }
+    Foto::where('iswaterMark', 1)->delete();
+     */
     }
 
     private function _getFileName(UploadedFile $uploadedFile = null)
@@ -102,7 +108,6 @@ class FotoController extends BaseController
 
     private function _createwaterMark(&$foto, $directory)
     {
-        //TODO: Get from the database
         $fotowaterMark = Foto::where('iswaterMark', 1)->first();
         if ($fotowaterMark) {
             $stamp = $this->_getImage($fotowaterMark->physicaldirectory);
@@ -121,17 +126,27 @@ class FotoController extends BaseController
         $data = $request->getParsedBody();
         $filename = $_FILES['foto']['tmp_name'];
         $directory = $this->container->get('upload_directory');
-        $newFileName = $this->_getFileName() . '.jpeg';
+        $newFileName = $this->_getFileName() . '.png';
 
         if (isset($uploadedFile)) {
-            $source = $this->_getImage($filename);           
+            $source = $this->_getImage($filename);
 
             $size = min(imagesx($source), imagesy($source));
 
-            $im2 = imagecrop($source, ['x' => $data["x"], 'y' => $data["y"], 'width' => $data["width"], 'height' => $data["height"]]);
+            $img_w = imagesx($source);
+            $img_h = imagesy($source);
+            $im = imagecreatetruecolor($img_w, $img_h);
+            $transparent = imagecolorallocatealpha($im, 0, 0, 0, 127);
+            imagefill($im, 0, 0, $transparent);
+            $black = imagecolorallocate($im, 0, 0, 0);
+            imagecolortransparent($im, $black);
+            imagealphablending($im, true);
+            imagecopy($im, $source, 0, 0, 0, 0, $img_w, $img_h);
+
+            $im2 = imagecrop($im, ['x' => $data["x"], 'y' => $data["y"], 'width' => $data["width"], 'height' => $data["height"]]);
             if ($im2 !== false) {
                 $this->_createwaterMark($im2, $directory);
-                imagejpeg($im2, $directory . $newFileName);
+                imagepng($im2, $directory . $newFileName);
             }
             imagedestroy($im2);
             imagedestroy($source);
