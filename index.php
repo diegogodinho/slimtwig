@@ -1,7 +1,4 @@
 <?php
-
-//ini_set("memory_limit","256M");
-
 session_start();
 
 require __DIR__ . '/vendor/autoload.php';

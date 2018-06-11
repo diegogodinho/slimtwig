@@ -55,7 +55,7 @@ class LoginController extends BaseController
     public function LogOut($request, $response)
     {
         unset($_SESSION['user']);
-        return $response->withRedirect($this->router->pathFor('login'));
+        return $response->withRedirect($this->router->pathFor('public'));
     }
 
     public function isAuthenticated()

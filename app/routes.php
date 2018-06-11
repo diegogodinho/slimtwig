@@ -1,12 +1,14 @@
 <?php
 
-$app->get('/', 'HomeController:Index')->setName('home');
+$app->get('/',function($request, $response) use ($container){
+    return $container->view->render($response, 'public.twig');
+})->setName('public');
 
-$app->get('/login', 'LoginController:Index')->setName('login');
-$app->post('/login', 'LoginController:Login');
+$app->get('/restrict', 'HomeController:Index')->setName('home');
+$app->get('/restrict/login', 'LoginController:Index')->setName('login');
+$app->post('/restrict/login', 'LoginController:Login');
 
-
-$app->group('', function() {
+$app->group('/restrict', function() {
     //User
     $this->get('/user', 'UserController:IndexView')->setName('user.indexview');
     $this->post('/user', 'UserController:All')->setName('user');
@@ -23,7 +25,7 @@ $app->group('', function() {
     $this->post('/foto/new', 'FotoController:Create')->setName('foto.create');
     $this->post('/foto/del/{id}', 'FotoController:Delete')->setName('foto.del');
     $this->get('/foto/watermark', 'FotoController:Watermark')->setName('foto.watermarkview');
-    $this->post('/foto/watermark', 'FotoController:WatermarkCreate')->setName('foto.watermark.create');
+    $this->post('/foto/watermark', 'FotoController:WatermarkCreate')->setName('foto.watermark.create');    
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new App\Middleware\OldMiddleware($container));
