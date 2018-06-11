@@ -24,16 +24,24 @@
                                 <i class="fa fa-th-list"></i>&nbsp;&nbsp;Filtros
                             </h4>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="collapseOne" class="panel-collapse collapse.in collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="label-control">Name</label>
                                         <input type="text" class="form-control" name="name" id="nameSearch"></input>
                                     </div>
+                                    <div class="col-md-4">
+                                        <label class="label-control">Status</label>
+                                        <select id="activeSearch" class="form-control">
+                                            <option disabled="disabled" selected="selected" value="value"></option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="row" style="margin-top:15px;">
-                                    <div class="col-lg-2">                                        
+                                    <div class="col-lg-2">
                                         <button type="button" class="btn btn-default" id="clearFilter">Clear</button>
                                         <button class="btn btn-primary" id="btnFiltrar">Filtrar</button>
                                     </div>
@@ -47,9 +55,8 @@
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="tagtable">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
-                            <th>Active</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -63,10 +70,8 @@
 {% block script %}
 <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.js"></script>
 <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>
-
 <script type="text/javascript">
     $(function () {
-
         var table = $('#tagtable').DataTable({
             "ordering": false,
             "serverSide": true,
@@ -76,13 +81,11 @@
                 "type": "POST",
                 "data": function (d) {
                     d.name = $('#nameSearch').val();
-
+                    d.active = $('#activeSearch').val();
                 }
             },
             "columns": [
                 {
-                    "data": "id"
-                }, {
                     "data": "name"
                 }, {
                     "data": "active",
@@ -140,9 +143,9 @@
         });
         $('#clearFilter').click(function () {
             $('#nameSearch').val('');
+            $('#activeSearch').val('');
             table.ajax.reload(null, false);
         });
-
     });
 </script>
 

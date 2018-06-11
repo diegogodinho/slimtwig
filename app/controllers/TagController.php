@@ -16,15 +16,20 @@ class TagController extends CRUDController
 
     public function _all($request, $response, $data)
     {
-        $total = Tag::count();
+        
         $query = Tag::select('id', 'name', 'active');
-        $data = $request->getParsedBody();       
+        $data = $request->getParsedBody();
         if ($data) {
-            if (!empty($data['name'])) {                
-                $query = $query->where('name', 'like', '%'.$data['name'].'%');
+            if (!empty($data['name'])) {
+                $query = $query->where('name', 'like', '%' . $data['name'] . '%');
             }
+            if ($data['active'] == '0' ||  $data['active'] == '1') {
+                $query = $query->where('active', (int)$data['active']);
+            }            
         }
-        $result = $this->Pagination($query, (int) $data['start'], (int) $data['length'])->get();
+        $total = $query->count();
+
+        $result = $this->Pagination($query->orderby('id'), (int) $data['start'], (int) $data['length'])->get();
 
         return $response->withJson([
             "data" => $result,
