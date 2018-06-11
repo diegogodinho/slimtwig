@@ -22,6 +22,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Status</th>
                     <th>Login</th>
                     <th></th>
                 </tr>
@@ -53,12 +54,31 @@
                     }, {
                         "data": "email"
                     }, {
+                        "data": "active",
+                        "render": function (data, type, row) {
+                            var htmlResult;
+                            if (row.active) {
+                                htmlResult = '<span style="color:green">Active</span>';
+                            } else {
+                                htmlResult = '<span style="color:red">Inative</span>';
+                            }
+                            return htmlResult;
+                        }
+                    }, {
                         "data": "login"
                     }, {
                         "data": null,
                         orderable: false,
                         "className": "center",
-                        "defaultContent": '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a>  <a href="#" class="btn excluir-grid" rel="tooltip" title="Delete" data-original-title="Excluir" style="color:red;"><i class="fa fa-times"></i>	</a>'
+                        "render": function (data, type, row) {
+                            var htmlResult = '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a> ';
+                            if (row.active) {
+                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Deactivate" data-original-title="Deactivate" >' + '<i class="fa fa-thumbs-down"></i>	</a>';
+                            } else {
+                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Activate" data-original-title="Activate" >' + '<i class="fa fa fa-thumbs-o-up"></i>	</a>';
+                            }
+                            return htmlResult;
+                        }
                     }
                 ]
             });
@@ -71,23 +91,18 @@
                     window.location = _url;
                 });
 
-                $(".excluir-grid").click(function () {
+                $(".activeDeactive-grid").click(function () {
                     var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
                     var titulo = data.name;
-                    var _urlDelete = "{{ path_for('user.del',{'id' : 0 }) }}";
+                    var _urlDelete = "{{ path_for('user.actdeact',{'id' : 0 }) }}";
                     _urlDelete = _urlDelete.replace('0', data.id);
-                    bootbox.confirm("Are you sure about deleting the item {0}?".replace("{0}", titulo), function (result) {
-                        if (result) {
-                            $.post(_urlDelete, {
-                                ID: data.ID
-                            }, function (retorno) {
-                                table.ajax.reload();
-                                $('#modal-confirmation-excluded').modal('show');
+                    $.post(_urlDelete, {
+                        ID: data.ID
+                    }, function (retorno) {
+                        table.ajax.reload();
 
-                            }).error(function (result) {
-                                bootbox.alert('Failed');
-                            });
-                        }
+                    }).error(function (result) {
+                        bootbox.alert('Failed');
                     });
                 });
             });

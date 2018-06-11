@@ -28,6 +28,9 @@ $container['UserController'] = function($container) {
 $container['FotoController'] = function($container) {
     return new App\Controllers\FotoController($container);
 };
+$container['TagController'] = function($container) {
+    return new App\Controllers\TagController($container);
+};
 
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [

@@ -30,7 +30,7 @@ class LoginController extends BaseController
 			
 			$data = $request->getParsedBody();				
             
-            $user = User::where('login', $data['login'])->first();
+            $user = User::where('login', $data['login'])->where('active',1)->first();
 
             if (!$user || !password_verify($data['password'],$user->password))
             {

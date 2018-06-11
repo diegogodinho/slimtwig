@@ -3,116 +3,121 @@
 namespace App\Controllers;
 
 use App\Domain\User;
-use App\Exceptions\NotFoundException;
 use App\Validation\Validator;
 use Respect\Validation\Validator as v;
-use App\Validation\Validator\CustomValidator;
 
-use Exception;
+class UserController extends CRUDController
+{
+    //Index
+    public function IndexView($request, $response)
+    {
+        return $this->view->render($response, 'user/index.twig');
+    }
 
-class UserController extends CRUDController {
-	//Index
-	public function IndexView($request, $response)
-	{
-		return $this->view->render($response, 'user/index.twig');
-	}
-	
-	public function _all($request, $response, $data)
-	{
-		$total = User::count();
-		$result = $this->Pagination(User::select('id','name','email','login'), (int)$data['start'], (int)$data['length'])->get();
-		
-		return $response->withJson([
-			"data" => $result,
-			"recordsTotal" => $total,
-			"recordsFiltered"=> $total,			
-		]);
-	}
+    public function _all($request, $response, $data)
+    {
+        $total = User::count();
+        $result = $this->Pagination(User::select('id', 'name', 'email', 'login', 'active'), (int) $data['start'], (int) $data['length'])->get();
 
-	//Create
-	public function CreateView($request, $response)
-	{
-		return $this->view->render($response, 'user/create.twig');
-	}
+        return $response->withJson([
+            "data" => $result,
+            "recordsTotal" => $total,
+            "recordsFiltered" => $total,
+        ]);
+    }
 
-	public function _create($request, $response, $data)
-	{		
-		$validation = $this->validator->Validate($request,[
-			'email'=> v::notEmpty()->noWhitespace()->email()->EmailValidator(),
-			'name'=> v::notEmpty(),
-			'login' =>v::noWhitespace()->notEmpty()->LoginValidator(),
-			'password'=> v::noWhitespace()->notEmpty()
-		]);
-		
-		if (!$this->validator->Valid())
-		{
-			return $response->withRedirect($this->router->pathFor('user.createview'));
-		}
+    //Create
+    public function CreateView($request, $response)
+    {
+        return $this->view->render($response, 'user/create.twig');
+    }
 
-		User::create([
-			'name' => $data['name'],
-			'email' => $data['email'],
-			'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-			'login' => $data['login']
-		]);
+    public function _create($request, $response, $data)
+    {
+        $validation = $this->validator->Validate($request, [
+            'email' => v::notEmpty()->noWhitespace()->email()->EmailValidator(),
+            'name' => v::notEmpty(),
+            'login' => v::noWhitespace()->notEmpty()->LoginValidator(),
+            'password' => v::noWhitespace()->notEmpty(),
+        ]);
 
-		return $response->withRedirect($this->router->pathFor('user.indexview'));
-	}
+        if (!$this->validator->Valid()) {
+            return $response->withRedirect($this->router->pathFor('user.createview'));
+        }
 
-	//Edit	
-	public function EditView($request, $response)
-	{		
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'login' => $data['login'],
+        ]);
 
-		$validation = $this->validator->Validate($request,[
-			'id'=> v::intVal()->positive()
-		]);
+        return $response->withRedirect($this->router->pathFor('user.indexview'));
+    }
 
-		if (!$this->validator->Valid())
-		{			
-			return $response->withRedirect($this->router->pathFor('user.indexview'));
-		}	
+    //Edit
+    public function EditView($request, $response)
+    {
 
-		$user = User::find((int)$request->getAttribute('id'));
+        $validation = $this->validator->Validate($request, [
+            'id' => v::intVal()->positive(),
+        ]);
 
-		$_SESSION['old'] = [
-			'name' => $user->name,
-			'email' => $user->email,
-			'login' => $user->login,
-			'id' => $user->id
-		];	
-		$this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old']: null);
+        if (!$this->validator->Valid()) {
+            return $response->withRedirect($this->router->pathFor('user.indexview'));
+        }
 
-		return $this->view->render($response, 'user/create.twig');
-	}	
+        $user = User::find((int) $request->getAttribute('id'));
 
-	public function _update($request, $response, $data, $user)
-	{
-		$validation = $this->validator->Validate($request,[
-			'email'=> v::notEmpty()->noWhitespace()->email(),
-			'name'=> v::notEmpty(),
-			'login' =>v::noWhitespace()->notEmpty(),
-			'password'=> v::noWhitespace()->notEmpty()
-		]);
-		
-		if (!$this->validator->Valid())
-		{
-			return $response->withRedirect($this->router->pathFor('user.editview',["id" => $user->id]));
-		}			
+        $_SESSION['old'] = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'login' => $user->login,
+            'id' => $user->id,
+        ];
+        $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-		$user->email = $data['email'];
-		$user->name = $data['name'];
-		$user->login = $data['login'];
-		$user->password = password_hash($data['password'], PASSWORD_DEFAULT);
-		$user->save();		
+        return $this->view->render($response, 'user/create.twig');
+    }
 
-		return $response->withRedirect($this->router->pathFor('user.indexview'));
-	}	
+    public function _update($request, $response, $data, $user)
+    {
+        $validation = $this->validator->Validate($request, [
+            'email' => v::notEmpty()->noWhitespace()->email(),
+            'name' => v::notEmpty(),
+            'login' => v::noWhitespace()->notEmpty(),
+            'password' => v::noWhitespace()->notEmpty(),
+        ]);
 
-	
+        if (!$this->validator->Valid()) {
+            return $response->withRedirect($this->router->pathFor('user.editview', ["id" => $user->id]));
+        }
 
-	public function _find($id)
-	{
-		return User::find($id);
-	}
-}	
-?>
+        $user->email = $data['email'];
+        $user->name = $data['name'];
+        $user->login = $data['login'];
+        $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
+        $user->save();
+
+        return $response->withRedirect($this->router->pathFor('user.indexview'));
+    }
+
+    public function Delete($request, $response)
+    {
+    }
+
+    public function ActivateDeactivate($request, $response)
+    {
+        $user = User::find((int) $request->getAttribute('id'));
+        $user->active = $user->active ? 0 : 1;
+		$user->save();
+		$response = $response->withStatus(200);
+		return $response;
+    }
+
+    public function _find($id)
+    {
+        return User::find($id);
+    }
+
+}

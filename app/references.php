@@ -23,6 +23,7 @@ require __DIR__ . '/controllers/HomeController.php';
 require __DIR__ . '/controllers/LoginController.php';
 require __DIR__ . '/controllers/UserController.php';
 require __DIR__ . '/controllers/FotoController.php';
+require __DIR__ . '/controllers/TagController.php';
 /*
 Domain
 */
@@ -31,6 +32,7 @@ require __DIR__ . '/domain/Question.php';
 require __DIR__ . '/domain/User.php';
 require __DIR__ . '/domain/ErrorJson.php';
 require __DIR__ . '/domain/Foto.php';
+require __DIR__ . '/domain/Tag.php';
 
 /*
 Middleware

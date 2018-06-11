@@ -16,7 +16,7 @@ $app->group('/restrict', function() {
     $this->post('/user/new', 'UserController:Create')->setName('user.create');
     $this->get('/user/{id}', 'UserController:EditView')->setName('user.editview');
     $this->post('/user/{id}', 'UserController:Update')->setName('user.edit');
-    $this->post('/user/del/{id}', 'UserController:Delete')->setName('user.del');
+    $this->post('/user/actdeact/{id}', 'UserController:ActivateDeactivate')->setName('user.actdeact');
     $this->get('/logout', 'LoginController:LogOut')->setName('logout');    
     //Foto    
     $this->get('/foto', 'FotoController:IndexView')->setName('foto.indexview');
@@ -26,6 +26,14 @@ $app->group('/restrict', function() {
     $this->post('/foto/del/{id}', 'FotoController:Delete')->setName('foto.del');
     $this->get('/foto/watermark', 'FotoController:Watermark')->setName('foto.watermarkview');
     $this->post('/foto/watermark', 'FotoController:WatermarkCreate')->setName('foto.watermark.create');    
+    //Tags
+    $this->get('/tag', 'TagController:IndexView')->setName('tag.indexview');
+    $this->post('/tag', 'TagController:All')->setName('tag');
+    $this->get('/tag/new', 'TagController:CreateView')->setName('tag.createview');
+    $this->post('/tag/new', 'TagController:Create')->setName('tag.create');
+    $this->get('/tag/{id}', 'TagController:EditView')->setName('tag.editview');
+    $this->post('/tag/{id}', 'TagController:Update')->setName('tag.edit');
+    $this->post('/tag/actdeact/{id}', 'TagController:ActivateDeactivate')->setName('tag.actdeact');
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new App\Middleware\OldMiddleware($container));
