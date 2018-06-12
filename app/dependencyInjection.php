@@ -32,6 +32,10 @@ $container['TagController'] = function($container) {
     return new App\Controllers\TagController($container);
 };
 
+$container['ClienteController'] = function($container) {
+    return new App\Controllers\ClienteController($container);
+};
+
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [
         'cache' => false,

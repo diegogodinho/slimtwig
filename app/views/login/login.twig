@@ -1,35 +1,36 @@
-{% extends 'loginDefault.twig' %}
-
-{% block content %}
-<form method="POST" action="{{ path_for('login')}}"
-  <div class="box-content">
-  {% include 'templates/messages.twig' %}
+{% extends 'loginDefault.twig' %} {% block content %}
+<form method="POST" action="{{ path_for('login')}}" <div class="box-content"> {% include 'templates/messages.twig' %}
     <div class="text-center">
-      <h3 class="page-header">Login</h3>
+        <h3 class="page-header">Login</h3>
     </div>
+
     <div class="form-group {{ errors.login ? 'has-error': '' }}">
-      <label class="control-label">Usuario</label>
-      <input type="text" class="form-control" name="login" value="{{old.login}}"/>
-      {% if errors.login %}
-          <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.login | first }}</small>
-    {% endif %}
+        {# <div class="row"> #}
+            {# <div class="col-lg-offset-3 col-lg-6"> #}
+                <label class="control-label">Usuario</label>
+                <input type="text" class="form-control col-lg-4" name="login" value="{{old.login}}" /> 
+                {% if errors.login %}
+                    <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.login | first }}</small>
+                {% endif %}
+            {# </div> #}
+        {# </div> #}
     </div>
-    
+
     <div class="form-group {{ errors.password ? 'has-error': '' }}">
-      <label class="control-label">Senha</label>
-      <input type="password" class="form-control" name="password"/>
-      {% if errors.password %}
-          <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.password | first }}</small>
-    {% endif %}
+        {# <div class="row"> #}
+            {# <div class="col-lg-offset-3 col-lg-6"> #}
+                <label class="control-label">Senha</label>
+                <input type="password" class="form-control" name="password" /> 
+                {% if errors.password %}
+                    <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.password | first }}</small>
+                {% endif %}
+            {# </div> #}
+        {# </div> #}
     </div>
-    
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary">Autenticar</a>
+    <div class="form-group">
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Autenticar</a>
+        </div>    
     </div>
-  </div>
-  </form>
-{% endblock %}
-
-{% block script %}  
-
-{% endblock %}
+</form>
+{% endblock %} {% block script %}{% endblock %}

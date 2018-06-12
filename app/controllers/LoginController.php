@@ -30,7 +30,7 @@ class LoginController extends BaseController
 			
 			$data = $request->getParsedBody();				
             
-            $user = Usuario::where('login', $data['login'])->where('active',1)->first();
+            $user = Usuario::where('login', $data['login'])->where('ativo',1)->first();
 
             if (!$user || !password_verify($data['password'],$user->senha))
             {
@@ -39,7 +39,7 @@ class LoginController extends BaseController
             }
             else
             {
-                $_SESSION['user'] = ["id" => $user->id, "name" => $user->name];
+                $_SESSION['user'] = ["id" => $user->id, "nome" => $user->nome];
 
                 return $response->withRedirect($this->router->pathFor('home'));
             }           

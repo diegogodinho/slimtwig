@@ -4,14 +4,14 @@
         <div id="breadcrumb" class="col-md-12">
             <ol class="breadcrumb">
                 <li>
-                    <a href="#">Tags</a>
+                    <a href="#">Clientes</a>
                 </li>
             </ol>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('tag.createview') }}" class="btn btn-classic">Nova Tag</a>
+            <a href="{{ path_for('cliente.createview') }}" class="btn btn-classic">Novo Cliente</a>
         </div>
     </div>
     <div class="box-content">
@@ -29,15 +29,41 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label class="label-control">Nome</label>
-                                        <input type="text" class="form-control" name="name" id="nameSearch"></input>
+                                        <input type="text" class="form-control" name="nomePesquisar" id="nomePesquisar"></input>
                                     </div>
                                     <div class="col-md-4">
+                                            <label class="label-control">Email</label>
+                                            <input type="text" class="form-control" name="name" id="emailPesquisar"></input>
+                                        </div>
+                                    <div class="col-md-4">
                                         <label class="label-control">Status</label>
-                                        <select id="activeSearch" class="form-control">
+                                        <select id="ativoPesquisar" class="form-control">
                                             <option disabled="disabled" selected="selected" value="value"></option>
                                             <option value="1">Ativo</option>
                                             <option value="0">Inativo</option>
                                         </select>
+                                    </div>                                   
+                                </div>
+                                <div class="row custom-row-margin-top">
+                                    <div class="col-md-4">
+                                        <label class="label-control">Telefone Celular</label>
+                                        <input type="text" class="form-control" name="cpf" id="telefonecelPesquisar"></input>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="label-control">Tipo de pessoa</label>
+                                        <select id="tipopessoaPesquisar" class="form-control">
+                                            <option selected="selected" value="value"></option>
+                                            <option value="1">Fisica</option>
+                                            <option value="0">Juridica</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 contentCPF" style="display:none">
+                                        <label class="label-control">CPF</label>
+                                        <input type="text" class="form-control" name="cpf" id="cpfPesquisar" ></input>
+                                    </div>
+                                    <div class="col-md-4 contentCNPJ" style="display:none">
+                                        <label class="label-control">CNPJ</label>
+                                        <input type="text" class="form-control" name="cpf" id="cnpjPesquisar"></input>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:15px;">
@@ -50,12 +76,14 @@
                         </div>
                     </div>
                 </div>
-                <h4 class="page-header">Tags</h4>
+                <h4 class="page-header">Lista de Clientes</h4>
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="tagtable">
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Status</th>
+                            <th>Email</th>
+                            <th>Tipo de Pessoa</th>
+                            <th>Cliente Ativo</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -68,7 +96,8 @@
 
 {% block script %}
     <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.js"></script>
-    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>
+    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>    
+    <script src="{{base_url()}}/vendor/igorescobar/jquery-mask-plugin/src/jquery.mask.js"></script>
     <script type="text/javascript">
         $(function () {
             var table = $('#tagtable').DataTable({
@@ -76,24 +105,33 @@
                 "serverSide": true,
                 "bFilter": false,
                 "ajax": {
-                    "url": "{{path_for('tag')}}",
+                    "url": "{{path_for('cliente')}}",
                     "type": "POST",
                     "data": function (d) {
-                        d.name = $('#nameSearch').val();
-                        d.active = $('#activeSearch').val();
+                        d.nome = $('#nomePesquisar').val();
+                        d.email = $('#emailPesquisar').val();
+                        d.ativo = $('#ativoPesquisar').val();
+                        d.telefonecel = $('#telefonecelPesquisar').val();
+                        d.tipopessoa = $('#tipopessoaPesquisar').val();
+                        d.cpf = $('#cpfPesquisar').val();
+                        d.cnpj = $('#cnpjPesquisar').val();
                     }
                 },
                 "columns": [
                     {
-                        "data": "name"
+                        "data": "nome"
+                    },{
+                        "data": "email"
+                    },{
+                        "data": "tipopessoa"
                     }, {
-                        "data": "active",
+                        "data": "ativo",
                         "render": function (data, type, row) {
                             var htmlResult;
-                            if (row.active) {
-                                htmlResult = '<span style="color:green">Active</span>';
+                            if (row.ativo) {
+                                htmlResult = '<span style="color:green">Ativo</span>';
                             } else {
-                                htmlResult = '<span style="color:red">Inative</span>';
+                                htmlResult = '<span style="color:red">Inativo</span>';
                             }
                             return htmlResult;
                         }
@@ -117,7 +155,7 @@
             $('#tagtable').on('draw.dt', function () {
                 $(".editar-grid").click(function () {
                     var data = $('#tagtable').DataTable().row($(this).parents('tr')).data();
-                    var _url = "{{ path_for('tag.editview',{'id' : 0 }) }}";
+                    var _url = "{{ path_for('cliente.editview',{'id' : 0 }) }}";
                     _url = _url.replace(0, data.id);
                     window.location = _url;
                 });
@@ -125,7 +163,7 @@
                 $(".activeDeactive-grid").click(function () {
                     var data = $('#tagtable').DataTable().row($(this).parents('tr')).data();
                     var titulo = data.name;
-                    var _urlDelete = "{{ path_for('tag.actdeact',{'id' : 0 }) }}";
+                    var _urlDelete = "{{ path_for('cliente.actdeact',{'id' : 0 }) }}";
                     _urlDelete = _urlDelete.replace('0', data.id);
                     $.post(_urlDelete, {
                         ID: data.ID
@@ -140,11 +178,31 @@
             $('#btnFiltrar').click(function () {
                 table.ajax.reload(null, false);
             });
-            $('#clearFilter').click(function () {
-                $('#nameSearch').val('');
-                $('#activeSearch').val('');
-                table.ajax.reload(null, false);
+            $('#clearFilter').click(function () {                
+                $('#nomePesquisar').val('');
+                $('#emailPesquisar').val('');
+                $('#ativoPesquisar').val('');
+                $('#telefonecelPesquisar').val('');
+                $('#tipopessoaPesquisar').val('');
+                $('#tipopessoaPesquisar').change();
+                $('#cpfPesquisar').val('');
+                $('#cnpjPesquisar').val('');
+                //$('.date').cleanVal();
             });
+
+            $('#tipopessoaPesquisar').change(function () {
+                $('.contentCNPJ').hide();
+                $('.contentCPF').hide();
+                if ($(this).val() == 1) {
+                    $('.contentCPF').show();
+                } else if ($(this).val() == 0) {
+                    $('.contentCNPJ').show();
+                }
+            });
+
+            $('#telefonecelPesquisar').mask('(00) 00000-0000');
+            $('#cpfPesquisar').mask('000.000.000-00', {reverse: true});            
+            $('#cnpjPesquisar').mask('00.000.000/0000-00', {reverse: true});
         });
     </script>
 

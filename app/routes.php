@@ -33,6 +33,14 @@ $app->group('/restrict', function() {
     $this->get('/tag/{id}', 'TagController:EditView')->setName('tag.editview');
     $this->post('/tag/{id}', 'TagController:Update')->setName('tag.edit');
     $this->post('/tag/actdeact/{id}', 'TagController:ActivateDeactivate')->setName('tag.actdeact');
+    //Cliente
+    $this->get('/cliente', 'ClienteController:IndexView')->setName('cliente.indexview');
+    $this->post('/cliente', 'ClienteController:All')->setName('cliente');
+    $this->get('/cliente/new', 'ClienteController:CreateView')->setName('cliente.createview');
+    //$this->post('/cliente/new', 'ClienteController:Create')->setName('cliente.create');
+    $this->get('/cliente/{id}', 'ClienteController:EditView')->setName('cliente.editview');
+    // $this->post('/cliente/{id}', 'ClienteController:Update')->setName('cliente.edit');
+    $this->post('/cliente/actdeact/{id}', 'ClienteController:ActivateDeactivate')->setName('cliente.actdeact');    
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new App\Middleware\OldMiddleware($container));
