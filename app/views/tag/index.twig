@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('tag.createview') }}" class="btn btn-classic">new Tag</a>
+            <a href="{{ path_for('tag.createview') }}" class="btn btn-classic">Nova Tag</a>
         </div>
     </div>
     <div class="box-content">
@@ -28,21 +28,21 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label class="label-control">Name</label>
+                                        <label class="label-control">Nome</label>
                                         <input type="text" class="form-control" name="name" id="nameSearch"></input>
                                     </div>
                                     <div class="col-md-4">
                                         <label class="label-control">Status</label>
                                         <select id="activeSearch" class="form-control">
                                             <option disabled="disabled" selected="selected" value="value"></option>
-                                            <option value="1">Active</option>
-                                            <option value="0">Inactive</option>
+                                            <option value="1">Ativo</option>
+                                            <option value="0">Inativo</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-top:15px;">
                                     <div class="col-lg-2">
-                                        <button type="button" class="btn btn-default" id="clearFilter">Clear</button>
+                                        <button type="button" class="btn btn-default" id="clearFilter">Limpar</button>
                                         <button class="btn btn-primary" id="btnFiltrar">Filtrar</button>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                 <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="tagtable">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Nome</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -105,9 +105,9 @@
                     "render": function (data, type, row) {
                         var htmlResult = '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a> ';
                         if (row.active) {
-                            htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Deactivate" data-original-title="Deactivate" >' + '<i class="fa fa-thumbs-down"></i>	</a>';
+                            htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Desativar" data-original-title="Deactivate" >' + '<i class="fa fa-thumbs-down"></i>	</a>';
                         } else {
-                            htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Activate" data-original-title="Activate" >' + '<i class="fa fa fa-thumbs-o-up"></i>	</a>';
+                            htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Ativar" data-original-title="Activate" >' + '<i class="fa fa fa-thumbs-o-up"></i>	</a>';
                         }
                         return htmlResult;
                     }

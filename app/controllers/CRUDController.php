@@ -51,7 +51,7 @@ abstract class CRUDController extends BaseController
 
             if ($entity == null)
 			{
-				throw new Exception("ID not found");
+				throw new Exception("Item nao encontrado");
             }
             
             return $this->_update($request, $response, $data, $entity);
@@ -83,7 +83,7 @@ abstract class CRUDController extends BaseController
             
             if (!$result)
             {
-                throw new Exception("Record not found");
+                throw new Exception("Item nao encontrado");
             }
             $result->delete();
             

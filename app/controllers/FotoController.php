@@ -102,7 +102,7 @@ class FotoController extends BaseController
                 $source = imagecreatefrompng($filename);
                 return $source;
             default:
-                die('Invalid image type.');
+                die('Imagem invalida.');
         }
     }
 

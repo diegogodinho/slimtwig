@@ -15,11 +15,11 @@ class AuthorizationMiddleware extends Middleware
         else
         {
             $headerValueString = $request->getHeaderLine('Accept');
-            $this->container->flash->addMessage('message','Session expired');
+            $this->container->flash->addMessage('message','Sessao expirada');
 
             if(strpos($headerValueString, 'application/json') !== false || $request->isXhr())
             {
-                $response = $response->withStatus(403)->withJson(new ErrorJson("Content Forbiden"));
+                $response = $response->withStatus(403)->withJson(new ErrorJson("Conteudo Proibido"));
             }
             else
             {                

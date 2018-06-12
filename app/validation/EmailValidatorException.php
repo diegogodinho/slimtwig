@@ -8,7 +8,7 @@ class EmailValidatorException extends ValidationException
 {
     public static $defaultTemplates = [
         self::MODE_DEFAULT => [
-            self::STANDARD => '{{name}} already exists!' // or any message you want
+            self::STANDARD => '{{name}} ja existe!' // or any message you want
         ]
     ];
 }

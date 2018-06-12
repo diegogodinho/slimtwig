@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('foto.createview') }}" class="btn btn-classic">new Foto</a>
+            <a href="{{ path_for('foto.createview') }}" class="btn btn-classic">Nova Foto</a>
         </div>
     </div>
     <div class="box-content">
@@ -21,7 +21,7 @@
             <thead>
                 <tr>
                     <th>Foto</th>
-                    <th>Name</th>
+                    <th>Nome</th>
                     <th>Marca D'agua</th>
                     <th></th>
                 </tr>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="salveFoto">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="salveFoto">Fechar</button>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@
                     var titulo = data.name;
                     var _urlDelete = "{{ path_for('foto.del',{'id' : 0 }) }}";
                     _urlDelete = _urlDelete.replace('0', data.id);
-                    bootbox.confirm("Are you sure about deleting the item {0}?".replace("{0}", titulo), function (result) {
+                    bootbox.confirm("Tem certeza que deseja excluir o item {0}?".replace("{0}", titulo), function (result) {
                         if (result) {
                             $.post(_urlDelete, {
                                 ID: data.ID

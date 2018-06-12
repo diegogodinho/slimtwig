@@ -34,7 +34,7 @@ class LoginController extends BaseController
 
             if (!$user || !password_verify($data['password'],$user->password))
             {
-                $this->container->flash->addMessage('message','Login or Password invalid!');
+                $this->container->flash->addMessage('message','Login ou senha invalidos!');
                 return $response->withRedirect($this->router->pathFor('login'));                
             }
             else
@@ -44,7 +44,7 @@ class LoginController extends BaseController
                 return $response->withRedirect($this->router->pathFor('home'));
             }           
 
-            throw new NotFoundException("Login or Password invalid!");
+            throw new NotFoundException("Login ou senha invalidos!");
         }        
 		catch(Exception $e)
 		{

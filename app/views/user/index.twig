@@ -4,23 +4,23 @@
         <div id="breadcrumb" class="col-md-12">
             <ol class="breadcrumb">
                 <li>
-                    <a href="#">Users</a>
+                    <a href="#">Usuarios</a>
                 </li>
             </ol>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('user.createview') }}" class="btn btn-classic">new User</a>
+            <a href="{{ path_for('user.createview') }}" class="btn btn-classic">Novo Usuario</a>
         </div>
     </div>
     <div class="box-content">
-        <h4 class="page-header">Users</h4>
+        <h4 class="page-header">Usuarios</h4>
         <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
                     <th>Status</th>
                     <th>Login</th>
                     <th></th>
@@ -55,9 +55,9 @@
                         "render": function (data, type, row) {
                             var htmlResult;
                             if (row.active) {
-                                htmlResult = '<span style="color:green">Active</span>';
+                                htmlResult = '<span style="color:green">Ativo</span>';
                             } else {
-                                htmlResult = '<span style="color:red">Inative</span>';
+                                htmlResult = '<span style="color:red">Inativo</span>';
                             }
                             return htmlResult;
                         }
@@ -70,9 +70,9 @@
                         "render": function (data, type, row) {
                             var htmlResult = '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a> ';
                             if (row.active) {
-                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Deactivate" data-original-title="Deactivate" >' + '<i class="fa fa-thumbs-down"></i>	</a>';
+                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Desativar" data-original-title="Deactivate" >' + '<i class="fa fa-thumbs-down"></i>	</a>';
                             } else {
-                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Activate" data-original-title="Activate" >' + '<i class="fa fa fa-thumbs-o-up"></i>	</a>';
+                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Ativar" data-original-title="Activate" >' + '<i class="fa fa fa-thumbs-o-up"></i>	</a>';
                             }
                             return htmlResult;
                         }
