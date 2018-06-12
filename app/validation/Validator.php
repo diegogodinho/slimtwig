@@ -26,11 +26,11 @@ class Validator
                 $rule->setName(ucfirst($field))->assert($value);
             }
             catch(NestedValidationException $e)
-            {
+            {                
                 $this->erros[$field] = $e->getMessages();
             }            
-        }        
-        $_SESSION['validation_erros'] = $this->erros;        
+        }                
+        $_SESSION['validation_erros'] = Translation::Translate($this->erros);
     }
 
     public function Valid()

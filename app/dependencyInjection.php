@@ -21,8 +21,8 @@ $container['HomeController'] = function($container) {
     return new App\Controllers\HomeController($container);
 };
 
-$container['UserController'] = function($container) {
-    return new App\Controllers\UserController($container);
+$container['UsuarioController'] = function($container) {
+    return new App\Controllers\UsuarioController($container);
 };
 
 $container['FotoController'] = function($container) {

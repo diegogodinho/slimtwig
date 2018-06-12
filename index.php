@@ -48,5 +48,4 @@ $capsule->bootEloquent();
 require __DIR__ . '/app/routes.php';
 require __DIR__ . '/app/dependencyInjection.php';
 
-
 $app->run();

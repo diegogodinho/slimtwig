@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 
-use App\Domain\User;
+use App\Domain\Usuario;
 use Respect\Validation\Validator as v;
 // use \Datetime;
 use App\Exceptions\NotFoundException;
@@ -30,9 +30,9 @@ class LoginController extends BaseController
 			
 			$data = $request->getParsedBody();				
             
-            $user = User::where('login', $data['login'])->where('active',1)->first();
+            $user = Usuario::where('login', $data['login'])->where('active',1)->first();
 
-            if (!$user || !password_verify($data['password'],$user->password))
+            if (!$user || !password_verify($data['password'],$user->senha))
             {
                 $this->container->flash->addMessage('message','Login ou senha invalidos!');
                 return $response->withRedirect($this->router->pathFor('login'));                

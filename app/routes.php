@@ -9,14 +9,14 @@ $app->get('/restrict/login', 'LoginController:Index')->setName('login');
 $app->post('/restrict/login', 'LoginController:Login');
 
 $app->group('/restrict', function() {
-    //User
-    $this->get('/user', 'UserController:IndexView')->setName('user.indexview');
-    $this->post('/user', 'UserController:All')->setName('user');
-    $this->get('/user/new', 'UserController:CreateView')->setName('user.createview');
-    $this->post('/user/new', 'UserController:Create')->setName('user.create');
-    $this->get('/user/{id}', 'UserController:EditView')->setName('user.editview');
-    $this->post('/user/{id}', 'UserController:Update')->setName('user.edit');
-    $this->post('/user/actdeact/{id}', 'UserController:ActivateDeactivate')->setName('user.actdeact');
+    //usuario
+    $this->get('/usuario', 'UsuarioController:IndexView')->setName('usuario.indexview');
+    $this->post('/usuario', 'UsuarioController:All')->setName('usuario');
+    $this->get('/usuario/new', 'UsuarioController:CreateView')->setName('usuario.createview');
+    $this->post('/usuario/new', 'UsuarioController:Create')->setName('usuario.create');
+    $this->get('/usuario/{id}', 'UsuarioController:EditView')->setName('usuario.editview');
+    $this->post('/usuario/{id}', 'UsuarioController:Update')->setName('usuario.edit');
+    $this->post('/usuario/actdeact/{id}', 'UsuarioController:ActivateDeactivate')->setName('usuario.actdeact');
     $this->get('/logout', 'LoginController:LogOut')->setName('logout');    
     //Foto    
     $this->get('/foto', 'FotoController:IndexView')->setName('foto.indexview');

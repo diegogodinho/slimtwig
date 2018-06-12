@@ -4,8 +4,6 @@
 namespace App\Validation;
 
 use Respect\Validation\Rules\AbstractRule; 
-use App\Domain\User;
-
 
 class AwnsersValidator extends AbstractRule
 {   

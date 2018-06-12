@@ -2,22 +2,22 @@
 
 namespace App\Controllers;
 
-use App\Domain\User;
-use App\Validation\Validator;
+use App\Domain\Usuario;
 use Respect\Validation\Validator as v;
+use App\Validation\Validator;
 
-class UserController extends CRUDController
+class UsuarioController extends CRUDController
 {
     //Index
     public function IndexView($request, $response)
     {
-        return $this->view->render($response, 'user/index.twig');
+        return $this->view->render($response, 'usuario/index.twig');
     }
 
     public function _all($request, $response, $data)
     {
-        $total = User::count();
-        $result = $this->Pagination(User::select('id', 'name', 'email', 'login', 'active'), (int) $data['start'], (int) $data['length'])->get();
+        $total = Usuario::count();
+        $result = $this->Pagination(Usuario::select('id', 'nome', 'email', 'login', 'ativo'), (int) $data['start'], (int) $data['length'])->get();
 
         return $response->withJson([
             "data" => $result,
@@ -29,7 +29,7 @@ class UserController extends CRUDController
     //Create
     public function CreateView($request, $response)
     {
-        return $this->view->render($response, 'user/create.twig');
+        return $this->view->render($response, 'usuario/create.twig');
     }
 
     public function _create($request, $response, $data)
@@ -42,17 +42,17 @@ class UserController extends CRUDController
         ]);
 
         if (!$this->validator->Valid()) {
-            return $response->withRedirect($this->router->pathFor('user.createview'));
+            return $response->withRedirect($this->router->pathFor('usuario.createview'));
         }
 
-        User::create([
-            'name' => $data['name'],
+        Usuario::create([
+            'nome' => $data['name'],
             'email' => $data['email'],
-            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'senha' => password_hash($data['password'], PASSWORD_DEFAULT),
             'login' => $data['login'],
         ]);
 
-        return $response->withRedirect($this->router->pathFor('user.indexview'));
+        return $response->withRedirect($this->router->pathFor('usuario.indexview'));
     }
 
     //Edit
@@ -64,20 +64,20 @@ class UserController extends CRUDController
         ]);
 
         if (!$this->validator->Valid()) {
-            return $response->withRedirect($this->router->pathFor('user.indexview'));
+            return $response->withRedirect($this->router->pathFor('usuario.indexview'));
         }
 
-        $user = User::find((int) $request->getAttribute('id'));
+        $user = Usuario::find((int) $request->getAttribute('id'));
 
         $_SESSION['old'] = [
-            'name' => $user->name,
+            'name' => $user->nome,
             'email' => $user->email,
             'login' => $user->login,
             'id' => $user->id,
         ];
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'user/create.twig');
+        return $this->view->render($response, 'usuario/create.twig');
     }
 
     public function _update($request, $response, $data, $user)
@@ -90,16 +90,16 @@ class UserController extends CRUDController
         ]);
 
         if (!$this->validator->Valid()) {
-            return $response->withRedirect($this->router->pathFor('user.editview', ["id" => $user->id]));
+            return $response->withRedirect($this->router->pathFor('usuario.editview', ["id" => $user->id]));
         }
 
         $user->email = $data['email'];
-        $user->name = $data['name'];
+        $user->nome = $data['name'];
         $user->login = $data['login'];
-        $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
+        $user->senha = password_hash($data['password'], PASSWORD_DEFAULT);
         $user->save();
 
-        return $response->withRedirect($this->router->pathFor('user.indexview'));
+        return $response->withRedirect($this->router->pathFor('usuario.indexview'));
     }
 
     public function Delete($request, $response)
@@ -108,8 +108,8 @@ class UserController extends CRUDController
 
     public function ActivateDeactivate($request, $response)
     {
-        $user = User::find((int) $request->getAttribute('id'));
-        $user->active = $user->active ? 0 : 1;
+        $user = Usuario::find((int) $request->getAttribute('id'));
+        $user->ativo = $user->ativo ? 0 : 1;
 		$user->save();
 		$response = $response->withStatus(200);
 		return $response;
@@ -117,6 +117,6 @@ class UserController extends CRUDController
 
     public function _find($id)
     {
-        return User::find($id);
+        return Usuario::find($id);
     }
 }

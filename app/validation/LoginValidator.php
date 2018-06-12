@@ -4,14 +4,14 @@
 namespace App\Validation;
 
 use Respect\Validation\Rules\AbstractRule; 
-use App\Domain\User;
+use App\Domain\Usuario;
 
 
 class LoginValidator extends AbstractRule
 {   
     public function validate($input)
     {
-        $result = User::where('login','=',$input)->count();
+        $result = Usuario::where('login','=',$input)->count();
         
         return $result <= 0;
     }

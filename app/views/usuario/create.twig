@@ -4,10 +4,10 @@
         <div id="breadcrumb" class="col-md-12">
             <ol class="breadcrumb">
                 <li>
-                    <a href="{{ path_for('user.indexview') }}">Usuario</a>
+                    <a href="{{ path_for('usuario.indexview') }}">Usuario</a>
                 </li>
                 <li>
-                    <a href="{{ path_for('user.createview') }}">Manter Usuario</a>
+                    <a href="{{ path_for('usuario.createview') }}">Manter Usuario</a>
                 </li>
             </ol>
         </div>
@@ -15,9 +15,9 @@
     <div class="box-content">
         <h4 class="page-header">Manter Usuario</h4>
         {% if old.id %}
-            <form novalidate="novalidate" class="form-horizontal" role="form" action="{{ path_for('user.edit',{ id: old.id }) }}" method="post">
+            <form novalidate="novalidate" class="form-horizontal" role="form" action="{{ path_for('usuario.edit',{ id: old.id }) }}" method="post">
             {% else %}
-                <form novalidate="novalidate" class="form-horizontal" role="form" action="{{ path_for('user.create') }}" method="post">
+                <form novalidate="novalidate" class="form-horizontal" role="form" action="{{ path_for('usuario.create') }}" method="post">
                 {% endif %}
                 <input type="hidden" name="id" value="{{ old.id }}"/>
                 <div class="form-group {{ errors.name ? 'has-error': '' }}">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <a type="button" class="btn btn-default" href="{{ path_for('user.indexview') }}">Voltar</a>
+                        <a type="button" class="btn btn-default" href="{{ path_for('usuario.indexview') }}">Voltar</a>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </div>
                 </div>
