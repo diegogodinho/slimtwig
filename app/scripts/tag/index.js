@@ -1,7 +1,7 @@
 $(function(){
     var table = new DefaultDataTable({
         "ajax": {
-            "url": "{{path_for('tag')}}",
+            "url": $('#tagtable').data('path'),
             "type": "POST",
             "data": function (d) {
                 d.name = $('#nameSearch').val();
@@ -42,7 +42,7 @@ $(function(){
         $('#tagtable').on('draw.dt', function () {
             $(".editar-grid").click(function () {
                 var data = $('#tagtable').DataTable().row($(this).parents('tr')).data();
-                var _url = "{{ path_for('tag.editview',{'id' : 0 }) }}";
+                var _url = $('#tagtable').data('path-edit');
                 _url = _url.replace(0, data.id);
                 window.location = _url;
             });
@@ -50,7 +50,7 @@ $(function(){
             $(".activeDeactive-grid").click(function () {
                 var data = $('#tagtable').DataTable().row($(this).parents('tr')).data();
                 var titulo = data.name;
-                var _urlDelete = "{{ path_for('tag.actdeact',{'id' : 0 }) }}";
+                var _urlDelete = $('#tagtable').data('path-actdeact');
                 _urlDelete = _urlDelete.replace('0', data.id);
                 $.post(_urlDelete, {
                     ID: data.ID
@@ -71,5 +71,4 @@ $(function(){
         $('#activeSearch').val('');
         table.ajax.reload(null, false);
     }); 
-
 });
