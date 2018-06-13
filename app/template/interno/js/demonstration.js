@@ -1544,13 +1544,13 @@ $(document).ready(function() {
             }
         });
     }
-    var url = window.location;
-    var element = $('ul.dropdown-menu a').filter(function () {
-        return this.href == url || url.href.toUpperCase().indexOf(this.href.toUpperCase()) == 0;
-    }).addClass('active').parent().parent().addClass('in').parent();
-    if (element.is('li')) {
-        element.addClass('active');
-    }
+    // var url = window.location;
+    // var element = $('ul.dropdown-menu a').filter(function () {
+    //     return this.href == url || url.href.toUpperCase().indexOf(this.href.toUpperCase()) == 0;
+    // }).addClass('active').parent().parent().addClass('in').parent();
+    // if (element.is('li')) {
+    //     element.addClass('active');
+    // }
 });
 
 $(window).resize(function() {

@@ -8,7 +8,7 @@
         <!-- Apple devices fullscreen -->
         <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 
-        <title>DSolutions - Home</title>
+        <title>DSolutions - {% block title %} {% endblock %}</title>
 
         <link href="{{base_url()}}/app/template/interno/css/bootstrap.css" rel="stylesheet">
         <link href="{{base_url()}}/app/template/interno/css/plugins/jquery-ui/jquery-ui.css" rel="stylesheet">
@@ -57,39 +57,60 @@
                     <div class="breadcrumbs">
                         <ul>
                             <li>
-                                <a href="{{path_for('home')}}">Home</a>
-                                <i class="fa fa-angle-right"></i>                                
-                            </li>                            
-                                
-                            </div>
+                                <a href="{{path_for('home')}}">Home</a>                                
+                            </li>
+                            {% block breadcrumbs %}{% endblock %}
+
                         </div>
+                        {% block content %}{% endblock %}
                     </div>
-                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <script src="{{base_url()}}/app/template/jquery-2.1.4.js"></script>
+            <script src="{{base_url()}}/app/template/jquery-ui.js"></script>
 
-                    {# @Scripts.Render("~/Content/Interno/js/JsLayoutInterno") 
-                    @Scripts.Render("~/bundles/jqueryval")                     #}
-                    
+            <script src="{{base_url()}}/app/template/bootstrap.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/touch-punch/jquery.touch-punch.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/vmap/jquery.vmap.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/vmap/jquery.vmap.sampledata.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.bar.order.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.pie.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.resize.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/imagesLoaded/jquery.imagesloaded.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/pageguide/jquery.pageguide.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/fullcalendar/moment.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/chosen/chosen.jquery.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/select2/select2.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/plugins/icheck/jquery.icheck.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/eakroko.min.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/application.js"></script>
+            <script src="{{base_url()}}/app/template/Interno/js/demonstration.js"></script>
+            <script src="{{base_url()}}/app/template/DefaultDataTable.js"></script>
 
-                    <script>
-                        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
-                            if (jqxhr.status == 403) {
-                                window.location.href = "{{ path_for('login') }}";
-                            }
+            <script>
+                $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+                    if (jqxhr.status == 403) {
+                        window.location.href = "{{ path_for('login') }}";
+                    }
+                });
+
+                function GetVersion() {
+                    if ($("#versao").text() == "") {
+                        $.get(window.location.origin + '/Base/VersionApp/', function (result) {
+                            $("#versao").text(result);
+                            $('#modal-versao').modal('show');
                         });
+                    } else 
+                        $('#modal-versao').modal('show');
+                    }
+                
+                $(function () {});
+            </script>
 
-                        function GetVersion() {
-                            if ($("#versao").text() == "") {
-                                $.get(window.location.origin + '/Base/VersionApp/', function (result) {
-                                    $("#versao").text(result);
-                                    $('#modal-versao').modal('show');
-                                });
-                            } else 
-                                $('#modal-versao').modal('show');
-                            }
-                        
-                        $(function () {});
-                    </script>
-
-                    {% block script %}{% endblock %}
-                </body>
-            </html>
+            {% block script %}{% endblock %}
+        </body>
+    </html>
