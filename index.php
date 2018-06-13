@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/app/references.php';
@@ -10,18 +10,18 @@ require __DIR__ . '/app/references.php';
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
-/*
+
 $config['db']['host']   = "localhost";
 $config['db']['username']   = "root";
 $config['db']['password']   = "";
 $config['db']['database'] = "diego";
-*/
 
+/*
 $config['db']['host']   = "localhost";
 $config['db']['username']   = "id3142383_diego";
 $config['db']['password']   = "diego";
 $config['db']['database'] = "id3142383_diego";
-
+*/
 
 $config['db']['driver'] = "mysql";
 $config['db']['charset'] = "utf8";
