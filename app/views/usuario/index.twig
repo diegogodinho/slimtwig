@@ -1,110 +1,48 @@
 {% extends 'default.twig' %}
+{% block title %}
+    Tags
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        <a href="{{path_for('usuario')}}">Usuarios</a>
+    </li>
+{% endblock %}
 {% block content %}
-    <div class="row">
-        <div id="breadcrumb" class="col-md-12">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="#">Usuarios</a>
-                </li>
-            </ol>
+    <div class="row custom-spacing-top">
+        <div class="col-lg-1 col-lg-offset-11">
+            <a href="{{ path_for('usuario.createview') }}" class="btn btn btn-primary">Novo Usuario</a>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('usuario.createview') }}" class="btn btn-classic">Novo Usuario</a>
+        <div class="col-sm-12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="fa fa-table"></i>Usuarios</h3>
+                </div>
+                <div class="box-content nopadding">
+                    <table class="table table-hover table-nomargin table-bordered order-column datatable" data-path="{{path_for('usuario')}}" data-path-actdeact="{{ path_for('usuario.actdeact',{'id' : 0 }) }}" data-path-edit="{{ path_for('usuario.editview',{'id' : 0 }) }}" id="usertable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Login</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="box-content">
-        <h4 class="page-header">Usuarios</h4>
-        <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Status</th>
-                    <th>Login</th>
-                    <th></th>
-                </tr>
-            </thead>
-        </table>
-    </div>
+
 {% endblock %}
 
 {% block script %}
-    <script src="{{base_url()}}/app/template/plugins/datatables/dt.js" type="text/javascript"></script>
-    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        $(function () {
-
-            var table = $('#usertable').DataTable({
-                "ordering": false,
-                "serverSide": true,
-                "bFilter": false,
-                "ajax": {
-                    "url": "{{path_for('usuario')}}",
-                    "type": "POST"
-                },
-                "columns": [
-                    {
-                        "data": "nome"
-                    }, {
-                        "data": "email"
-                    }, {
-                        "data": "ativo",
-                        "render": function (data, type, row) {
-                            var htmlResult;
-                            if (row.ativo) {
-                                htmlResult = '<span style="color:green">Ativo</span>';
-                            } else {
-                                htmlResult = '<span style="color:red">Inativo</span>';
-                            }
-                            return htmlResult;
-                        }
-                    }, {
-                        "data": "login"
-                    }, {
-                        "data": null,
-                        orderable: false,
-                        "className": "center",
-                        "render": function (data, type, row) {
-                            var htmlResult = '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a> ';
-                            if (row.ativo) {
-                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Desativar" data-original-title="Deactivate" >' + '<i class="fa fa-thumbs-down"></i>	</a>';
-                            } else {
-                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Ativar" data-original-title="Activate" >' + '<i class="fa fa fa-thumbs-o-up"></i>	</a>';
-                            }
-                            return htmlResult;
-                        }
-                    }
-                ]
-            });
-
-            $('#usertable').on('draw.dt', function () {
-                $(".editar-grid").click(function () {
-                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
-                    var _url = "{{ path_for('usuario.editview',{'id' : 0 }) }}";
-                    _url = _url.replace(0, data.id);
-                    window.location = _url;
-                });
-
-                $(".activeDeactive-grid").click(function () {
-                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
-                    var titulo = data.name;
-                    var _urlDelete = "{{ path_for('usuario.actdeact',{'id' : 0 }) }}";
-                    _urlDelete = _urlDelete.replace('0', data.id);
-                    $.post(_urlDelete, {
-                        ID: data.ID
-                    }, function (retorno) {
-                        table.ajax.reload();
-
-                    }).error(function (result) {
-                        bootbox.alert('Failed');
-                    });
-                });
-            });
-        });
-    </script>
+<script src="{{base_url()}}/app/template/interno/js/plugins/datatables/jquery.dataTables.js"></script>
+<script src="{{base_url()}}/app/scripts/usuario/index.js"></script>   
 
     {% if errors %}
         <script type="text/javascript">
