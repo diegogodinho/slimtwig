@@ -1,0 +1,228 @@
+﻿.custom-spacing-bottom {
+    margin-bottom: 5px;
+}
+
+.custom-spacing-top {
+    margin-top: 10px;
+}
+
+.custom-accordion-filtro {
+    color: #fff !important;
+    background: #282e3a !important;
+    border-color: #282e3a !important;
+}
+
+.box .box-title {
+    margin-top: 5px !important;
+}
+
+.validation-summary-valid,.field-validation-error {
+    display: none !important;
+}
+.input-validation-error {
+    border-color:red !important;
+}
+
+
+.form-horizontal.form-bordered .form-group.custom-border-bottom:last-child {
+    border-bottom: 0;
+}
+
+@media (max-width: 992px) {
+    .form-horizontal.form-column [class*="col-"] {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .form-horizontal.form-column [class*="col-"] {
+        padding-right: 0px;
+    }
+
+        .form-horizontal.form-column [class*="col-"]:last-child {
+            padding-right: 15px;
+        }
+}
+
+@media (max-width: 1200px) {
+    .form-horizontal.form-column .form-actions {
+        border-top: 1px solid #ddd !important;
+    }
+}
+
+.form-horizontal.form-column [class*="col-"]:last-child {
+    padding-right: 15px;
+}
+
+.form-horizontal.form-column [class*="col-"] {
+    padding-right: 0px;
+}
+
+
+.custom-padding-right {
+    padding-right: 15px !important;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .custom-height-col {
+        height: 54px !important;
+    }
+}
+
+.custom-height-col {
+    height: 54px !important;
+}
+
+ul > li.lightred, .label-lightred {
+    background: #fe5e3e !important;
+}
+
+@media (min-width:992px) {
+    textarea.form-control {
+        height: 150px;
+    }
+}
+
+@media (max-width:992px) {
+    textarea.form-control {
+        height: 100px;
+    }
+}
+
+
+/*Alterações das cores do Site*/
+#navigation {
+    background: #282e3a !important;
+}
+
+    #navigation .main-nav > li > a:hover {
+        text-decoration: none;
+        /*background: #282e3a !important;*/
+        background: #576a92 !important;
+        color: #fff;
+    }
+
+    #navigation .main-nav > li.open > a {
+        /*background: #282e3a !important;*/
+        background: #576a92 !important;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    #navigation .dropdown-menu {
+        border-top: 0;
+        border-color: #282e3a !important;
+    }
+
+.box.box-bordered.box-color .box-title {
+    border-color: #fe5e3e !important;
+}
+
+.box.box-bordered .box-title {
+    border: 2px solid #fe5e3e !important;
+}
+
+.box.box-color .box-title {
+    background: #fe5e3e !important;
+}
+
+.box.box-bordered.box-color .box-content {
+    border-color: #fe5e3e !important;
+}
+
+.btn-primary {
+    background: #282e3a !important;
+}
+
+.btn-primary-2 {
+    background: red !important;
+    color:#fff;
+}
+
+
+.custom-row-top-padding {
+    margin-top: 20px;
+}
+
+
+/*.custom-orange {
+    background: #fe5e3e !important;
+}*/
+
+
+.panel-widget .panel.custom-orange {
+    border: 2px solid #282e3a;
+}
+
+    .panel-widget .panel.custom-orange .panel-heading {
+        background: #282e3a !important;
+    }
+
+.panel-group.panel-widget .panel:hover {
+    border-color: #576a92 !important;
+}
+
+.panel-group.panel-widget .panel .panel-heading:hover {
+    text-decoration: none;
+    background: #576a92 !important;
+}
+
+
+.panel-group.panel-widget .panel .panel-heading .panel-title > a {
+    padding: 10px 15px;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+    position: relative;
+}
+
+.panel-group.panel-widget .panel .panel-heading .panel-title i {
+    color: #fff;
+    float: left;
+    font-size: 20px;
+    padding: 12px 10px 7px 10px;
+}
+
+.custom-last-rowcolumn {
+    padding-right: 0px !important;
+}
+
+.form-wizard .wizard-steps li.active .single-step .title {
+    background: #282e3a !important;
+}
+
+.wizard-steps.steps-2 li.active {
+    background: #fe5e3e !important;
+}
+
+.form-wizard .wizard-steps li.active .single-step .description {
+    color: #fff;
+}
+
+#navigation #brand {
+    padding-right: 10px !important;
+}
+
+/*Calendario*/
+
+[class^="icon-arrow"],[class*=" icon-arrow"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    *
+  margin-right: .3em;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("../img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+
+.icon-arrow-left {
+    background-position: -240px -96px;
+}
+
+.icon-arrow-right {
+    background-position: -264px -96px;
+}

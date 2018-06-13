@@ -1,0 +1,57 @@
+﻿.img-container, .img-preview {
+    background-color: #f7f7f7;
+    width: 100%;
+    text-align: center;
+}
+
+.img-container {
+    min-height: 200px;
+    max-height: 516px;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .img-container {
+        min-height: 516px;
+    }
+}
+
+.img-container > img {
+    max-width: 100%;
+}
+
+.docs-preview {
+    margin-right: -15px;
+}
+
+.img-preview {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+    .img-preview > img {
+        max-width: 100%;
+    }
+
+.preview-lg {
+    width: 200px;
+    height: 148px;
+}
+
+.preview-md {
+    width: 139px;
+    height: 78px;
+}
+
+.preview-sm {
+    width: 27px;
+    height: 27px;
+}
+
+.preview-xs {
+    width: 35px;
+    height: 20px;
+    margin-right: 0;
+}
