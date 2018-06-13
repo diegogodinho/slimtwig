@@ -38,17 +38,15 @@ class LoginController extends BaseController
                 return $response->withRedirect($this->router->pathFor('login'));                
             }
             else
-            {
-                $_SESSION['user'] = ["id" => $user->id, "nome" => $user->nome];
-
+            {                
+                $_SESSION['user'] = ["id" => $user->id, "nome" => $user->nome];                
                 return $response->withRedirect($this->router->pathFor('home'));
             }           
 
             throw new NotFoundException("Login ou senha invalidos!");
         }        
 		catch(Exception $e)
-		{
-			
+		{			
 		}
     }
 
@@ -59,12 +57,12 @@ class LoginController extends BaseController
     }
 
     public function isAuthenticated()
-    {
+    {        
         return isset($_SESSION['user']);
     }
 
     public function getUserSession()
-    {
+    {       
         return $_SESSION['user'];
     }
 }

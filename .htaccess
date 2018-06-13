@@ -1,5 +1,7 @@
+php_flag session.auto_start on
+php_flag output_buffering on
+
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule . index.php [L]
-Options -Indexes
