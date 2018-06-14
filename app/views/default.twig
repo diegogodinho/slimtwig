@@ -33,6 +33,8 @@
         <!-- Apple devices Homescreen icon -->
         <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png"/>
 
+        {% block header %}{% endblock %}
+
     </head>
     <body>
 
@@ -45,7 +47,7 @@
                     {% set watermark = foto.GetUrlWaterMark() %}
                     {% if watermark %}
                         <div class="pull-right-logo">
-                            <img src="{{watermark}}" width="120" height="50"/>
+                            <img src="{{watermark}}" width="140" height="50"/>
                         </div>
                     {% endif %}
                 </div>
@@ -114,26 +116,27 @@
             <script src="{{base_url()}}/app/template/jquery-ui.js"></script>
 
             <script src="{{base_url()}}/app/template/bootstrap.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/touch-punch/jquery.touch-punch.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/vmap/jquery.vmap.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/vmap/jquery.vmap.sampledata.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.bar.order.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.pie.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/flot/jquery.flot.resize.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/imagesLoaded/jquery.imagesloaded.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/pageguide/jquery.pageguide.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/fullcalendar/moment.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/chosen/chosen.jquery.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/select2/select2.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/plugins/icheck/jquery.icheck.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/eakroko.min.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/application.js"></script>
-            <script src="{{base_url()}}/app/template/Interno/js/demonstration.js"></script>
-            <script src="{{base_url()}}/app/template/DefaultDataTable.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/touch-punch/jquery.touch-punch.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/vmap/jquery.vmap.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/vmap/jquery.vmap.sampledata.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/flot/jquery.flot.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/flot/jquery.flot.bar.order.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/flot/jquery.flot.pie.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/flot/jquery.flot.resize.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/imagesLoaded/jquery.imagesloaded.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/pageguide/jquery.pageguide.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/fullcalendar/moment.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/chosen/chosen.jquery.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/select2/select2.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/plugins/icheck/jquery.icheck.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/eakroko.min.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/application.js"></script>
+            <script src="{{base_url()}}/app/template/interno/js/demonstration.js"></script>
+            <script src="{{base_url()}}/app/scriptsjs/DefaultDataTable.js"></script>
+            
 
             <script>
                 $(document).ajaxError(function (event, jqxhr, settings, thrownError) {

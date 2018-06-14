@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 abstract class BaseController 
 {
+    //private $settingsUpload = ['foto' => ['urlrelative'=> '', 'DescricaoLabelBotaoUploadImagem' => 'Upload']];
     protected $container;
     protected $records_per_page = 10;
 
@@ -18,6 +19,10 @@ abstract class BaseController
         {
             return $this->container->{$property};
         }
+        // else
+        // {                        
+        //     return $this->{$property};
+        // }
     }
 
     public function DoPagination($query, $page)

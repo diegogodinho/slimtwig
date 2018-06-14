@@ -25,6 +25,7 @@ $app->group('/restrict', function() {
     $this->post('/foto/new', 'FotoController:Create')->setName('foto.create');
     $this->post('/foto/del/{id}', 'FotoController:Delete')->setName('foto.del');    
     $this->post('/foto/setwatermark', 'FotoController:SetWaterMark')->setName('foto.setwatermark');    
+    $this->post('/foto/usuario/save', 'FotoController:SaveFotoUsuario')->setName('foto.createfotousuario');    
     //Tags
     $this->get('/itemimovel', 'ItemImovelController:IndexView')->setName('itemimovel.indexview');
     $this->post('/itemimovel', 'ItemImovelController:All')->setName('itemimovel');

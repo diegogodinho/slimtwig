@@ -28,8 +28,8 @@ class UsuarioController extends CRUDController
 
     //Create
     public function CreateView($request, $response)
-    {
-        return $this->view->render($response, 'usuario/create.twig');
+    {        
+        return $this->view->render($response, 'usuario/create.twig',['foto' => ['urlrelative'=> '', 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
     }
 
     public function _create($request, $response, $data)
@@ -77,7 +77,7 @@ class UsuarioController extends CRUDController
         ];
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'usuario/create.twig');
+        return $this->view->render($response, 'usuario/create.twig',['foto' => ['urlrelative'=> '', 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
     }
 
     public function _update($request, $response, $data, $user)
