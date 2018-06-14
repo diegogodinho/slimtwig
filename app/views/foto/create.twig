@@ -1,4 +1,9 @@
 {% extends 'default.twig' %}
+{% block header %}
+    <link href="{{base_url()}}/app/template/interno/css/plugins/cropperjs/cropper.css" rel="stylesheet"/>
+    <link href="{{base_url()}}/app/template/interno/css/plugins/cropperjs/main.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block content %}  
 
 <style>
@@ -50,6 +55,7 @@ img {
 {% endblock %}
 {% block script %}  
 <script src="{{base_url()}}/app/template/interno/js/plugins/cropperjs/cropper.js"></script>
+<script src="{{base_url()}}/app/template/interno/js/plugins/cropperjs/cropper.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {        
 
