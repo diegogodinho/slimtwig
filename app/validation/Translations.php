@@ -11,11 +11,15 @@ class Translation
 
     public static function Translate($erros)
     {
-        foreach ($erros as $Errokey => &$Errovalue) {
-            foreach (static::$translationSentence as $key => $value) {
-                $Errovalue = str_replace($key, $value, $Errovalue);
+        if ($erros) {
+            foreach ($erros as $Errokey => &$Errovalue) {
+                foreach (static::$translationSentence as $key => $value) {
+                    $Errovalue = str_replace($key, $value, $Errovalue);
+                }
             }
         }
+        // var_dump($erros);
+        // die();
         return $erros;
     }
 }

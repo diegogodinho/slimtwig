@@ -28,12 +28,16 @@ $container['UsuarioController'] = function($container) {
 $container['FotoController'] = function($container) {
     return new App\Controllers\FotoController($container);
 };
-$container['TagController'] = function($container) {
-    return new App\Controllers\TagController($container);
+$container['ItemImovelController'] = function($container) {
+    return new App\Controllers\ItemImovelController($container);
 };
 
 $container['ClienteController'] = function($container) {
     return new App\Controllers\ClienteController($container);
+};
+
+$container['TipoImovelController'] = function($container) {
+    return new App\Controllers\TipoImovelController($container);
 };
 
 $container['view'] = function($container) {
@@ -49,6 +53,8 @@ $container['view'] = function($container) {
     $view->getEnvironment()->addGlobal('user', $container->LoginController);
     
     $view->getEnvironment()->addGlobal('flash', $container->flash);
+
+    $view->getEnvironment()->addGlobal('foto', $container->FotoController);
 
     return $view;
 };

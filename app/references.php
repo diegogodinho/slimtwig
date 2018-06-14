@@ -22,16 +22,18 @@ require __DIR__ . '/controllers/HomeController.php';
 require __DIR__ . '/controllers/LoginController.php';
 require __DIR__ . '/controllers/UsuarioController.php';
 require __DIR__ . '/controllers/FotoController.php';
-require __DIR__ . '/controllers/TagController.php';
+require __DIR__ . '/controllers/ItemImovelController.php';
 require __DIR__ . '/controllers/ClienteController.php';
+require __DIR__ . '/controllers/TipoImovelController.php';
 /*
 Domain
 */
 require __DIR__ . '/domain/Usuario.php';
 require __DIR__ . '/domain/ErrorJson.php';
 require __DIR__ . '/domain/Foto.php';
-require __DIR__ . '/domain/Tag.php';
+require __DIR__ . '/domain/ItemImovel.php';
 require __DIR__ . '/domain/Cliente.php';
+require __DIR__ . '/domain/TipoImovel.php';
 
 /*
 Middleware

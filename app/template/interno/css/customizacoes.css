@@ -131,9 +131,9 @@ ul > li.lightred, .label-lightred {
     border-color: #fe5e3e !important;
 }
 
-.btn-primary {
+/* .btn-primary {
     background: #282e3a !important;
-}
+} */
 
 .btn-primary-2 {
     background: red !important;
@@ -209,8 +209,7 @@ ul > li.lightred, .label-lightred {
 [class^="icon-arrow"],[class*=" icon-arrow"] {
     display: inline-block;
     width: 14px;
-    height: 14px;
-    *
+    height: 14px;    
   margin-right: .3em;
     line-height: 14px;
     vertical-align: text-top;
@@ -225,4 +224,32 @@ ul > li.lightred, .label-lightred {
 
 .icon-arrow-right {
     background-position: -264px -96px;
+}
+
+.pull-right-logo {
+    float: right !important;
+    margin-right: 19px;
+  }
+
+.custom-page-header{
+    border-bottom: 0px;
+    padding-top: 15px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}  
+.custom-box{
+    border: 1px #cce6ff solid;
+    border-radius: 15px;
+    padding: 10px;
+    background: #e6f2ff;
+    width: auto;
+}
+
+input, select, option  {
+    border-radius: 10px !important;
+    
+
+}
+.custom-margin-left {
+    margin-left:15px;
 }

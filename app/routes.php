@@ -26,13 +26,13 @@ $app->group('/restrict', function() {
     $this->post('/foto/del/{id}', 'FotoController:Delete')->setName('foto.del');    
     $this->post('/foto/setwatermark', 'FotoController:SetWaterMark')->setName('foto.setwatermark');    
     //Tags
-    $this->get('/tag', 'TagController:IndexView')->setName('tag.indexview');
-    $this->post('/tag', 'TagController:All')->setName('tag');
-    $this->get('/tag/new', 'TagController:CreateView')->setName('tag.createview');
-    $this->post('/tag/new', 'TagController:Create')->setName('tag.create');
-    $this->get('/tag/{id}', 'TagController:EditView')->setName('tag.editview');
-    $this->post('/tag/{id}', 'TagController:Update')->setName('tag.edit');
-    $this->post('/tag/actdeact/{id}', 'TagController:ActivateDeactivate')->setName('tag.actdeact');
+    $this->get('/itemimovel', 'ItemImovelController:IndexView')->setName('itemimovel.indexview');
+    $this->post('/itemimovel', 'ItemImovelController:All')->setName('itemimovel');
+    $this->get('/itemimovel/new', 'ItemImovelController:CreateView')->setName('itemimovel.createview');
+    $this->post('/itemimovel/new', 'ItemImovelController:Create')->setName('itemimovel.create');
+    $this->get('/itemimovel/{id}', 'ItemImovelController:EditView')->setName('itemimovel.editview');
+    $this->post('/itemimovel/{id}', 'ItemImovelController:Update')->setName('itemimovel.edit');
+    $this->post('/itemimovel/actdeact/{id}', 'ItemImovelController:ActivateDeactivate')->setName('itemimovel.actdeact');
     //Cliente
     $this->get('/cliente', 'ClienteController:IndexView')->setName('cliente.indexview');
     $this->post('/cliente', 'ClienteController:All')->setName('cliente');
@@ -41,6 +41,15 @@ $app->group('/restrict', function() {
     $this->get('/cliente/{id}', 'ClienteController:EditView')->setName('cliente.editview');
     // $this->post('/cliente/{id}', 'ClienteController:Update')->setName('cliente.edit');
     $this->post('/cliente/actdeact/{id}', 'ClienteController:ActivateDeactivate')->setName('cliente.actdeact');    
+    //Tags
+    $this->get('/tipoimovel', 'TipoImovelController:IndexView')->setName('tipoimovel.indexview');
+    $this->post('/tipoimovel', 'TipoImovelController:All')->setName('tipoimovel');
+    $this->get('/tipoimovel/new', 'TipoImovelController:CreateView')->setName('tipoimovel.createview');
+    $this->post('/tipoimovel/new', 'TipoImovelController:Create')->setName('tipoimovel.create');
+    $this->get('/tipoimovel/{id}', 'TipoImovelController:EditView')->setName('tipoimovel.editview');
+    $this->post('/tipoimovel/{id}', 'TipoImovelController:Update')->setName('tipoimovel.edit');
+    $this->post('/tipoimovel/actdeact/{id}', 'TipoImovelController:ActivateDeactivate')->setName('tipoimovel.actdeact');
+
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new App\Middleware\OldMiddleware($container));

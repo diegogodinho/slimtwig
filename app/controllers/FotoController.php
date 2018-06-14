@@ -195,4 +195,15 @@ class FotoController extends BaseController
         }
         return $response;
     }
+
+    public function GetUrlWaterMark()
+    {
+        $watermark = Foto::where('iswatermark',1)->first();
+        if ($watermark)
+        {
+            return $watermark->urlrelative;
+        }
+
+        return null;
+    }
 }

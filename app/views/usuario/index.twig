@@ -10,7 +10,7 @@
 {% endblock %}
 {% block content %}
     <div class="row custom-spacing-top">
-        <div class="col-lg-1 col-lg-offset-11">
+        <div class="col-lg-1">
             <a href="{{ path_for('usuario.createview') }}" class="btn btn btn-primary">Novo Usuario</a>
         </div>
     </div>
@@ -42,7 +42,7 @@
 
 {% block script %}
 <script src="{{base_url()}}/app/template/interno/js/plugins/datatables/jquery.dataTables.js"></script>
-<script src="{{base_url()}}/app/scripts/usuario/index.js"></script>   
+<script src="{{base_url()}}/app/scriptsjs/usuario/index.js"></script>   
 
     {% if errors %}
         <script type="text/javascript">
