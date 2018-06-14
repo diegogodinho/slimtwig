@@ -88,6 +88,7 @@
                     formData.append("EixoY", EixoY.val());
                     formData.append("Altura", Altura.val());
                     formData.append("Largura", Largura.val());
+                    debugger;
 
                     $.ajax({
                         type: 'POST',
@@ -97,8 +98,9 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            $(_defaults.IDIMGExterno).attr('src', data.UrlThumbnailGrande);
-                            $(_defaults.IDFieldToSetIDFoto).val(data.ID);
+                            debugger;
+                            $(_defaults.IDIMGExterno).attr('src', data.urlrelative);
+                            $(_defaults.IDFieldToSetIDFoto).val(data.id);
                         },
                         error: function (data) {
                             //console.log("error");

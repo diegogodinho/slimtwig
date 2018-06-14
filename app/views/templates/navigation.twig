@@ -123,7 +123,7 @@
 
                     <a href="#" class='dropdown-toggle' data-toggle="dropdown">
                         {{user.getUserSession().nome}}
-                        {# <img src="~/uploads/p_profile-default.png" alt=""> #}
+                        <img src="{{ user.GetCurrentFoto() }}" alt="" width="27px" height="27px">
                     </a>
                 {% endif %}
 

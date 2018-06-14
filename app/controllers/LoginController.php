@@ -65,4 +65,15 @@ class LoginController extends BaseController
     {       
         return $_SESSION['user'];
     }
+    
+    public function GetCurrentFoto()
+    {
+        
+        $currentUserFoto = Usuario::with('foto')->find($_SESSION['user']['id']);
+       
+        if ($currentUserFoto->foto->exists) {
+            return $currentUserFoto->foto->urlrelative;
+        }
+        return "";
+    }
 }

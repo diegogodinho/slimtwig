@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Domain\Usuario;
-use Respect\Validation\Validator as v;
 use App\Validation\Validator;
+use Respect\Validation\Validator as v;
 
 class UsuarioController extends CRUDController
 {
@@ -28,8 +28,8 @@ class UsuarioController extends CRUDController
 
     //Create
     public function CreateView($request, $response)
-    {        
-        return $this->view->render($response, 'usuario/create.twig',['foto' => ['urlrelative'=> '', 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
+    {
+        return $this->view->render($response, 'usuario/create.twig', ['foto' => ['urlrelative' => '', 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
     }
 
     public function _create($request, $response, $data)
@@ -50,6 +50,7 @@ class UsuarioController extends CRUDController
             'email' => $data['email'],
             'senha' => password_hash($data['password'], PASSWORD_DEFAULT),
             'login' => $data['login'],
+            'foto_id' => !empty($data['idfoto']) ? $data['idfoto'] : null,
         ]);
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -67,17 +68,20 @@ class UsuarioController extends CRUDController
             return $response->withRedirect($this->router->pathFor('usuario.indexview'));
         }
 
-        $user = Usuario::find((int) $request->getAttribute('id'));
+        $user = Usuario::with('foto')->find((int)$request->getAttribute('id'));
 
+        
         $_SESSION['old'] = [
             'name' => $user->nome,
             'email' => $user->email,
             'login' => $user->login,
-            'id' => $user->id,
+            'id' => $user->id
         ];
+
+       
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'usuario/create.twig',['foto' => ['urlrelative'=> '', 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
+        return $this->view->render($response, 'usuario/create.twig', ['foto' => ['urlrelative' => $user->foto->exists ? $user->foto->urlrelative : null, 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
     }
 
     public function _update($request, $response, $data, $user)
@@ -97,6 +101,9 @@ class UsuarioController extends CRUDController
         $user->nome = $data['name'];
         $user->login = $data['login'];
         $user->senha = password_hash($data['password'], PASSWORD_DEFAULT);
+        if (!empty($data['idfoto'])) {
+            $user->foto_id = $data['idfoto'];
+        }
         $user->save();
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -110,13 +117,24 @@ class UsuarioController extends CRUDController
     {
         $user = Usuario::find((int) $request->getAttribute('id'));
         $user->ativo = $user->ativo ? 0 : 1;
-		$user->save();
-		$response = $response->withStatus(200);
-		return $response;
+        $user->save();
+        $response = $response->withStatus(200);
+        return $response;
     }
 
     public function _find($id)
     {
         return Usuario::find($id);
+    }
+
+    public function GetCurrentFoto()
+    {
+        $currentUserFoto = Usuario::with('foto')->find($_SESSION['user']['id']);
+        var_dump($currentUserFoto->foto->exists);
+        die();
+        if ($currentUserFoto->foto->exists) {
+            return $currentUserFoto->foto->urlrelative;
+        }
+        return "";
     }
 }
