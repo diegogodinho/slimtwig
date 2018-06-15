@@ -122,14 +122,15 @@
                 {% if user.isAuthenticated() %}
 
                     <a href="#" class='dropdown-toggle' data-toggle="dropdown">
-                        {{user.getUserSession().nome}}
-                        <img src="{{ user.GetCurrentFoto() }}" alt="" width="27px" height="27px">
+                            {% set user = user.getUserSession() %}
+                        {{user.nome}}
+                        <img src="{{ user.urlfoto }}" alt="" width="27px" height="27px">
                     </a>
                 {% endif %}
 
                 <ul class="dropdown-menu pull-right">
                     <li>
-                        <a href="{{path_for('usuario.editview',{'id':user.getUserSession().id })}}">Editar Perfil</a>
+                        <a href="{{path_for('usuario.editview',{'id':user.id })}}">Editar Perfil</a>
                     </li>
                     {# <li>
                         <a href="#">Alterar Senha</a>

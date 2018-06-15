@@ -1,5 +1,5 @@
-{% if foto.urlrelative %}
-    <img id="imgExterna" src="{{foto.urlrelative}}" width="148" height="148"/><br/>
+{% if old.urlrelative %}
+    <img id="imgExterna" src="{{old.urlrelative}}" width="148" height="148"/><br/>
 
 {% else %}
     <img id="imgExterna" src="~/uploads/profile-default.png" width="148" height="148"/><br/>
@@ -7,7 +7,7 @@
 <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="margin-top: 10px">
     <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
     <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
-        <span class="fa fa-upload"></span>&nbsp;&nbsp;{{foto.DescricaoLabelBotaoUploadImagem}}
+        <span class="fa fa-upload"></span>&nbsp;&nbsp;{{DescricaoLabelBotaoUploadImagem}}
     </span>
 </label>
 

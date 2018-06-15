@@ -85,6 +85,7 @@ class ItemImovelController extends CRUDController
             'id' => $itemimovel->id,
             'possuiqtde' => $itemimovel->possuiqtde
         ];
+        
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
         return $this->view->render($response, 'itemimovel/create.twig');

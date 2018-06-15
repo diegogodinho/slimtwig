@@ -7,12 +7,11 @@ class Usuario extends Model
 {
     protected $table = 'usuario';
 
-    protected $fillable = ["nome", "email", "login", "senha", "ativo"];
+    protected $fillable = ["nome", "email", "login", "senha", "ativo","foto_id"];
 
 
     public function foto()
     {
         return $this->hasOne('App\Domain\Foto','id','foto_id')->withDefault();
-    }
-
+    }    
 }

@@ -55,7 +55,7 @@ class FotoController extends BaseController
         $response = $response->withStatus(200);
     }
 
-    private function _DeleteImage($id)
+    public function _DeleteImage($id)
     {
         $fotoDel = Foto::find($id);
         if ($fotoDel) {
@@ -142,12 +142,13 @@ class FotoController extends BaseController
             imagecolortransparent($im, $black);
             imagealphablending($im, true);
             imagecopy($im, $source, 0, 0, 0, 0, $img_w, $img_h);
-
+           
             $im2 = imagecrop($im, ['x' => $data["x"], 'y' => $data["y"], 'width' => $data["width"], 'height' => $data["height"]]);
-            if ($im2 !== false) {
+            if ($im2 !== false) {                
                 $this->_createwaterMark($im2, $directory);
                 imagepng($im2, $directory . $newFileName);
             }
+            
             imagedestroy($im2);
             imagedestroy($source);
 
@@ -204,17 +205,7 @@ class FotoController extends BaseController
         }
 
         return null;
-    }
-
-    public function GetCurrentFoto()
-    {
-        $watermark = Foto::where('iswatermark', 1)->first();
-        if ($watermark) {
-            return $watermark->urlrelative;
-        }
-
-        return null;
-    }
+    }   
 
     public function SaveFotoUsuario($request, $response)
     {
@@ -237,12 +228,11 @@ class FotoController extends BaseController
             $black = imagecolorallocate($im, 0, 0, 0);
             imagecolortransparent($im, $black);
             imagealphablending($im, true);
-            imagecopy($im, $source, 0, 0, 0, 0, $img_w, $img_h);
-
+            imagecopy($im, $source, 0, 0, 0, 0, $img_w, $img_h);            
             $im2 = imagecrop($im, ['x' => $data["EixoX"], 'y' => $data["EixoY"], 'width' => $data["Largura"], 'height' => $data["Altura"]]);
             if ($im2 !== false) {
                 imagepng($im2, $directory . $newFileName);
-            }
+            }            
             imagedestroy($im2);
             imagedestroy($source);
 

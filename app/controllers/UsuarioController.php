@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Domain\Foto;
 use App\Domain\Usuario;
 use App\Validation\Validator;
 use Respect\Validation\Validator as v;
@@ -29,7 +30,7 @@ class UsuarioController extends CRUDController
     //Create
     public function CreateView($request, $response)
     {
-        return $this->view->render($response, 'usuario/create.twig', ['foto' => ['urlrelative' => '', 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto']);
     }
 
     public function _create($request, $response, $data)
@@ -50,7 +51,7 @@ class UsuarioController extends CRUDController
             'email' => $data['email'],
             'senha' => password_hash($data['password'], PASSWORD_DEFAULT),
             'login' => $data['login'],
-            'foto_id' => !empty($data['idfoto']) ? $data['idfoto'] : null,
+            'foto_id' => (int) $data['foto_id'],
         ]);
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -59,7 +60,6 @@ class UsuarioController extends CRUDController
     //Edit
     public function EditView($request, $response)
     {
-
         $validation = $this->validator->Validate($request, [
             'id' => v::intVal()->positive(),
         ]);
@@ -68,20 +68,26 @@ class UsuarioController extends CRUDController
             return $response->withRedirect($this->router->pathFor('usuario.indexview'));
         }
 
-        $user = Usuario::with('foto')->find((int)$request->getAttribute('id'));
+        $user = Usuario::with('foto')->find((int) $request->getAttribute('id'));
 
-        
         $_SESSION['old'] = [
             'name' => $user->nome,
             'email' => $user->email,
             'login' => $user->login,
-            'id' => $user->id
+            'id' => $user->id,
+            'urlrelative' => $user->foto && $user->foto->exists ? $user->foto->urlrelative : null,           
+            'foto_id' => $user->foto->exists ? $user->foto->id : null,
         ];
 
-       
+        if (isset($_SESSION['unsaveddata'])) {
+            $_SESSION['old']['urlrelative'] = $_SESSION['unsaveddata']['urlrelative'];
+            $_SESSION['old']['foto_id'] = $_SESSION['unsaveddata']['foto_id'];
+            unset($_SESSION['unsaveddata']);
+        }
+
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'usuario/create.twig', ['foto' => ['urlrelative' => $user->foto->exists ? $user->foto->urlrelative : null, 'DescricaoLabelBotaoUploadImagem' => 'Carregar Foto']]);
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto']);
     }
 
     public function _update($request, $response, $data, $user)
@@ -94,6 +100,10 @@ class UsuarioController extends CRUDController
         ]);
 
         if (!$this->validator->Valid()) {
+
+            $_SESSION['unsaveddata'] = ["foto_id" => $data['foto_id'],
+                "urlrelative" => $data['urlrelative']];
+
             return $response->withRedirect($this->router->pathFor('usuario.editview', ["id" => $user->id]));
         }
 
@@ -101,11 +111,20 @@ class UsuarioController extends CRUDController
         $user->nome = $data['name'];
         $user->login = $data['login'];
         $user->senha = password_hash($data['password'], PASSWORD_DEFAULT);
-        if (!empty($data['idfoto'])) {
-            $user->foto_id = $data['idfoto'];
+        $fotoChanged = false;
+        $oldFotoID = 0;
+        $newFotoUploaded = !empty($data['foto_id']);
+        if ($newFotoUploaded) {
+            $fotoChanged = $user->foto_id != $data['foto_id'];
+            $oldFotoID = $user->foto_id;
+            $user->foto_id = $data['foto_id'];
         }
+
         $user->save();
 
+        if ($fotoChanged) {
+            $this->FotoController->_DeleteImage($oldFotoID);
+        }       
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
     }
 

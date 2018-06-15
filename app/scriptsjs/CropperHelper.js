@@ -6,9 +6,9 @@
         IDIMGPrincipal: "imgprincipal",
         IDModalCropper: "#modalCropper",
         IDIMGExterno: "#imgExterna",
-        IDFieldToSetIDFoto: "#IDFoto",
+        IDURLExterno: "#urlrelative",
+        IDFieldToSetIDFoto: "#foto_id",
         ErrorLoadImage: "Por favor selecione uma imagem",
-
         //Cropper Options
         options: {
             toggleDragModeOnDblclick: false,
@@ -88,8 +88,6 @@
                     formData.append("EixoY", EixoY.val());
                     formData.append("Altura", Altura.val());
                     formData.append("Largura", Largura.val());
-                    debugger;
-
                     $.ajax({
                         type: 'POST',
                         url: $(this).attr('action'),
@@ -97,10 +95,12 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function (data) {
-                            debugger;
+                        success: function (data) {                            
                             $(_defaults.IDIMGExterno).attr('src', data.urlrelative);
                             $(_defaults.IDFieldToSetIDFoto).val(data.id);
+                            $(_defaults.IDURLExterno).val(data.urlrelative);
+                            if (FotoSavedCallBack){                                
+                            }
                         },
                         error: function (data) {
                             //console.log("error");

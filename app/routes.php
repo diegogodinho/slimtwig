@@ -17,7 +17,7 @@ $app->group('/restrict', function() {
     $this->get('/usuario/{id}', 'UsuarioController:EditView')->setName('usuario.editview');
     $this->post('/usuario/{id}', 'UsuarioController:Update')->setName('usuario.edit');
     $this->post('/usuario/actdeact/{id}', 'UsuarioController:ActivateDeactivate')->setName('usuario.actdeact');
-    $this->get('/logout', 'LoginController:LogOut')->setName('logout');    
+    $this->get('/logout', 'LoginController:LogOut')->setName('logout');        
     //Foto    
     $this->get('/foto', 'FotoController:IndexView')->setName('foto.indexview');
     $this->post('/foto', 'FotoController:All')->setName('foto');

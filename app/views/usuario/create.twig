@@ -1,14 +1,14 @@
 {% extends 'default.twig' %}
 {% block title %}
-    Item de Imovel
+    Usuario
 {% endblock %}
 {% block breadcrumbs %}
     <li>
         <i class="fa fa-angle-right"></i>
         {% if old.id %}
-            <a href="{{ path_for('itemimovel.editview',{ id: old.id }) }}">Manter Item de Imovel</a>
+            <a href="{{ path_for('usuario.editview',{ id: old.id }) }}">Profile</a>
         {% else  %}
-            <a href="{{ path_for('itemimovel.createview') }}">Manter Item de Imovel</a>
+            <a href="{{ path_for('usuario.createview') }}">Novo Usuario</a>
         {% endif %}
     </li>
 {% endblock %}
@@ -19,7 +19,7 @@
 
 {% block content %}
     <div class="box-content">
-        <h4 class="page-header">Manter Usuario</h4>
+        <h4 class="page-header">Profile</h4>
         <div class="custom-box">
             <div class="row custom-margin-left">
                 {% include 'templates/fotoCropper.twig' %}
@@ -65,7 +65,7 @@
                             <input type="password" class="form-control" id="inputEmail3" placeholder="Senha" name="password"/>
 
                             {% if errors.password %}
-                                <small class="help-blockcol-sm-9">{{ errors.password | first }}</small>
+                                <small class="help-block col-sm-9">{{ errors.password | first }}</small>
                             {% endif %}
                         </div>
                     </div>
@@ -75,7 +75,8 @@
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                     </div>
-                    <input type="hidden" id="IDFoto" name="idfoto">
+                    <input type="hidden" id="foto_id" name="foto_id" value="{{ old.foto_id }}">
+                    <input type="hidden" id="urlrelative" name="urlrelative" value="{{ old.urlrelative }}">                    
                 </form>
             </div>
         </div>

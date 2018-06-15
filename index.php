@@ -36,7 +36,7 @@ $container['view'] = function($container) {
     $view = new \Slim\View\Twig('/app/views/');
 };
 
-$container['upload_directory'] = __DIR__ . '\uploads'. DIRECTORY_SEPARATOR;
+$container['upload_directory'] = __DIR__ . '/uploads/';
 $container['upload_directory_relative'] = '/uploads/';
 
 $capsule = new \Illuminate\Database\Capsule\Manager;
