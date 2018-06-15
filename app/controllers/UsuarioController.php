@@ -148,9 +148,7 @@ class UsuarioController extends CRUDController
 
     public function GetCurrentFoto()
     {
-        $currentUserFoto = Usuario::with('foto')->find($_SESSION['user']['id']);
-        var_dump($currentUserFoto->foto->exists);
-        die();
+        $currentUserFoto = Usuario::with('foto')->find($_SESSION['user']['id']);       
         if ($currentUserFoto->foto->exists) {
             return $currentUserFoto->foto->urlrelative;
         }
