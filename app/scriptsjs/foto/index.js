@@ -46,26 +46,22 @@ $(function(){
     }, '#usertable', '', '', null, function () {       
         $('#usertable').on('draw.dt', function () {
             $(".excluir-grid").click(function () {
-                var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
-                var titulo = data.name;
+                var data = $('#usertable').DataTable().row($(this).parents('tr')).data();                
                 var _urlDelete = $('#usertable').data('path-del');
                 _urlDelete = _urlDelete.replace('0', data.id);
-                bootbox.confirm("Tem certeza que deseja excluir o item {0}?".replace("{0}", titulo), function (result) {
-                    if (result) {
-                        $.post(_urlDelete, {
-                            ID: data.ID
-                        }, function (retorno) {
-                            table.ajax.reload();
-                            //$('#modal-confirmation-excluded').modal('show');
-                        }).error(function (result) {
-                            bootbox.alert('Failed');
-                        });
-                    }
+                $.post(_urlDelete, {
+                    ID: data.ID
+                }, function (retorno) {
+                    table.ajax.reload();
+                    //$('#modal-confirmation-excluded').modal('show');
+                }).error(function (result) {
+                    bootbox.alert('Failed');
                 });
+                
+                
             });
             $(".activeDeactive-grid").click(function () {
-                var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
-                var titulo = data.name;
+                var data = $('#usertable').DataTable().row($(this).parents('tr')).data();                
                 var _urlDelete = $('#usertable').data('path-actdeact');
                 _urlDelete = _urlDelete.replace('0', data.id);
                 $.post(_urlDelete, {

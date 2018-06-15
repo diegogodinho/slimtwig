@@ -40,6 +40,10 @@ $container['TipoImovelController'] = function($container) {
     return new App\Controllers\TipoImovelController($container);
 };
 
+$container['GrupoController'] = function($container) {
+    return new App\Controllers\GrupoController($container);
+};
+
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [
         'cache' => false,

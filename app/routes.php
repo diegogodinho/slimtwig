@@ -42,7 +42,7 @@ $app->group('/restrict', function() {
     $this->get('/cliente/{id}', 'ClienteController:EditView')->setName('cliente.editview');
     // $this->post('/cliente/{id}', 'ClienteController:Update')->setName('cliente.edit');
     $this->post('/cliente/actdeact/{id}', 'ClienteController:ActivateDeactivate')->setName('cliente.actdeact');    
-    //Tags
+    //TipoImovel
     $this->get('/tipoimovel', 'TipoImovelController:IndexView')->setName('tipoimovel.indexview');
     $this->post('/tipoimovel', 'TipoImovelController:All')->setName('tipoimovel');
     $this->get('/tipoimovel/new', 'TipoImovelController:CreateView')->setName('tipoimovel.createview');
@@ -50,6 +50,14 @@ $app->group('/restrict', function() {
     $this->get('/tipoimovel/{id}', 'TipoImovelController:EditView')->setName('tipoimovel.editview');
     $this->post('/tipoimovel/{id}', 'TipoImovelController:Update')->setName('tipoimovel.edit');
     $this->post('/tipoimovel/actdeact/{id}', 'TipoImovelController:ActivateDeactivate')->setName('tipoimovel.actdeact');
+    //Grupo
+    $this->get('/grupo', 'GrupoController:IndexView')->setName('grupo.indexview');
+    $this->post('/grupo', 'GrupoController:All')->setName('grupo');
+    $this->get('/grupo/new', 'GrupoController:CreateView')->setName('grupo.createview');
+    $this->post('/grupo/new', 'GrupoController:Create')->setName('grupo.create');
+    $this->get('/grupo/{id}', 'GrupoController:EditView')->setName('grupo.editview');
+    $this->post('/grupo/{id}', 'GrupoController:Update')->setName('grupo.edit');
+    $this->post('/grupo/actdeact/{id}', 'GrupoController:ActivateDeactivate')->setName('grupo.actdeact');
 
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));

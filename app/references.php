@@ -25,6 +25,7 @@ require __DIR__ . '/controllers/FotoController.php';
 require __DIR__ . '/controllers/ItemImovelController.php';
 require __DIR__ . '/controllers/ClienteController.php';
 require __DIR__ . '/controllers/TipoImovelController.php';
+require __DIR__ . '/controllers/GrupoController.php';
 /*
 Domain
 */
@@ -34,6 +35,7 @@ require __DIR__ . '/domain/Foto.php';
 require __DIR__ . '/domain/ItemImovel.php';
 require __DIR__ . '/domain/Cliente.php';
 require __DIR__ . '/domain/TipoImovel.php';
+require __DIR__ . '/domain/Grupo.php';
 
 /*
 Middleware
