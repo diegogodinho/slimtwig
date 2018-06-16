@@ -89,7 +89,7 @@ class CidadeController extends CRUDController
         $_SESSION['old'] = [
             'nome' => $cidade->nome,
             'id' => $cidade->id,
-            'estado_id' => $cidade->estado_id
+            'estado' => $cidade->estado_id
         ];
         $estados = Estado::all();
         

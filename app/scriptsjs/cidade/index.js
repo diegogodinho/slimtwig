@@ -46,4 +46,14 @@ $(function(){
             });
         });
     }).Bind();
+    
+    $('#btnFiltrar').click(function () {
+        table.ajax.reload(null, false);
+    });
+
+    $('#clearFilter').click(function () {
+        $('#nameSearch').val('');
+        $('#estadoSearch').val('');
+        table.ajax.reload(null, false);
+    }); 
 });
