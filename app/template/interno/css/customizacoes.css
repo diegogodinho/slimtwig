@@ -253,3 +253,8 @@ input, select, option  {
 .custom-margin-left {
     margin-left:15px;
 }
+
+.row-custom-nomargin{
+    margin-right: 0px;
+    margin-left: 0px;
+}

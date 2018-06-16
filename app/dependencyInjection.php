@@ -44,6 +44,15 @@ $container['GrupoController'] = function($container) {
     return new App\Controllers\GrupoController($container);
 };
 
+$container['EstadoController'] = function($container) {
+    return new App\Controllers\EstadoController($container);
+};
+
+$container['CidadeController'] = function($container) {
+    return new App\Controllers\CidadeController($container);
+};
+
+
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [
         'cache' => false,

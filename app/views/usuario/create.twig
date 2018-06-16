@@ -31,12 +31,12 @@
                     {% endif %}
 
                     <input type="hidden" name="id" value="{{ old.id }}"/>
-                    <div class="form-group {{ errors.name ? 'has-error': '' }}">
+                    <div class="form-group {{ errors.nome ? 'has-error': '' }}">
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
-                            <label for="name" class="control-label">Nome</label>
-                            <input type="text" class="form-control" id="name" placeholder="Nome" name="name" value="{{ old.name }}"/>
-                            {% if errors.name %}
-                                <small class="help-block col-sm-9">{{ errors.name | first }}</small>
+                            <label for="nome" class="control-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="{{ old.nome }}"/>
+                            {% if errors.nome %}
+                                <small class="help-block col-sm-9">{{ errors.nome | first }}</small>
                             {% endif %}
                         </div>
                     </div>

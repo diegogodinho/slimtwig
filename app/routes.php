@@ -58,6 +58,22 @@ $app->group('/restrict', function() {
     $this->get('/grupo/{id}', 'GrupoController:EditView')->setName('grupo.editview');
     $this->post('/grupo/{id}', 'GrupoController:Update')->setName('grupo.edit');
     $this->post('/grupo/actdeact/{id}', 'GrupoController:ActivateDeactivate')->setName('grupo.actdeact');
+    //Estado
+    $this->get('/estado', 'EstadoController:IndexView')->setName('estado.indexview');
+    $this->post('/estado', 'EstadoController:All')->setName('estado');
+    $this->get('/estado/new', 'EstadoController:CreateView')->setName('estado.createview');
+    $this->post('/estado/new', 'EstadoController:Create')->setName('estado.create');
+    $this->get('/estado/{id}', 'EstadoController:EditView')->setName('estado.editview');
+    $this->post('/estado/{id}', 'EstadoController:Update')->setName('estado.edit');
+    $this->post('/estado/actdeact/{id}', 'EstadoController:ActivateDeactivate')->setName('estado.actdeact');
+    //Estado
+    $this->get('/cidade', 'CidadeController:IndexView')->setName('cidade.indexview');
+    $this->post('/cidade', 'CidadeController:All')->setName('cidade');
+    $this->get('/cidade/new', 'CidadeController:CreateView')->setName('cidade.createview');
+    $this->post('/cidade/new', 'CidadeController:Create')->setName('cidade.create');
+    $this->get('/cidade/{id}', 'CidadeController:EditView')->setName('cidade.editview');
+    $this->post('/cidade/{id}', 'CidadeController:Update')->setName('cidade.edit');
+    $this->post('/cidade/actdeact/{id}', 'CidadeController:ActivateDeactivate')->setName('cidade.actdeact');
 
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));

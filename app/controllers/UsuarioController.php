@@ -37,7 +37,7 @@ class UsuarioController extends CRUDController
     {
         $validation = $this->validator->Validate($request, [
             'email' => v::notEmpty()->noWhitespace()->email()->EmailValidator(),
-            'name' => v::notEmpty(),
+            'nome' => v::notEmpty(),
             'login' => v::noWhitespace()->notEmpty()->LoginValidator(),
             'password' => v::noWhitespace()->notEmpty(),
         ]);
@@ -47,7 +47,7 @@ class UsuarioController extends CRUDController
         }
 
         Usuario::create([
-            'nome' => $data['name'],
+            'nome' => $data['nome'],
             'email' => $data['email'],
             'senha' => password_hash($data['password'], PASSWORD_DEFAULT),
             'login' => $data['login'],
@@ -71,7 +71,7 @@ class UsuarioController extends CRUDController
         $user = Usuario::with('foto')->find((int) $request->getAttribute('id'));
 
         $_SESSION['old'] = [
-            'name' => $user->nome,
+            'nome' => $user->nome,
             'email' => $user->email,
             'login' => $user->login,
             'id' => $user->id,
@@ -94,7 +94,7 @@ class UsuarioController extends CRUDController
     {
         $validation = $this->validator->Validate($request, [
             'email' => v::notEmpty()->noWhitespace()->email(),
-            'name' => v::notEmpty(),
+            'nome' => v::notEmpty(),
             'login' => v::noWhitespace()->notEmpty(),
             'password' => v::noWhitespace()->notEmpty(),
         ]);
@@ -108,7 +108,7 @@ class UsuarioController extends CRUDController
         }
 
         $user->email = $data['email'];
-        $user->nome = $data['name'];
+        $user->nome = $data['nome'];
         $user->login = $data['login'];
         $user->senha = password_hash($data['password'], PASSWORD_DEFAULT);
         $fotoChanged = false;
