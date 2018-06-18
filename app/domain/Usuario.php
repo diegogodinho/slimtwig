@@ -13,5 +13,10 @@ class Usuario extends Model
     public function foto()
     {
         return $this->hasOne('App\Domain\Foto','id','foto_id')->withDefault();
-    }    
+    }
+
+    public function grupo()
+    {
+        return $this->belongsTo('App\Domain\Grupo');
+    }
 }

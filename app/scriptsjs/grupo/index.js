@@ -13,8 +13,7 @@ $(function(){
                 orderable: false,
                 "className": "center",
                 "render": function (data, type, row) {
-                    var htmlResult = '<a class="btn editar-grid" rel="tooltip" title="Edit" data-original-title="Editar" style="color:green;"><i class="fa fa-edit" ></i></a> ';                    
-                    htmlResult += ' <button type="button" class="editar-grid btn btn-warning"> <span class="glyphicon glyphicon-search"></span> Editar/Visualizar  Grupo/Permissoes </button>'
+                    var htmlResult = ' <button type="button" class="editar-grid btn btn-warning"> <span class="glyphicon glyphicon-search"></span> Editar/Visualizar  Grupo/Permissoes </button>'
                     return htmlResult;
                 }
             }
