@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Domain\Foto;
+use App\Domain\Grupo;
 use App\Domain\Usuario;
 use App\Validation\Validator;
 use Respect\Validation\Validator as v;
@@ -30,7 +31,8 @@ class UsuarioController extends CRUDController
     //Create
     public function CreateView($request, $response)
     {
-        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto']);
+        $grupos = Grupo::all();
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto', 'grupos' => $grupos]);
     }
 
     public function _create($request, $response, $data)
@@ -39,7 +41,12 @@ class UsuarioController extends CRUDController
             'email' => v::notEmpty()->noWhitespace()->email()->EmailValidator(),
             'nome' => v::notEmpty(),
             'login' => v::noWhitespace()->notEmpty()->LoginValidator(),
-            'password' => v::noWhitespace()->notEmpty(),
+            'senha' => v::noWhitespace()->notEmpty(),
+            'identidade' => v::noWhitespace()->notEmpty(),
+            'cpf' => v::noWhitespace()->notEmpty(),
+            'datanascimento' => v::optional(v::date('yyyymmdd')),
+            'dataadmissao' => v::optional(v::date('yyyymmdd')),
+            'datademissao' => v::optional(v::date('yyyymmdd')),
         ]);
 
         if (!$this->validator->Valid()) {
@@ -49,9 +56,19 @@ class UsuarioController extends CRUDController
         Usuario::create([
             'nome' => $data['nome'],
             'email' => $data['email'],
-            'senha' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'senha' => password_hash($data['senha'], PASSWORD_DEFAULT),
             'login' => $data['login'],
             'foto_id' => (int) $data['foto_id'],
+            'grupo_id' => in_array("grupo", $data) ? $data['grupo'] : null,
+            'cpf' => $data['cpf'],
+            'identidade' => $data['identidade'],
+            'telefone' => $data['telefone'],
+            'telefonecel' => $data['telefonecel'],
+            'creci' => $data['creci'],
+            'datanascimento' => $data['datanascimento'],
+            'dataadmissao' => $data['dataadmissao'],
+            'datademissao' => !empty($data['datademissao']) ? $data['datademissao'] : null,
+            'observacoes' => $data['observacoes'],
         ]);
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -64,30 +81,41 @@ class UsuarioController extends CRUDController
             'id' => v::intVal()->positive(),
         ]);
 
-        if (!$this->validator->Valid()) {
+        $user = Usuario::with(['foto', 'grupo'])->find((int) $request->getAttribute('id'));
+
+        if (!$this->validator->Valid() || empty($user)) {
             return $response->withRedirect($this->router->pathFor('usuario.indexview'));
         }
 
-        $user = Usuario::with('foto')->find((int) $request->getAttribute('id'));
-
-        $_SESSION['old'] = [
-            'nome' => $user->nome,
-            'email' => $user->email,
-            'login' => $user->login,
-            'id' => $user->id,
-            'urlrelative' => $user->foto && $user->foto->exists ? $user->foto->urlrelative : null,           
-            'foto_id' => $user->foto->exists ? $user->foto->id : null,
-        ];
-
-        if (isset($_SESSION['unsaveddata'])) {
-            $_SESSION['old']['urlrelative'] = $_SESSION['unsaveddata']['urlrelative'];
-            $_SESSION['old']['foto_id'] = $_SESSION['unsaveddata']['foto_id'];
-            unset($_SESSION['unsaveddata']);
+        if (!isset($_SESSION['unsaveddata'])) {
+            $_SESSION['old'] = [
+                'nome' => $user->nome,
+                'email' => $user->email,
+                'login' => $user->login,
+                'id' => $user->id,
+                'urlrelative' => $user->foto && $user->foto->exists ? $user->foto->urlrelative : null,
+                'foto_id' => $user->foto->exists ? $user->foto->id : null,
+                'grupo' => $user->grupo_id,
+                'cpf' => $user->cpf,
+                'identidade' => $user->identidade,
+                'telefone' => $user->telefone,
+                'telefonecel' => $user->telefonecel,
+                'creci' => $user->creci,
+                'datanascimento' => $user->datanascimento,
+                'dataadmissao' => $user->dataadmissao,
+                'datademissao' => $user->datademissao,
+                'observacoes' => $user->observacoes,
+            ];
+        } else {
+            $_SESSION['old'] = $_SESSION['unsaveddata'];
+            unset($_SESSION['unsaveddata']);           
         }
+
+        $grupos = Grupo::all();
 
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto']);
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto', 'grupos' => $grupos]);
     }
 
     public function _update($request, $response, $data, $user)
@@ -95,22 +123,20 @@ class UsuarioController extends CRUDController
         $validation = $this->validator->Validate($request, [
             'email' => v::notEmpty()->noWhitespace()->email(),
             'nome' => v::notEmpty(),
-            'login' => v::noWhitespace()->notEmpty(),
-            'password' => v::noWhitespace()->notEmpty(),
+            'identidade' => v::noWhitespace()->notEmpty(),
+            'cpf' => v::noWhitespace()->notEmpty(),
+            'datanascimento' => v::optional(v::date())->optional(v::length(8,8)),
+            'dataadmissao' => v::optional(v::date())->optional(v::length(8,8)),
+            'datademissao' => v::optional(v::date())->optional(v::length(8,8)),
         ]);
 
         if (!$this->validator->Valid()) {
-
-            $_SESSION['unsaveddata'] = ["foto_id" => $data['foto_id'],
-                "urlrelative" => $data['urlrelative']];
-
+            $this->SetUnsavedData($data);           
             return $response->withRedirect($this->router->pathFor('usuario.editview', ["id" => $user->id]));
         }
 
         $user->email = $data['email'];
         $user->nome = $data['nome'];
-        $user->login = $data['login'];
-        $user->senha = password_hash($data['password'], PASSWORD_DEFAULT);
         $fotoChanged = false;
         $oldFotoID = 0;
         $newFotoUploaded = !empty($data['foto_id']);
@@ -120,11 +146,23 @@ class UsuarioController extends CRUDController
             $user->foto_id = $data['foto_id'];
         }
 
+        $user->grupo_id = $data['grupo'];
+        $user->cpf = $data['cpf'];
+        $user->identidade = $data['identidade'];
+        $user->telefone = $data['telefone'];
+        $user->telefonecel = $data['telefonecel'];
+        $user->creci = $data['creci'];
+        $user->datanascimento = $data['datanascimento'];
+        $user->dataadmissao = !empty($data['dataadmissao']) ? $data['dataadmissao'] : null;
+        $user->datademissao = !empty($data['datademissao']) ? $data['datademissao'] : null;
+        $user->observacoes = $data['observacoes'];
+       
         $user->save();
 
         if ($fotoChanged) {
             $this->FotoController->_DeleteImage($oldFotoID);
-        }       
+        }
+
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
     }
 
@@ -148,7 +186,7 @@ class UsuarioController extends CRUDController
 
     public function GetCurrentFoto()
     {
-        $currentUserFoto = Usuario::with('foto')->find($_SESSION['user']['id']);       
+        $currentUserFoto = Usuario::with('foto')->find($_SESSION['user']['id']);
         if ($currentUserFoto->foto->exists) {
             return $currentUserFoto->foto->urlrelative;
         }

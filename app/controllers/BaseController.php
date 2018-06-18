@@ -21,7 +21,8 @@ abstract class BaseController
         }
         // else
         // {                        
-        //     return $this->{$property};
+        //     var_dump('chegou aqui');
+        //      return $this->{$property};
         // }
     }
 
@@ -33,5 +34,10 @@ abstract class BaseController
     public function Pagination($query, $page, $lenght)
     {
         return $query->skip($page)->take($lenght);
+    }
+
+    public function SetUnsavedData($data)
+    {        
+        $_SESSION["unsaveddata"] = $data;
     }
 }

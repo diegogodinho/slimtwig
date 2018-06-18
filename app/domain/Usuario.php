@@ -7,16 +7,16 @@ class Usuario extends Model
 {
     protected $table = 'usuario';
 
-    protected $fillable = ["nome", "email", "login", "senha", "ativo","foto_id"];
-
+    protected $fillable = ["nome", "email", "login", "senha", "ativo", "foto_id", "cpf", "identidade", "grupo_id", "tipousuario", "datanascimento",
+        "creci", "dataadmissao", "datademissao", "telefone", "telefonecel", "observacoes"];
 
     public function foto()
     {
-        return $this->hasOne('App\Domain\Foto','id','foto_id')->withDefault();
+        return $this->hasOne('App\Domain\Foto', 'id', 'foto_id')->withDefault();
     }
 
     public function grupo()
     {
-        return $this->belongsTo('App\Domain\Grupo');
+        return $this->hasOne('App\Domain\Grupo','id','grupo_id');
     }
 }
