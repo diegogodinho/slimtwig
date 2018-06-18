@@ -1,12 +1,12 @@
 {% extends 'default.twig' %}
 {% block title %}
-    Usuario
+    Perfil
 {% endblock %}
 {% block breadcrumbs %}
     <li>
         <i class="fa fa-angle-right"></i>
         {% if old.id %}
-            <a href="{{ path_for('usuario.editview',{ id: old.id }) }}">Profile</a>
+            <a href="{{ path_for('usuario.editview',{ id: old.id }) }}">Perfil</a>
         {% else  %}
             <a href="{{ path_for('usuario.createview') }}">Novo Usuario</a>
         {% endif %}
@@ -25,7 +25,7 @@
 
 {% block content %}    
     <div class="box-content">
-        <h4 class="page-header">Profile</h4>
+        <h4 class="page-header">Perfil</h4>
         <div class="custom-box">
             <div class="row custom-margin-left">
                 {% include 'templates/fotoCropper.twig' %}

@@ -4,12 +4,6 @@ $(function () {
   $('.datas').each(function () {
     $(this).val(FormatarDataParaExibir($(this).val()));
   });
-
-
-
-
-
-
   $('.datas').mask('00/00/0000');
   $('#telefone').mask('(00) 0000-0000');
   $('#telefonecel').mask('(00) 00000-0000');
@@ -29,7 +23,6 @@ $(function () {
     $('#telefone').val($('#telefone').cleanVal());
     $('#telefonecel').val($('#telefonecel').cleanVal());
     $('#cpf').val($('#cpf').cleanVal());
-    $('#identidade').val($('#identidade').cleanVal());
     return true;
   });
 
