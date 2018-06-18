@@ -44,9 +44,9 @@ class UsuarioController extends CRUDController
             'senha' => v::noWhitespace()->notEmpty(),
             'identidade' => v::noWhitespace()->notEmpty(),
             'cpf' => v::noWhitespace()->notEmpty(),
-            'datanascimento' => v::optional(v::date('yyyymmdd')),
-            'dataadmissao' => v::optional(v::date('yyyymmdd')),
-            'datademissao' => v::optional(v::date('yyyymmdd')),
+            'datanascimento' => v::optional(v::date())->optional(v::length(8,8)),
+            'dataadmissao' => v::optional(v::date())->optional(v::length(8,8)),
+            'datademissao' => v::optional(v::date())->optional(v::length(8,8)),
         ]);
 
         if (!$this->validator->Valid()) {
