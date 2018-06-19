@@ -28,6 +28,7 @@ require __DIR__ . '/controllers/TipoImovelController.php';
 require __DIR__ . '/controllers/GrupoController.php';
 require __DIR__ . '/controllers/EstadoController.php';
 require __DIR__ . '/controllers/CidadeController.php';
+require __DIR__ . '/controllers/BairroController.php';
 /*
 Domain
 */
@@ -40,6 +41,7 @@ require __DIR__ . '/domain/TipoImovel.php';
 require __DIR__ . '/domain/Grupo.php';
 require __DIR__ . '/domain/Estado.php';
 require __DIR__ . '/domain/Cidade.php';
+require __DIR__ . '/domain/Bairro.php';
 
 /*
 Middleware

@@ -71,9 +71,18 @@ $app->group('/restrict', function() {
     $this->post('/cidade', 'CidadeController:All')->setName('cidade');
     $this->get('/cidade/new', 'CidadeController:CreateView')->setName('cidade.createview');
     $this->post('/cidade/new', 'CidadeController:Create')->setName('cidade.create');
+    $this->post('/cidade/getcidadedropdown', 'CidadeController:GetCidadeDropDownPorEstado')->setName('cidade.cidadedropdown');
     $this->get('/cidade/{id}', 'CidadeController:EditView')->setName('cidade.editview');
     $this->post('/cidade/{id}', 'CidadeController:Update')->setName('cidade.edit');
-    $this->post('/cidade/actdeact/{id}', 'CidadeController:ActivateDeactivate')->setName('cidade.actdeact');
+    $this->post('/cidade/actdeact/{id}', 'CidadeController:ActivateDeactivate')->setName('cidade.actdeact');    
+    //Bairro
+    $this->get('/bairro', 'BairroController:IndexView')->setName('bairro.indexview');
+    $this->post('/bairro', 'BairroController:All')->setName('bairro');
+    $this->get('/bairro/new', 'BairroController:CreateView')->setName('bairro.createview');
+    $this->post('/bairro/new', 'BairroController:Create')->setName('bairro.create');
+    $this->get('/bairro/{id}', 'BairroController:EditView')->setName('bairro.editview');
+    $this->post('/bairro/{id}', 'BairroController:Update')->setName('bairro.edit');
+    $this->post('/bairro/actdeact/{id}', 'BairroController:ActivateDeactivate')->setName('bairro.actdeact');
 
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));

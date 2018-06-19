@@ -36,8 +36,13 @@ abstract class BaseController
         return $query->skip($page)->take($lenght);
     }
 
-    public function SetUnsavedData($data)
+    protected function SetUnsavedData($data)
     {        
         $_SESSION["unsaveddata"] = $data;
+    }
+
+    protected function IsItInArray($field, $array)
+    {
+        return in_array($field, array_keys($array));
     }
 }
