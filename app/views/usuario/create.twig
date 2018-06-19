@@ -20,13 +20,23 @@
             width: 100%;
             height: 100px;
         }
+        legend {
+            font-size: 15px;
+            font-display: bold;
+            border-bottom: 1px solid lightblue;
+
+        }
+        hr {
+            border: 1px solid lightblue;
+        }
     </style>
 {% endblock %}
 
-{% block content %}    
+{% block content %}
     <div class="box-content">
         <h4 class="page-header">Perfil</h4>
         <div class="custom-box">
+
             <div class="row custom-margin-left">
                 {% include 'templates/fotoCropper.twig' %}
             </div>
@@ -38,7 +48,7 @@
 
                     <input type="hidden" name="id" value="{{ old.id }}"/>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group {{ errors.nome ? 'has-error': '' }}">
 
                                 <label for="nome" class="control-label">Nome</label>
@@ -48,7 +58,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group {{ errors.login ? 'has-error': '' }}">
 
                                 <label for="login" class="control-label">Login</label>
@@ -59,7 +69,7 @@
                             </div>
                         </div>
                         {% if not old.id %}
-                            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
+                            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                                 <div class="form-group {{ errors.senha ? 'has-error': '' }}">
 
                                     <label for="senha" class="control-label">Senha</label>
@@ -71,9 +81,7 @@
                             </div>
 
                         {% endif %}
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group {{ errors.email ? 'has-error': '' }}">
                                 <label for="email" class="control-label">E-mail</label>
                                 <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="{{ old.email }}"/>
@@ -82,9 +90,30 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
-                            <div class="form-group">
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
+                            <div class="form-group {{ errors.cpf ? 'has-error': '' }}">
 
+                                <label for="cpf" class="control-label">CPF</label>
+                                <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf" value="{{ old.cpf }}"/>
+                                {% if errors.cpf %}
+                                    <small class="help-block col-sm-9">{{ errors.cpf | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
+                            <div class="form-group {{ errors.identidade ? 'has-error': '' }}">
+
+                                <label for="identidade" class="control-label">Identidade</label>
+                                <input type="text" class="form-control" id="identidade" placeholder="identidade" name="identidade" value="{{ old.identidade }}"/>
+                                {% if errors.identidade %}
+                                    <small class="help-block col-sm-9">{{ errors.identidade | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
+                            <div class="form-group">
                                 <label for="grupo_id" class="control-label">Grupo</label>
                                 <select class="form-control" id="grupo_id" name="grupo">
                                     <option disabled="disabled" selected="selected" value="value"></option>
@@ -98,31 +127,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
-                            <div class="form-group {{ errors.cpf ? 'has-error': '' }}">
-
-                                <label for="cpf" class="control-label">CPF</label>
-                                <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf" value="{{ old.cpf }}"/>
-                                {% if errors.cpf %}
-                                    <small class="help-block col-sm-9">{{ errors.cpf | first }}</small>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
-                            <div class="form-group {{ errors.identidade ? 'has-error': '' }}">
-
-                                <label for="identidade" class="control-label">Identidade</label>
-                                <input type="text" class="form-control" id="identidade" placeholder="identidade" name="identidade" value="{{ old.identidade }}"/>
-                                {% if errors.identidade %}
-                                    <small class="help-block col-sm-9">{{ errors.identidade | first }}</small>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group ">
-
                                 <label for="telefone" class="control-label">Telefone Fixo</label>
                                 <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="{{ old.telefone }}"/>
                                 {% if errors.telefone %}
@@ -130,7 +136,9 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group ">
 
                                 <label for="telefonecel" class="control-label">Telefone Celular</label>
@@ -140,9 +148,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group ">
 
                                 <label for="creci" class="control-label">CRECI</label>
@@ -152,7 +158,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 {{ errors.datanascimento ? 'has-error': '' }} ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 {{ errors.datanascimento ? 'has-error': '' }} ">
                             <div class="form-group ">
 
                                 <label for="datanascimento" class="control-label">Data de Nascimento</label>
@@ -162,7 +168,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 {{ errors.dataadmissao ? 'has-error': '' }} ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 {{ errors.dataadmissao ? 'has-error': '' }} ">
                             <div class="form-group ">
 
                                 <label for="dataadmissao" class="control-label">Data de Admissao</label>
@@ -172,9 +178,9 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.datademissao ? 'has-error': '' }} ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2  {{ errors.datademissao ? 'has-error': '' }} ">
                             <div class="form-group ">
                                 <label for="datademissao" class="control-label">Data de Demissao</label>
                                 <input type="text" class="form-control datas" id="datademissao" placeholder="Data de Demissao" name="datademissao" value="{{ old.datademissao }}"/>
@@ -185,6 +191,74 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-12 ">
+                            <fieldset>
+                                <legend>Endereco:</legend>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.estado ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="nome" class="control-label">Estado</label>
+                                <select class="form-control" id="estado_id" name="estado">
+                                    <option disabled="disabled" selected="selected" value="value"></option>
+                                    {% for estado in estados %}
+                                        {% set selected = '' %}
+                                        {% if (estado.id == old.estado) %}
+                                            {% set selected = 'selected' %}
+                                        {% endif %}
+                                        <option value="{{estado.id}}" {{ selected }}>{{estado.nome}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if errors.estado %}
+                                    <small class="help-block col-sm-9">{{ errors.estado | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.cidade ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="cidade" class="control-label">Cidade</label>
+                                <div id="areaCidadeDropDown">
+                                    <select class="form-control" id="cidade" name="cidade">
+                                        <option disabled="disabled" selected="selected"></option>
+                                        {% for cidade in cidades %}
+                                            {% set selected = '' %}
+                                            {% if (cidade.id == old.cidade) %}
+                                                {% set selected = 'selected' %}
+                                            {% endif %}
+                                            <option value="{{cidade.id}}" {{ selected }}>{{cidade.nome}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% if errors.cidade %}
+                                    <small class="help-block col-sm-9">{{ errors.cidade | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.bairro ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="bairro" class="control-label">Bairro</label>
+                                <div id="areaBairroDropDown">
+                                    <select class="form-control" id="bairro" name="bairro">
+                                        <option disabled="disabled" selected="selected"></option>
+                                        {% for bairro in bairros %}
+                                            {% set selected = '' %}
+                                            {% if (bairro.id == old.bairro) %}
+                                                {% set selected = 'selected' %}
+                                            {% endif %}
+                                            <option value="{{bairro.id}}" {{ selected }}>{{bairro.nome}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% if errors.bairro %}
+                                    <small class="help-block col-sm-9">{{ errors.bairro | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="form-group ">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
                                 <label for="observacoes" class="control-label">Observacoes</label>
@@ -192,6 +266,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10  custom-margin-left">
@@ -203,6 +278,8 @@
                     <input type="hidden" id="foto_id" name="foto_id" value="{{ old.foto_id }}">
                     <input type="hidden" id="urlrelative" name="urlrelative" value="{{ old.urlrelative }}">
                 </form>
+                <input type="hidden" id="urlCidadeDropDown" value="{{path_for('cidade.cidadedropdown')}}">
+                <input type="hidden" id="urlBairroDropDown" value="{{path_for('bairro.bairrodropdown')}}">
             </div>
         </div>
 
@@ -214,4 +291,5 @@
         <script src="{{base_url()}}/vendor/igorescobar/jquery-mask-plugin/src/jquery.mask.js"></script>
         <script src="{{base_url()}}/app/scriptsjs/Comum.js"></script>
         <script src="{{base_url()}}/app/scriptsjs/usuario/create.js"></script>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     {% endblock %}

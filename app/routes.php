@@ -80,6 +80,7 @@ $app->group('/restrict', function() {
     $this->post('/bairro', 'BairroController:All')->setName('bairro');
     $this->get('/bairro/new', 'BairroController:CreateView')->setName('bairro.createview');
     $this->post('/bairro/new', 'BairroController:Create')->setName('bairro.create');
+    $this->post('/bairro/getbairrodropdown', 'BairroController:GetBairroDropDownPorCidade')->setName('bairro.bairrodropdown');
     $this->get('/bairro/{id}', 'BairroController:EditView')->setName('bairro.editview');
     $this->post('/bairro/{id}', 'BairroController:Update')->setName('bairro.edit');
     $this->post('/bairro/actdeact/{id}', 'BairroController:ActivateDeactivate')->setName('bairro.actdeact');

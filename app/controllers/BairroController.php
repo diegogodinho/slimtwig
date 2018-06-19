@@ -150,4 +150,17 @@ class BairroController extends CRUDController
     {
 
     }
+    
+    public function GetBairroDropDownPorCidade($request, $response)
+    {
+        $data = $request->getParsedBody();        
+
+        if ($this->IsItInArray('cidade_id',$data) && $this->IsItInArray('dropdownid',$data) && $this->IsItInArray('dropdownname',$data)) {            
+            $lista = Bairro::where('cidade_id', $data['cidade_id'])->select(['id','nome'])->get();
+            
+            return $this->view->render($response, 'templates/dropdown.twig', ["id_dropdown"=> $data["dropdownid"],
+            "name_dropdown"=> $data["dropdownname"],  "lista" => $lista]);
+        }
+        return $response->withStatus(404)->withJson(['Mensagem' => 'estado_id, dropdownid e dropdownname devem ser informados!']);
+    }
 }

@@ -130,11 +130,7 @@ class CidadeController extends CRUDController
 
         if ($this->IsItInArray('estado_id',$data) && $this->IsItInArray('dropdownid',$data) && $this->IsItInArray('dropdownname',$data)) {            
             $lista = Cidade::where('estado_id', $data['estado_id'])->select(['id','nome'])->get();
-            // var_dump($lista);
-            // die();
-
-
-
+            
             return $this->view->render($response, 'templates/dropdown.twig', ["id_dropdown"=> $data["dropdownid"],
             "name_dropdown"=> $data["dropdownname"],  "lista" => $lista]);
         }

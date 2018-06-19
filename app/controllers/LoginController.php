@@ -10,6 +10,7 @@ class LoginController extends BaseController
 {
     public function Index($request, $response)
     {
+        unset($_SESSION['user']);
         return $this->view->render($response, 'login/login.twig');
     }
 

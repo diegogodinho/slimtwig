@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Domain\Foto;
+
 use App\Domain\Grupo;
 use App\Domain\Usuario;
+use App\Domain\Bairro;
+use App\Domain\Estado;
+use App\Domain\Cidade;
 use App\Validation\Validator;
 use Respect\Validation\Validator as v;
 
@@ -32,7 +35,28 @@ class UsuarioController extends CRUDController
     public function CreateView($request, $response)
     {
         $grupos = Grupo::all();
-        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto', 'grupos' => $grupos]);
+        $estado = Estado::all();
+        $cidades = [];
+        $bairros = [];
+        
+        if (isset($_SESSION['unsaveddata'])) {
+            $_SESSION['old'] = $_SESSION['unsaveddata'];
+
+            if ($this->IsItInArray('estado', $_SESSION['old'])) {
+                $cidades = Cidade::where('estado_id', $_SESSION['old']['estado'])->get();
+            }
+            if ($this->IsItInArray('cidade', $_SESSION['old'])) {
+                $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
+            }
+            unset($_SESSION['unsaveddata']);            
+        }
+
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto',
+            'grupos' => $grupos,
+            'estados' => $estado,
+            'cidades' => $cidades,
+            'bairros' => $bairros,
+        ]);
     }
 
     public function _create($request, $response, $data)
@@ -44,12 +68,13 @@ class UsuarioController extends CRUDController
             'senha' => v::noWhitespace()->notEmpty(),
             'identidade' => v::noWhitespace()->notEmpty(),
             'cpf' => v::noWhitespace()->notEmpty(),
-            'datanascimento' => v::optional(v::date())->optional(v::length(8,8)),
-            'dataadmissao' => v::optional(v::date())->optional(v::length(8,8)),
-            'datademissao' => v::optional(v::date())->optional(v::length(8,8)),
+            'datanascimento' => v::optional(v::date())->optional(v::length(8, 8)),
+            'dataadmissao' => v::optional(v::date())->optional(v::length(8, 8)),
+            'datademissao' => v::optional(v::date())->optional(v::length(8, 8)),
         ]);
 
         if (!$this->validator->Valid()) {
+            $this->SetUnsavedData($data);
             return $response->withRedirect($this->router->pathFor('usuario.createview'));
         }
 
@@ -87,6 +112,11 @@ class UsuarioController extends CRUDController
             return $response->withRedirect($this->router->pathFor('usuario.indexview'));
         }
 
+        $grupos = Grupo::all();
+        $estado = Estado::all();
+        $cidades = [];
+        $bairros = [];
+
         if (!isset($_SESSION['unsaveddata'])) {
             $_SESSION['old'] = [
                 'nome' => $user->nome,
@@ -108,14 +138,23 @@ class UsuarioController extends CRUDController
             ];
         } else {
             $_SESSION['old'] = $_SESSION['unsaveddata'];
-            unset($_SESSION['unsaveddata']);           
-        }
 
-        $grupos = Grupo::all();
+            if ($this->IsItInArray('estado', $_SESSION['old'])) {
+                $cidades = Cidade::where('estado_id', $_SESSION['old']['estado'])->get();
+            }
+            if ($this->IsItInArray('cidade', $_SESSION['old'])) {
+                $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
+            }
+            unset($_SESSION['unsaveddata']);
+        }       
 
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto', 'grupos' => $grupos]);
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto', 
+        'grupos' => $grupos,
+        'estados' => $estado,
+        'cidades' => $cidades,
+        'bairros' => $bairros,]);
     }
 
     public function _update($request, $response, $data, $user)
@@ -125,13 +164,13 @@ class UsuarioController extends CRUDController
             'nome' => v::notEmpty(),
             'identidade' => v::noWhitespace()->notEmpty(),
             'cpf' => v::noWhitespace()->notEmpty(),
-            'datanascimento' => v::optional(v::date())->optional(v::length(8,8)),
-            'dataadmissao' => v::optional(v::date())->optional(v::length(8,8)),
-            'datademissao' => v::optional(v::date())->optional(v::length(8,8)),
+            'datanascimento' => v::optional(v::date())->optional(v::length(8, 8)),
+            'dataadmissao' => v::optional(v::date())->optional(v::length(8, 8)),
+            'datademissao' => v::optional(v::date())->optional(v::length(8, 8)),
         ]);
 
         if (!$this->validator->Valid()) {
-            $this->SetUnsavedData($data);           
+            $this->SetUnsavedData($data);
             return $response->withRedirect($this->router->pathFor('usuario.editview', ["id" => $user->id]));
         }
 
@@ -156,7 +195,7 @@ class UsuarioController extends CRUDController
         $user->dataadmissao = !empty($data['dataadmissao']) ? $data['dataadmissao'] : null;
         $user->datademissao = !empty($data['datademissao']) ? $data['datademissao'] : null;
         $user->observacoes = $data['observacoes'];
-       
+
         $user->save();
 
         if ($fotoChanged) {
