@@ -89,14 +89,15 @@ class UsuarioController extends CRUDController
             'telefone' => $data['telefone'],
             'telefonecel' => $data['telefonecel'],
             'creci' => $data['creci'],
-            'datanascimento' => $data['datanascimento'],
-            'dataadmissao' => $data['dataadmissao'],
-            'datademissao' => !empty($data['datademissao']) ? $data['datademissao'] : null,
+            'datanascimento' => $data['datanascimento'] != null ? $data['datanascimento'] : null,
+            'dataadmissao' => $data['dataadmissao'] != null ? $data['dataadmissao'] : null,
+            'datademissao' => $data['datademissao'] != null ? $data['datademissao'] : null,
             'observacoes' => $data['observacoes'],
             'bairro_id' => $data['bairro'],
             'endereco' => $data['endereco'],
             'numero' => $data['numero'],
             'complemento' => $data['complemento'],
+            'ativo' => in_array("grupo", $data) ? is_numeric($data['grupo']) && (int($data['grupo'])) > 0 ? 1 : 0 : 0,
         ]);
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -147,7 +148,7 @@ class UsuarioController extends CRUDController
                 'complemento' => $user->complemento,
             ];
         } else {
-            $_SESSION['old'] = $_SESSION['unsaveddata'];            
+            $_SESSION['old'] = $_SESSION['unsaveddata'];
             unset($_SESSION['unsaveddata']);
         }
 
@@ -201,14 +202,15 @@ class UsuarioController extends CRUDController
         $user->telefone = $data['telefone'];
         $user->telefonecel = $data['telefonecel'];
         $user->creci = $data['creci'];
-        $user->datanascimento = $data['datanascimento'];
-        $user->dataadmissao = !empty($data['dataadmissao']) ? $data['dataadmissao'] : null;
-        $user->datademissao = !empty($data['datademissao']) ? $data['datademissao'] : null;
+        $user->datanascimento = $data['datanascimento'] != null ? $data['datanascimento'] : null;
+        $user->dataadmissao = $data['dataadmissao'] != null ? $data['dataadmissao'] : null;
+        $user->datademissao = $data['datademissao'] != null ? $data['datademissao'] : null;
         $user->observacoes = $data['observacoes'];
         $user->bairro_id = $data['bairro'];
         $user->endereco = $data['endereco'];
         $user->numero = $data['numero'];
         $user->complemento = $data['complemento'];
+        $user->ativo = in_array("grupo", $data) ? is_numeric($data['grupo']) && (int($data['grupo'])) > 0 ? 1 : 0 : 0;
 
         $user->save();
 
@@ -226,10 +228,15 @@ class UsuarioController extends CRUDController
     public function ActivateDeactivate($request, $response)
     {
         $user = Usuario::find((int) $request->getAttribute('id'));
-        $user->ativo = $user->ativo ? 0 : 1;
-        $user->save();
-        $response = $response->withStatus(200);
-        return $response;
+        if (is_numeric($user->grupo_id) && (int($user->grupo_id)) > 0) {
+            $user->ativo = $user->ativo ? 0 : 1;
+            $user->save();
+            return $response->withStatus(200);
+        }
+        else
+        {
+            return $response->withStatus(406)->withJson(['mensagem'=> "Nao e possivel ativar usuario sem grupo ou sem permissoes especificas. Contate o Administrador do Sistema."]);
+        }        
     }
 
     public function _find($id)

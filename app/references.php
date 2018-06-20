@@ -42,6 +42,7 @@ require __DIR__ . '/domain/Grupo.php';
 require __DIR__ . '/domain/Estado.php';
 require __DIR__ . '/domain/Cidade.php';
 require __DIR__ . '/domain/Bairro.php';
+require __DIR__ . '/domain/TipoUsuario.php';
 
 /*
 Middleware

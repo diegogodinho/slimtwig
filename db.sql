@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 20, 2018 at 09:29 AM
+-- Generation Time: Jun 20, 2018 at 04:26 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -197,6 +197,31 @@ INSERT INTO `foto` (`id`, `name`, `physicaldirectory`, `urlrelative`, `isWaterMa
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `funcionalidade`
+--
+
+DROP TABLE IF EXISTS `funcionalidade`;
+CREATE TABLE IF NOT EXISTS `funcionalidade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(400) NOT NULL,
+  `url` varchar(400) DEFAULT NULL,
+  `metodo` varchar(400) DEFAULT NULL,
+  `ehmenu` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `funcionalidade`
+--
+
+INSERT INTO `funcionalidade` (`id`, `nome`, `url`, `metodo`, `ehmenu`) VALUES
+(1, 'Cadastro de Usuarios', '/usuario', 'get', b'1'),
+(2, 'Cadastros Basicos', NULL, NULL, b'1'),
+(3, 'Seguranca', NULL, NULL, b'1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `grupo`
 --
 
@@ -250,6 +275,25 @@ INSERT INTO `itemimovel` (`id`, `nome`, `ativo`, `possuiqtde`) VALUES
 (16, 'Varanda', b'1', b'1'),
 (17, 'Ar condicionado central', b'1', b'1'),
 (18, 'Test', b'0', b'0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissao`
+--
+
+DROP TABLE IF EXISTS `permissao`;
+CREATE TABLE IF NOT EXISTS `permissao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `funcionalidade_id` int(11) NOT NULL,
+  `grupo_id` int(11) DEFAULT NULL,
+  `usuario_id` int(11) DEFAULT NULL,
+  `visualizar` bit(1) NOT NULL DEFAULT b'1',
+  `incluir` bit(1) NOT NULL DEFAULT b'0',
+  `alterar` bit(1) NOT NULL DEFAULT b'0',
+  `excluir` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -323,15 +367,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idfoto` (`foto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `login`, `senha`, `grupo_id`, `ativo`, `foto_id`, `tipousuario`, `cpf`, `identidade`, `datanascimento`, `creci`, `dataadmissao`, `datademissao`, `telefone`, `telefonecel`, `observacoes`, `bairro_id`, `endereco`, `numero`, `complemento`, `created_at`, `updated_at`) VALUES
-(1, 'Diego', 'diego@diego.com', 'diego', '$2y$10$rLLSnN1Aeog1VPJw90PHzebCsXyCoe06SIpvdA4KPSotXi8syJFr.', 2, b'1', 212, 0, '07641813607', 'MG-11.627.842', '1987-08-27', '', NULL, NULL, '', '', 'Ola Teste', 639, 'Rua Lisboa 190, Parque Recreio', '190', '', '0000-00-00 00:00:00', '2018-06-20 08:13:38'),
-(33, 'Thiago', 'thiago@vitalimobiliaria.com.br', 'thiago', '$2y$10$UmmDsl2UjfFhoRLfVrr79.DRz1Ilrenl2s5HrbCWCLCFm5iP3x2c.', NULL, b'1', 211, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, '0000-00-00 00:00:00', '2018-06-15 14:01:08');
+(1, 'Diego', 'diego@diego.com', 'diego', '$2y$10$rLLSnN1Aeog1VPJw90PHzebCsXyCoe06SIpvdA4KPSotXi8syJFr.', 2, b'1', 212, 0, '07641813607', 'MG-11.627.842', NULL, '', NULL, NULL, '', '', 'Ola Teste', NULL, 'Rua Lisboa 190, Parque Recreio', '190', '', '0000-00-00 00:00:00', '2018-06-20 09:12:13'),
+(33, 'Thiago', 'thiago@vitalimobiliaria.com.br', 'thiago', '$2y$10$UmmDsl2UjfFhoRLfVrr79.DRz1Ilrenl2s5HrbCWCLCFm5iP3x2c.', NULL, b'1', 211, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, '0000-00-00 00:00:00', '2018-06-15 14:01:08'),
+(51, '44314', 'test@test.com', '1234321423', '$2y$10$EAwC7HDkJiXhyQsTQSiK7e1a5IsUJtQnZ87HYmLH8xPZ0pMBtV/pa', NULL, b'1', 0, 1, '44343143343', 'sd-41.231.243', NULL, '', NULL, NULL, '', '', '', NULL, '', '', '', '2018-06-20 09:21:48', '2018-06-20 09:21:48'),
+(52, 'nogrupo', 'nogrupo@nogrupo.com', 'nogrupo', '$2y$10$7zcCRfJXYZ35UOrKEaAPMu1QZVcAfphJfb4WamIC/jxFOb.cekO1a', NULL, b'0', 0, 1, '43243232243', 'sa-21.312.323', NULL, '3223123', NULL, NULL, '2313213213', '13232113232', '', NULL, '', '', '', '2018-06-20 12:34:03', '2018-06-20 12:34:03');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

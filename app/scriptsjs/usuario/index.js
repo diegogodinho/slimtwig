@@ -58,7 +58,7 @@ $(function(){
                 }, function (retorno) {
                     table.ajax.reload();
                 }).error(function (result) {
-                    bootbox.alert('Failed');
+                    bootbox.alert(result.responseJSON.mensagem);
                 });
             });
         });

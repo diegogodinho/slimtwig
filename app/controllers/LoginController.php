@@ -39,6 +39,7 @@ class LoginController extends BaseController
                     "nome" => $user->nome,
                     "urlwatermark" => $this->FotoController->GetUrlWaterMark(),
                     "urlfoto" => $user->foto && $user->foto->exists ? $user->foto->urlrelative : '',
+                    "tipousuario" => $user->tipousuario
                 ];
 
                 return $response->withRedirect($this->router->pathFor('home'));
