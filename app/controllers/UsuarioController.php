@@ -2,12 +2,11 @@
 
 namespace App\Controllers;
 
-
+use App\Domain\Bairro;
+use App\Domain\Cidade;
+use App\Domain\Estado;
 use App\Domain\Grupo;
 use App\Domain\Usuario;
-use App\Domain\Bairro;
-use App\Domain\Estado;
-use App\Domain\Cidade;
 use App\Validation\Validator;
 use Respect\Validation\Validator as v;
 
@@ -38,7 +37,7 @@ class UsuarioController extends CRUDController
         $estado = Estado::all();
         $cidades = [];
         $bairros = [];
-        
+
         if (isset($_SESSION['unsaveddata'])) {
             $_SESSION['old'] = $_SESSION['unsaveddata'];
 
@@ -48,7 +47,7 @@ class UsuarioController extends CRUDController
             if ($this->IsItInArray('cidade', $_SESSION['old'])) {
                 $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
             }
-            unset($_SESSION['unsaveddata']);            
+            unset($_SESSION['unsaveddata']);
         }
 
         return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto',
@@ -94,6 +93,10 @@ class UsuarioController extends CRUDController
             'dataadmissao' => $data['dataadmissao'],
             'datademissao' => !empty($data['datademissao']) ? $data['datademissao'] : null,
             'observacoes' => $data['observacoes'],
+            'bairro_id' => $data['bairro'],
+            'endereco' => $data['endereco'],
+            'numero' => $data['numero'],
+            'complemento' => $data['complemento'],
         ]);
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -106,7 +109,7 @@ class UsuarioController extends CRUDController
             'id' => v::intVal()->positive(),
         ]);
 
-        $user = Usuario::with(['foto', 'grupo'])->find((int) $request->getAttribute('id'));
+        $user = Usuario::with(['foto', 'grupo', 'bairro.cidade.estado'])->find((int) $request->getAttribute('id'));
 
         if (!$this->validator->Valid() || empty($user)) {
             return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -116,6 +119,7 @@ class UsuarioController extends CRUDController
         $estado = Estado::all();
         $cidades = [];
         $bairros = [];
+        $existeBairro = $user->bairro && $user->bairro->exists;
 
         if (!isset($_SESSION['unsaveddata'])) {
             $_SESSION['old'] = [
@@ -135,26 +139,32 @@ class UsuarioController extends CRUDController
                 'dataadmissao' => $user->dataadmissao,
                 'datademissao' => $user->datademissao,
                 'observacoes' => $user->observacoes,
+                'bairro' => $existeBairro ? $user->bairro->id : null,
+                'cidade' => $existeBairro ? $user->bairro->cidade->id : null,
+                'estado' => $existeBairro ? $user->bairro->cidade->estado_id : null,
+                'endereco' => $user->endereco,
+                'numero' => $user->numero,
+                'complemento' => $user->complemento,
             ];
         } else {
-            $_SESSION['old'] = $_SESSION['unsaveddata'];
-
-            if ($this->IsItInArray('estado', $_SESSION['old'])) {
-                $cidades = Cidade::where('estado_id', $_SESSION['old']['estado'])->get();
-            }
-            if ($this->IsItInArray('cidade', $_SESSION['old'])) {
-                $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
-            }
+            $_SESSION['old'] = $_SESSION['unsaveddata'];            
             unset($_SESSION['unsaveddata']);
-        }       
+        }
+
+        if ($this->IsItInArray('estado', $_SESSION['old'])) {
+            $cidades = Cidade::where('estado_id', $_SESSION['old']['estado'])->get();
+        }
+        if ($this->IsItInArray('cidade', $_SESSION['old'])) {
+            $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
+        }
 
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto', 
-        'grupos' => $grupos,
-        'estados' => $estado,
-        'cidades' => $cidades,
-        'bairros' => $bairros,]);
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto',
+            'grupos' => $grupos,
+            'estados' => $estado,
+            'cidades' => $cidades,
+            'bairros' => $bairros]);
     }
 
     public function _update($request, $response, $data, $user)
@@ -195,6 +205,10 @@ class UsuarioController extends CRUDController
         $user->dataadmissao = !empty($data['dataadmissao']) ? $data['dataadmissao'] : null;
         $user->datademissao = !empty($data['datademissao']) ? $data['datademissao'] : null;
         $user->observacoes = $data['observacoes'];
+        $user->bairro_id = $data['bairro'];
+        $user->endereco = $data['endereco'];
+        $user->numero = $data['numero'];
+        $user->complemento = $data['complemento'];
 
         $user->save();
 

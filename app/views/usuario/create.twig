@@ -198,7 +198,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.estado ? 'has-error': '' }} ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.estado ? 'has-error': '' }} ">
                             <div class="form-group ">
                                 <label for="nome" class="control-label">Estado</label>
                                 <select class="form-control" id="estado_id" name="estado">
@@ -216,7 +216,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.cidade ? 'has-error': '' }} ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.cidade ? 'has-error': '' }} ">
                             <div class="form-group ">
                                 <label for="cidade" class="control-label">Cidade</label>
                                 <div id="areaCidadeDropDown">
@@ -236,7 +236,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.bairro ? 'has-error': '' }} ">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.bairro ? 'has-error': '' }} ">
                             <div class="form-group ">
                                 <label for="bairro" class="control-label">Bairro</label>
                                 <div id="areaBairroDropDown">
@@ -255,9 +255,37 @@
                                     <small class="help-block col-sm-9">{{ errors.bairro | first }}</small>
                                 {% endif %}
                             </div>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.endereco ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="endereco" class="control-label">Endereco</label>
+                                <input type="text" class="form-control" id="endereco" placeholder="Endereco" name="endereco" value="{{ old.endereco }}"/>
+                                {% if errors.endereco %}
+                                    <small class="help-block col-sm-9">{{ errors.endereco | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.numero ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="numero" class="control-label">Numero</label>
+                                <input type="text" class="form-control" id="numero" placeholder="Numero" name="numero" value="{{ old.numero }}"/>
+                                {% if errors.numero %}
+                                    <small class="help-block col-sm-9">{{ errors.numero | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.complemento ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="complemento" class="control-label">Complemento</label>
+                                <input type="text" class="form-control" id="complemento" placeholder="Complemento" name="complemento" value="{{ old.complemento }}"/>
+                                {% if errors.complemento %}
+                                    <small class="help-block col-sm-9">{{ errors.complemento | first }}</small>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="form-group ">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
@@ -291,5 +319,4 @@
         <script src="{{base_url()}}/vendor/igorescobar/jquery-mask-plugin/src/jquery.mask.js"></script>
         <script src="{{base_url()}}/app/scriptsjs/Comum.js"></script>
         <script src="{{base_url()}}/app/scriptsjs/usuario/create.js"></script>
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     {% endblock %}
