@@ -42,7 +42,7 @@ class FotoController extends BaseController
     public function SetWaterMark($request, $response)
     {
         Foto::where('iswaterMark', 1)->update(['iswatermark' => 0]);
-        $data = $request->getParsedBody();                
+        $data = $request->getParsedBody();
         $fotoupd = Foto::find($data['id']);
         $fotoupd->iswatermark = $fotoupd->iswatermark ? 0 : 1;
         $fotoupd->save();
@@ -55,7 +55,7 @@ class FotoController extends BaseController
         $response = $response->withStatus(200);
     }
 
-    private function _DeleteImage($id)
+    public function _DeleteImage($id)
     {
         $fotoDel = Foto::find($id);
         if ($fotoDel) {
@@ -142,12 +142,13 @@ class FotoController extends BaseController
             imagecolortransparent($im, $black);
             imagealphablending($im, true);
             imagecopy($im, $source, 0, 0, 0, 0, $img_w, $img_h);
-
+           
             $im2 = imagecrop($im, ['x' => $data["x"], 'y' => $data["y"], 'width' => $data["width"], 'height' => $data["height"]]);
-            if ($im2 !== false) {
+            if ($im2 !== false) {                
                 $this->_createwaterMark($im2, $directory);
                 imagepng($im2, $directory . $newFileName);
             }
+            
             imagedestroy($im2);
             imagedestroy($source);
 
@@ -192,6 +193,58 @@ class FotoController extends BaseController
             imagedestroy($watermark);
             imagedestroy($im);
             $response = $response->withRedirect($this->router->pathFor('foto'));
+        }
+        return $response;
+    }
+
+    public function GetUrlWaterMark()
+    {
+        $watermark = Foto::where('iswatermark', 1)->first();
+        if ($watermark) {
+            return $watermark->urlrelative;
+        }
+
+        return null;
+    }   
+
+    public function SaveFotoUsuario($request, $response)
+    {
+        $uploadedFile = $_FILES['foto'];
+        $data = $request->getParsedBody();
+        $filename = $_FILES['foto']['tmp_name'];
+        $directory = $this->container->get('upload_directory');
+        $newFileName = $this->_getFileName() . '.png';
+
+        if (isset($uploadedFile)) {
+            $source = $this->_getImage($filename);
+
+            $size = min(imagesx($source), imagesy($source));
+
+            $img_w = imagesx($source);
+            $img_h = imagesy($source);
+            $im = imagecreatetruecolor($img_w, $img_h);
+            $transparent = imagecolorallocatealpha($im, 0, 0, 0, 127);
+            imagefill($im, 0, 0, $transparent);
+            $black = imagecolorallocate($im, 0, 0, 0);
+            imagecolortransparent($im, $black);
+            imagealphablending($im, true);
+            imagecopy($im, $source, 0, 0, 0, 0, $img_w, $img_h);            
+            $im2 = imagecrop($im, ['x' => $data["EixoX"], 'y' => $data["EixoY"], 'width' => $data["Largura"], 'height' => $data["Altura"]]);
+            if ($im2 !== false) {
+                imagepng($im2, $directory . $newFileName);
+            }            
+            imagedestroy($im2);
+            imagedestroy($source);
+
+            $newFoto = Foto::create([
+                'name' => $newFileName,
+                'urlrelative' => $request->getUri()->getBaseUrl() . $this->container->get('upload_directory_relative') . $newFileName,
+                'physicaldirectory' => $directory . $newFileName,
+                'iswaterMark' => 0,
+            ]);
+
+            $response = $response->withStatus(200)->withJson(['urlrelative' => $newFoto->urlrelative,
+                'id' => $newFoto->id]);
         }
         return $response;
     }

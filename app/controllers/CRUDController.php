@@ -106,8 +106,8 @@ abstract class CRUDController extends BaseController
         }
         catch(Exception $e)
         {
-            $response = $response->withStatus(400)->withJson(array(new ErrorJson($e->getMessage())));
-			return $response;
+            var_dump($e->getMessage());
+            die();           
         }
     }
 }

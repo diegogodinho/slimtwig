@@ -1,0 +1,101 @@
+{% extends 'default.twig' %}
+{% block title %}
+    Bairros
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        <a href="{{path_for('bairro')}}">Bairros</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <input type="hidden" id="urlCidadeDropDown" value="{{path_for('cidade.cidadedropdown')}}">
+    <div class="row custom-spacing-top">
+        <div class="col-lg-12">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading custom-accordion-filtro" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h4 class="panel-title">
+                            <i class="fa fa-th-list"></i>&nbsp;&nbsp;Filtros
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse.in collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="label-control">Nome</label>
+                                    <input type="text" class="form-control" name="name" id="nameSearch"></input>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="label-control">Estado</label>
+                                    <select class="form-control" id="estadoSearch">
+                                        <option></option>
+                                        {% for estado in estados %}
+                                            <option value="{{estado.id}}">{{estado.nome}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="label-control">Cidade</label>
+                                    <div id="areaCidadeDropDown">
+                                        <select class="form-control" id="cidadeSearch">
+                                            <option ></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:15px;">
+                                <div class="col-lg-2">
+                                    <button type="button" class="btn btn-default" id="clearFilter">Limpar</button>
+                                    <button class="btn btn-success" id="btnFiltrar">Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row custom-spacing-top">
+        <div class="col-lg-1">
+            <a href="{{ path_for('bairro.createview') }}" class="btn btn btn-primary">Nova bairro</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="fa fa-table"></i>Bairros</h3>
+                </div>
+                <div class="box-content nopadding">
+                    <table class="table table-hover table-nomargin table-bordered order-column datatable" data-path="{{path_for('bairro')}}" data-path-actdeact="{{ path_for('bairro.actdeact',{'id' : 0 }) }}" data-path-edit="{{ path_for('bairro.editview',{'id' : 0 }) }}" id="bairrotable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Cidade</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{{base_url()}}/app/template/interno/js/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="{{base_url()}}/app/scriptsjs/bairro/index.js"></script>
+
+    {% if errors %}
+        <script type="text/javascript">
+            $(function () {
+                //$('#modal-validation-errors').modal('show');
+            });
+        </script>
+    {% endif %}
+
+{% endblock %}

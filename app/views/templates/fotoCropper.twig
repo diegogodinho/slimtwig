@@ -1,0 +1,49 @@
+{% if old.urlrelative %}
+    <img id="imgExterna" src="{{old.urlrelative}}" width="148" height="148"/><br/>
+
+{% else %}
+    <img id="imgExterna" src="~/uploads/profile-default.png" width="148" height="148"/><br/>
+{% endif %}
+<label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file" style="margin-top: 10px">
+    <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+    <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="Import image with Blob URLs">
+        <span class="fa fa-upload"></span>&nbsp;&nbsp;{{DescricaoLabelBotaoUploadImagem}}
+    </span>
+</label>
+
+<div class="modal fade" id="modalCropper" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">Seleção de Imagem</h4>
+            </div>
+            <form action="{{path_for('foto.createfotousuario')}}" method="post" enctype="multipart/form-data" id="formUploadImagem">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="img-container">
+                                <img id="imgprincipal" src="" alt="Picture" name="Foto">
+                                <input type="hidden" id="EixoX"/>
+                                <input type="hidden" id="EixoY"/>
+                                <input type="hidden" id="Altura"/>
+                                <input type="hidden" id="Largura"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="docs-preview clearfix">
+                                <div class="img-preview preview-lg"></div>
+                                <div class="img-preview preview-sm"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="salveFoto">Salvar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

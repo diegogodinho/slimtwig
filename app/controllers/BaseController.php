@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 abstract class BaseController 
 {
+    //private $settingsUpload = ['foto' => ['urlrelative'=> '', 'DescricaoLabelBotaoUploadImagem' => 'Upload']];
     protected $container;
     protected $records_per_page = 10;
 
@@ -18,6 +19,11 @@ abstract class BaseController
         {
             return $this->container->{$property};
         }
+        // else
+        // {                        
+        //     var_dump('chegou aqui');
+        //      return $this->{$property};
+        // }
     }
 
     public function DoPagination($query, $page)
@@ -28,5 +34,15 @@ abstract class BaseController
     public function Pagination($query, $page, $lenght)
     {
         return $query->skip($page)->take($lenght);
+    }
+
+    protected function SetUnsavedData($data)
+    {        
+        $_SESSION["unsaveddata"] = $data;
+    }
+
+    protected function IsItInArray($field, $array)
+    {
+        return in_array($field, array_keys($array));
     }
 }

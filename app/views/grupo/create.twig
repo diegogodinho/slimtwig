@@ -1,0 +1,134 @@
+{% extends 'default.twig' %}
+{% block title %}
+    Grupo
+{% endblock %}
+{% block header %}
+    <style>
+        hr {
+            border: 1px solid lightblue;
+        }
+        table {
+            border-spacing: 2px !important;
+            border-collapse: unset;
+        }
+        .seccond-item {
+            padding-left: 20px;
+        }
+    </style>
+
+    <link href="{{base_url()}}/app/template/interno/css/bootstrap-toggle.css" rel="stylesheet">
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        {% if old.id %}
+            <a href="{{ path_for('grupo.editview',{ id: old.id }) }}">Manter Grupo</a>
+        {% else  %}
+            <a href="{{ path_for('grupo.createview') }}">Manter Grupo</a>
+        {% endif %}
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="box-content">
+        <h4 class="page-header">Manter Grupo</h4>
+        <div class="custom-box">
+            {% if old.id %}
+                <form novalidate="novalidate" role="form" action="{{ path_for('grupo.edit',{ id: old.id }) }}" method="post">
+                {% else %}
+                    <form novalidate="novalidate" role="form" action="{{ path_for('grupo.create') }}" method="post">
+                    {% endif %}
+                    <input type="hidden" nome="id" value="{{ old.id }}"/>
+                    <div class="form-group {{ errors.nome ? 'has-error': '' }}">
+                        <div class="row row-custom-nomargin">
+                            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                <label for="inputEmail3" class="control-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="{{ old.nome }}"/>
+                            </div>
+                        </div>
+                        {% if errors.nome %}
+                            <small class="help-block col-sm-9">{{ errors.nome | first }}</small>
+                        {% endif %}
+                    </div>
+                    <hr/>
+
+                    <div class="form-group custom-margin-top">
+                        <div class="col-xs-12">
+                            <fieldset>
+                                <legend>
+                                    Permissoes</legend>
+                                <table width="100%" cellspacing="2">
+                                    <th width="70%">
+                                        <table width="100%" style="border-bottom:1px solid lightblue">
+                                            <tr>
+                                                Funcionalidade
+                                            </tr>
+                                        </table>
+                                    </th>
+                                    <th>
+                                        <table width="100%" style="border-bottom:1px solid lightblue">
+                                            <tr>
+                                                <td>Visualizar</td>
+                                                <td>Incluir</td>
+                                                <td>Alterar</td>
+                                                <td>Excluir</td>
+                                            </tr>
+                                        </table>
+                                    </th>
+                                    <tr>
+                                        <td>
+                                            <span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>&nbsp;Cadastros Basicos</div>
+                                    </td>
+                                    <td>
+                                        <table width="100%" style="border-bottom:1px solid lightblue">
+                                            <tr>
+                                                <td><input type="checkbox" class="customckbx"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <tr>
+                                        <td class="seccond-item">
+                                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>&nbsp;Tipo de Imovel</div>
+                                    </td>
+                                    <td>
+                                        <table width="100%" style="border-bottom:1px solid lightblue">
+                                            <tr>
+                                                <td><input type="checkbox" class="customckbx"></td>
+                                                <td><input type="checkbox" class="customckbx"></td>
+                                                <td><input type="checkbox" class="customckbx"></td>
+                                                <td><input type="checkbox" class="customckbx"></td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>                            
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-10 custom-spacing-top custom-margin-left">
+                        <a type="button" class="btn btn-default" href="{{ path_for('grupo.indexview') }}">Voltar</a>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{{base_url()}}/app/scriptsjs/grupo/create.js"></script>
+    <script src="{{base_url()}}/app/template/bootstrap-toggle.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //$('#modal-validation-errors').modal('show');
+        });
+        $(function () {
+            $('.customckbx').bootstrapToggle({on: 'Sim', off: 'Nao'});
+        })
+    </script>
+
+{% endblock %}

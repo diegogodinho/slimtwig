@@ -1,0 +1,60 @@
+{% extends 'default.twig' %}
+{% block title %}
+    Grupos
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        <a href="{{path_for('grupo')}}">Grupos</a>
+    </li>
+{% endblock %}
+{% block header %}
+    <style>
+        .datatable td:nth-child(2) {
+            text-align: center !important;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="row custom-spacing-top">
+        <div class="col-lg-1">
+            <a href="{{ path_for('grupo.createview') }}" class="btn btn-primary">Novo Grupo</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="fa fa-table"></i>
+                        Grupos
+                    </h3>
+                </div>
+                <div class="box-content nopadding">
+                    <input type="hidden" id="Titulo" value="Bairro"/>
+
+                    <table class="table table-hover table-nomargin table-bordered order-column datatable" data-path="{{path_for('grupo')}}" data-path-actdeact="{{ path_for('grupo.actdeact',{'id' : 0 }) }}" data-path-edit="{{ path_for('grupo.editview',{'id' : 0 }) }}" id="grupotable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th class="text-center">Acoes</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{{base_url()}}/app/template/interno/js/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="{{base_url()}}/app/scriptsjs/grupo/index.js"></script>
+    {% if errors %}
+        {# <script type="text/javascript">
+            $(function () {
+                //$('#modal-validation-errors').modal('show');
+            });
+        </script> #}
+    {% endif %}
+
+{% endblock %}

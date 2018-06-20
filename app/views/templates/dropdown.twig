@@ -1,0 +1,6 @@
+<select class="form-control" id="{{id_dropdown}}" name="{{name_dropdown}}">
+    <option value></option>
+    {% for item in lista %}                                            
+        <option value="{{item.id}}">{{item.nome}}</option>
+    {% endfor %}
+</select>

@@ -1,32 +1,48 @@
 {% extends 'default.twig' %}
+{% block title %}
+    Fotos
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        <a href="{{path_for('foto')}}">Fotos</a>
+    </li>
+{% endblock %}
 {% block content %}
+<style>
+        .datatable img {
+            margin-right: 10px;
+            border: 1px solid #F8F8F8;
+            width: 40px;
+          }
+</style>
 
-    <div class="row">
-        <div id="breadcrumb" class="col-md-12">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="#">Fotos</a>
-                </li>
-            </ol>
+    <div class="row custom-spacing-top">
+        <div class="col-lg-1">
+            <a href="{{ path_for('foto.createview') }}" class="btn btn-primary">Nova Foto</a>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-offset-10 col-md-2">
-            <a href="{{ path_for('foto.createview') }}" class="btn btn-classic">Nova Foto</a>
+        <div class="col-sm-12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="fa fa-table"></i>Fotos</h3>
+                </div>
+                <div class="box-content nopadding">
+                    <table class="table table-hover table-nomargin table-bordered order-column datatable" data-path="{{path_for('foto')}}" data-path-actdeact="{{ path_for('foto.setwatermark',{'id' : 0 }) }}" data-path-del="{{ path_for('foto.del',{'id' : 0 }) }}" id="usertable">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nome</th>
+                                <th>Marca D'agua</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="box-content">
-        <h4 class="page-header">Fotos</h4>
-        <table class="table table-bordered table-striped table-hover table-heading table-datatable" id="usertable">
-            <thead>
-                <tr>
-                    <th>Foto</th>
-                    <th>Nome</th>
-                    <th>Marca D'agua</th>
-                    <th></th>
-                </tr>
-            </thead>
-        </table>
     </div>
     <div class="modal fade" id="modalCropper" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
         <div class="modal-dialog modal-lg" role="document">
@@ -54,99 +70,13 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{base_url()}}/app/template/plugins/datatables/dt.js"></script>
-    <script src="{{base_url()}}/app/template/plugins/datatables/dataTables.bootstrap.js"></script>
-
+<script src="{{base_url()}}/app/template/interno/js/plugins/datatables/jquery.dataTables.js"></script>
+<script src="{{base_url()}}/app/scriptsjs/foto/index.js"></script>  
     <script type="text/javascript">
         function ShowModal(url) {
             $('#imgprincipal').attr('src', url);
             $('#modalCropper').modal('show');
-        }
-
-        $(function () {
-
-            var table = $('#usertable').DataTable({
-                "ordering": false,
-                "serverSide": true,
-                "bFilter": false,
-                "ajax": {
-                    "url": "{{path_for('foto')}}",
-                    "type": "POST"
-                },
-                "columns": [
-                    {
-                        "render": function (data, type, row) {
-                            return '<img src="' + row.urlrelative + '" />';
-                        },
-                        "width": "20%"
-                    }, {
-                        "data": "name",
-                        "render": function (data, type, row) {
-                            return '<a href="#" onclick="ShowModal(\'' + row.urlrelative + '\');">' + row.name + '</a> ';
-                        }
-                    }, {
-                        "data": "iswatermark",
-                        "render": function (data, type, row) {
-                            var htmlResult;
-                            if (row.iswatermark) {
-                                htmlResult = '<span style="color:green">Ativo</span>';
-                            } else {
-                                htmlResult = '<span style="color:red">Inativo</span>';
-                            }
-                            return htmlResult;
-                        }
-                    }, {
-                        "data": null,
-                        orderable: false,
-                        "className": "center",
-                        "render": function (data, type, row) {
-                            var htmlResult = '<a href="#" class="btn excluir-grid" rel="tooltip" title="Delete" data-original-title="Excluir" style="color:red;"><i class="fa fa-times"></i>	</a>';
-                            if (row.iswatermark) {
-                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Remover marca d\'agua" data-original-title="Deactivate" >' + '<i class="fa fa-thumbs-down"></i>	</a>';
-                            } else {
-                                htmlResult += ' <a href="#" class="btn activeDeactive-grid" rel="tooltip" title="Definir como marca d\'agua" data-original-title="Activate" >' + '<i class="fa fa fa-thumbs-o-up"></i>	</a>';
-                            }
-                            return htmlResult;
-                        }
-
-                    }
-                ]
-            });
-            $('#usertable').on('draw.dt', function () {
-                $(".excluir-grid").click(function () {
-                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
-                    var titulo = data.name;
-                    var _urlDelete = "{{ path_for('foto.del',{'id' : 0 }) }}";
-                    _urlDelete = _urlDelete.replace('0', data.id);
-                    bootbox.confirm("Tem certeza que deseja excluir o item {0}?".replace("{0}", titulo), function (result) {
-                        if (result) {
-                            $.post(_urlDelete, {
-                                ID: data.ID
-                            }, function (retorno) {
-                                table.ajax.reload();
-                                //$('#modal-confirmation-excluded').modal('show');
-                            }).error(function (result) {
-                                bootbox.alert('Failed');
-                            });
-                        }
-                    });
-                });
-                $(".activeDeactive-grid").click(function () {                    
-                    var data = $('#usertable').DataTable().row($(this).parents('tr')).data();
-                    var titulo = data.name;
-                    var _urlDelete = "{{ path_for('foto.setwatermark',{'id' : 0 }) }}";
-                    _urlDelete = _urlDelete.replace('0', data.id);                    
-                    $.post(_urlDelete, {
-                        id: data.id
-                    }, function (retorno) {
-                        table.ajax.reload();
-
-                    }).error(function (result) {
-                        bootbox.alert('Failed');
-                    });
-                });
-            });
-        });
+        }        
     </script>
 
     {% if errors %}

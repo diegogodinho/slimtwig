@@ -1,36 +1,38 @@
-{% extends 'loginDefault.twig' %} {% block content %}
-<form method="POST" action="{{ path_for('login')}}" <div class="box-content"> {% include 'templates/messages.twig' %}
-    <div class="text-center">
-        <h3 class="page-header">Login</h3>
-    </div>
+{% extends 'loginDefault.twig' %}
+{% block content %}
 
-    <div class="form-group {{ errors.login ? 'has-error': '' }}">
-        {# <div class="row"> #}
-            {# <div class="col-lg-offset-3 col-lg-6"> #}
-                <label class="control-label">Usuario</label>
-                <input type="text" class="form-control col-lg-4" name="login" value="{{old.login}}" /> 
+    <h2>Faça o Login</h2>
+
+    <form method="POST" action="{{ path_for('login')}}">
+        {% include 'templates/messages.twig' %}        
+        <div class="form-group">
+            <div class="email controls {{ errors.login ? 'has-error': '' }}">
+                <label class="control-label">Login</label>
+                <input type="text" class="form-control col-lg-4" name="login" value="{{old.login}}"/>
                 {% if errors.login %}
                     <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.login | first }}</small>
                 {% endif %}
-            {# </div> #}
-        {# </div> #}
-    </div>
 
-    <div class="form-group {{ errors.password ? 'has-error': '' }}">
-        {# <div class="row"> #}
-            {# <div class="col-lg-offset-3 col-lg-6"> #}
+            </div>
+        </div>
+        <div class="form-group {{ errors.password ? 'has-error': '' }}" >
+            <div class="pw controls">
                 <label class="control-label">Senha</label>
-                <input type="password" class="form-control" name="password" /> 
+                <input type="password" class="form-control" name="password"/>
                 {% if errors.password %}
                     <small class="help-block col-sm-offset-2 col-sm-9">{{ errors.password | first }}</small>
                 {% endif %}
-            {# </div> #}
-        {# </div> #}
+            </div>
+        </div>       
+        <div class="submit">
+            <div class="remember"></div>
+            <input type="button" class="btn" value="voltar" />
+            <input type="submit" value="Autenticar" class='btn btn-primary'>
+        </div>
+    </form>
+    <div class="forget">
+        <a href="#" style="background:#EF9">Não sou cadastrado</a>
+        <a href="#">Esqueci minha senha</a>
     </div>
-    <div class="form-group">
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Autenticar</a>
-        </div>    
-    </div>
-</form>
-{% endblock %} {% block script %}{% endblock %}
+{% endblock %}
+{% block script %}{% endblock %}

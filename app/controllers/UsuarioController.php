@@ -2,9 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Domain\Bairro;
+use App\Domain\Cidade;
+use App\Domain\Estado;
+use App\Domain\Grupo;
 use App\Domain\Usuario;
-use Respect\Validation\Validator as v;
 use App\Validation\Validator;
+use Respect\Validation\Validator as v;
 
 class UsuarioController extends CRUDController
 {
@@ -29,27 +33,70 @@ class UsuarioController extends CRUDController
     //Create
     public function CreateView($request, $response)
     {
-        return $this->view->render($response, 'usuario/create.twig');
+        $grupos = Grupo::all();
+        $estado = Estado::all();
+        $cidades = [];
+        $bairros = [];
+
+        if (isset($_SESSION['unsaveddata'])) {
+            $_SESSION['old'] = $_SESSION['unsaveddata'];
+
+            if ($this->IsItInArray('estado', $_SESSION['old'])) {
+                $cidades = Cidade::where('estado_id', $_SESSION['old']['estado'])->get();
+            }
+            if ($this->IsItInArray('cidade', $_SESSION['old'])) {
+                $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
+            }
+            unset($_SESSION['unsaveddata']);
+        }
+
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto',
+            'grupos' => $grupos,
+            'estados' => $estado,
+            'cidades' => $cidades,
+            'bairros' => $bairros,
+        ]);
     }
 
     public function _create($request, $response, $data)
     {
         $validation = $this->validator->Validate($request, [
             'email' => v::notEmpty()->noWhitespace()->email()->EmailValidator(),
-            'name' => v::notEmpty(),
+            'nome' => v::notEmpty(),
             'login' => v::noWhitespace()->notEmpty()->LoginValidator(),
-            'password' => v::noWhitespace()->notEmpty(),
+            'senha' => v::noWhitespace()->notEmpty(),
+            'identidade' => v::noWhitespace()->notEmpty(),
+            'cpf' => v::noWhitespace()->notEmpty(),
+            'datanascimento' => v::optional(v::date())->optional(v::length(8, 8)),
+            'dataadmissao' => v::optional(v::date())->optional(v::length(8, 8)),
+            'datademissao' => v::optional(v::date())->optional(v::length(8, 8)),
         ]);
 
         if (!$this->validator->Valid()) {
+            $this->SetUnsavedData($data);
             return $response->withRedirect($this->router->pathFor('usuario.createview'));
         }
 
         Usuario::create([
-            'nome' => $data['name'],
+            'nome' => $data['nome'],
             'email' => $data['email'],
-            'senha' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'senha' => password_hash($data['senha'], PASSWORD_DEFAULT),
             'login' => $data['login'],
+            'foto_id' => (int) $data['foto_id'],
+            'grupo_id' => in_array("grupo", $data) ? $data['grupo'] : null,
+            'cpf' => $data['cpf'],
+            'identidade' => $data['identidade'],
+            'telefone' => $data['telefone'],
+            'telefonecel' => $data['telefonecel'],
+            'creci' => $data['creci'],
+            'datanascimento' => $data['datanascimento'],
+            'dataadmissao' => $data['dataadmissao'],
+            'datademissao' => !empty($data['datademissao']) ? $data['datademissao'] : null,
+            'observacoes' => $data['observacoes'],
+            'bairro_id' => $data['bairro'],
+            'endereco' => $data['endereco'],
+            'numero' => $data['numero'],
+            'complemento' => $data['complemento'],
         ]);
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
@@ -58,46 +105,116 @@ class UsuarioController extends CRUDController
     //Edit
     public function EditView($request, $response)
     {
-
         $validation = $this->validator->Validate($request, [
             'id' => v::intVal()->positive(),
         ]);
 
-        if (!$this->validator->Valid()) {
+        $user = Usuario::with(['foto', 'grupo', 'bairro.cidade.estado'])->find((int) $request->getAttribute('id'));
+
+        if (!$this->validator->Valid() || empty($user)) {
             return $response->withRedirect($this->router->pathFor('usuario.indexview'));
         }
 
-        $user = Usuario::find((int) $request->getAttribute('id'));
+        $grupos = Grupo::all();
+        $estado = Estado::all();
+        $cidades = [];
+        $bairros = [];
+        $existeBairro = $user->bairro && $user->bairro->exists;
 
-        $_SESSION['old'] = [
-            'name' => $user->nome,
-            'email' => $user->email,
-            'login' => $user->login,
-            'id' => $user->id,
-        ];
+        if (!isset($_SESSION['unsaveddata'])) {
+            $_SESSION['old'] = [
+                'nome' => $user->nome,
+                'email' => $user->email,
+                'login' => $user->login,
+                'id' => $user->id,
+                'urlrelative' => $user->foto && $user->foto->exists ? $user->foto->urlrelative : null,
+                'foto_id' => $user->foto->exists ? $user->foto->id : null,
+                'grupo' => $user->grupo_id,
+                'cpf' => $user->cpf,
+                'identidade' => $user->identidade,
+                'telefone' => $user->telefone,
+                'telefonecel' => $user->telefonecel,
+                'creci' => $user->creci,
+                'datanascimento' => $user->datanascimento,
+                'dataadmissao' => $user->dataadmissao,
+                'datademissao' => $user->datademissao,
+                'observacoes' => $user->observacoes,
+                'bairro' => $existeBairro ? $user->bairro->id : null,
+                'cidade' => $existeBairro ? $user->bairro->cidade->id : null,
+                'estado' => $existeBairro ? $user->bairro->cidade->estado_id : null,
+                'endereco' => $user->endereco,
+                'numero' => $user->numero,
+                'complemento' => $user->complemento,
+            ];
+        } else {
+            $_SESSION['old'] = $_SESSION['unsaveddata'];            
+            unset($_SESSION['unsaveddata']);
+        }
+
+        if ($this->IsItInArray('estado', $_SESSION['old'])) {
+            $cidades = Cidade::where('estado_id', $_SESSION['old']['estado'])->get();
+        }
+        if ($this->IsItInArray('cidade', $_SESSION['old'])) {
+            $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
+        }
+
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
-        return $this->view->render($response, 'usuario/create.twig');
+        return $this->view->render($response, 'usuario/create.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto',
+            'grupos' => $grupos,
+            'estados' => $estado,
+            'cidades' => $cidades,
+            'bairros' => $bairros]);
     }
 
     public function _update($request, $response, $data, $user)
     {
         $validation = $this->validator->Validate($request, [
             'email' => v::notEmpty()->noWhitespace()->email(),
-            'name' => v::notEmpty(),
-            'login' => v::noWhitespace()->notEmpty(),
-            'password' => v::noWhitespace()->notEmpty(),
+            'nome' => v::notEmpty(),
+            'identidade' => v::noWhitespace()->notEmpty(),
+            'cpf' => v::noWhitespace()->notEmpty(),
+            'datanascimento' => v::optional(v::date())->optional(v::length(8, 8)),
+            'dataadmissao' => v::optional(v::date())->optional(v::length(8, 8)),
+            'datademissao' => v::optional(v::date())->optional(v::length(8, 8)),
         ]);
 
         if (!$this->validator->Valid()) {
+            $this->SetUnsavedData($data);
             return $response->withRedirect($this->router->pathFor('usuario.editview', ["id" => $user->id]));
         }
 
         $user->email = $data['email'];
-        $user->nome = $data['name'];
-        $user->login = $data['login'];
-        $user->senha = password_hash($data['password'], PASSWORD_DEFAULT);
+        $user->nome = $data['nome'];
+        $fotoChanged = false;
+        $oldFotoID = 0;
+        $newFotoUploaded = !empty($data['foto_id']);
+        if ($newFotoUploaded) {
+            $fotoChanged = $user->foto_id != $data['foto_id'];
+            $oldFotoID = $user->foto_id;
+            $user->foto_id = $data['foto_id'];
+        }
+
+        $user->grupo_id = $data['grupo'];
+        $user->cpf = $data['cpf'];
+        $user->identidade = $data['identidade'];
+        $user->telefone = $data['telefone'];
+        $user->telefonecel = $data['telefonecel'];
+        $user->creci = $data['creci'];
+        $user->datanascimento = $data['datanascimento'];
+        $user->dataadmissao = !empty($data['dataadmissao']) ? $data['dataadmissao'] : null;
+        $user->datademissao = !empty($data['datademissao']) ? $data['datademissao'] : null;
+        $user->observacoes = $data['observacoes'];
+        $user->bairro_id = $data['bairro'];
+        $user->endereco = $data['endereco'];
+        $user->numero = $data['numero'];
+        $user->complemento = $data['complemento'];
+
         $user->save();
+
+        if ($fotoChanged) {
+            $this->FotoController->_DeleteImage($oldFotoID);
+        }
 
         return $response->withRedirect($this->router->pathFor('usuario.indexview'));
     }
@@ -110,13 +227,22 @@ class UsuarioController extends CRUDController
     {
         $user = Usuario::find((int) $request->getAttribute('id'));
         $user->ativo = $user->ativo ? 0 : 1;
-		$user->save();
-		$response = $response->withStatus(200);
-		return $response;
+        $user->save();
+        $response = $response->withStatus(200);
+        return $response;
     }
 
     public function _find($id)
     {
         return Usuario::find($id);
+    }
+
+    public function GetCurrentFoto()
+    {
+        $currentUserFoto = Usuario::with('foto')->find($_SESSION['user']['id']);
+        if ($currentUserFoto->foto->exists) {
+            return $currentUserFoto->foto->urlrelative;
+        }
+        return "";
     }
 }

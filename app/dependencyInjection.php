@@ -28,13 +28,35 @@ $container['UsuarioController'] = function($container) {
 $container['FotoController'] = function($container) {
     return new App\Controllers\FotoController($container);
 };
-$container['TagController'] = function($container) {
-    return new App\Controllers\TagController($container);
+$container['ItemImovelController'] = function($container) {
+    return new App\Controllers\ItemImovelController($container);
 };
 
 $container['ClienteController'] = function($container) {
     return new App\Controllers\ClienteController($container);
 };
+
+$container['TipoImovelController'] = function($container) {
+    return new App\Controllers\TipoImovelController($container);
+};
+
+$container['GrupoController'] = function($container) {
+    return new App\Controllers\GrupoController($container);
+};
+
+$container['EstadoController'] = function($container) {
+    return new App\Controllers\EstadoController($container);
+};
+
+$container['CidadeController'] = function($container) {
+    return new App\Controllers\CidadeController($container);
+};
+
+$container['BairroController'] = function($container) {
+    return new App\Controllers\BairroController($container);
+};
+
+
 
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [
@@ -49,6 +71,8 @@ $container['view'] = function($container) {
     $view->getEnvironment()->addGlobal('user', $container->LoginController);
     
     $view->getEnvironment()->addGlobal('flash', $container->flash);
+
+    $view->getEnvironment()->addGlobal('foto', $container->FotoController);
 
     return $view;
 };

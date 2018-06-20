@@ -1,91 +1,136 @@
-<div class="container-fluid expanded-panel">
-		<div class="row">
-			<div id="logo" class="col-xs-12 col-sm-2">
-				<a href="{{path_for('home')}}">DSolutions</a>
-			</div>
-			<div id="top-panel" class="col-xs-12 col-sm-10">
-				<div class="row">
-					<div class="col-xs-8 col-sm-4">
-						<a href="#" class="show-sidebar">
-						  <i class="fa fa-bars"></i>
-						</a>						
-					</div>
-					<div class="col-xs-4 col-sm-8 top-panel-right">
-						<ul class="nav navbar-nav pull-right panel-menu">
-							{#<li class="hidden-xs">
-								<a href="index.html" class="modal-link">
-									<i class="fa fa-bell"></i>
-									<span class="badge">7</span>
-								</a>
-							</li>
-							 <li class="hidden-xs">
-								<a class="ajax-link" href="ajax/calendar.html">
-									<i class="fa fa-calendar"></i>
-									<span class="badge">7</span>
-								</a>
-							</li>
-							<li class="hidden-xs">
-								<a href="ajax/page_messages.html" class="ajax-link">
-									<i class="fa fa-envelope"></i>
-									<span class="badge">7</span>
-								</a>
-							</li> #}
-							
-							{% if user.isAuthenticated() %}
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle account" data-toggle="dropdown">
-									{# <div class="avatar">
-										<img src="{{base_url()}}/app/template/img/avatar.jpg" class="img-rounded" alt="avatar" />
-									</div> #}
-									<i class="fa fa-angle-down pull-right"></i>
-									<div class="user-mini pull-right">
-										<span class="welcome">Bem vindo,</span>
-										<span>{{ user.getUserSession().nome }}</span>
-									</div>
-								</a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="{{ path_for('usuario.editview',{ id: user.getUserSession().id })}}">
-											<i class="fa fa-user"></i>
-											<span class="hidden-sm text">Profile</span>
-										</a>
-									</li>
-									{# <li>
-										<a href="ajax/page_messages.html" class="ajax-link">
-											<i class="fa fa-envelope"></i>
-											<span class="hidden-sm text">Messages</span>
-										</a>
-									</li>
-									<li>
-										<a href="ajax/gallery_simple.html" class="ajax-link">
-											<i class="fa fa-picture-o"></i>
-											<span class="hidden-sm text">Albums</span>
-										</a>
-									</li>
-									<li>
-										<a href="ajax/calendar.html" class="ajax-link">
-											<i class="fa fa-tasks"></i>
-											<span class="hidden-sm text">Tasks</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-cog"></i>
-											<span class="hidden-sm text">Settings</span>
-										</a>
-									</li> #}
-									<li>
-										<a href="{{ path_for('logout') }}">
-											<i class="fa fa-power-off"></i>
-											<span class="hidden-sm text">Logout</span>
-										</a>
-									</li>
-								</ul>
-							</li>
-							{% endif %}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div id="navigation">
+    <div class="container-fluid">
+        <ul class='main-nav'>
+            <li>
+                <a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+                    <span>Cadastros Basicos</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{path_for('tipoimovel')}}">Tipo de Imovel</a>
+                    </li>
+                    <li>
+                        <a href="{{path_for('itemimovel')}}">Item de Imovel</a>
+                    </li>
+                    <li>
+                        <a href="{{path_for('estado')}}">Estado</a>
+                    </li>
+                    <li>
+                        <a href="{{path_for('cidade')}}">Cidade</a>
+                    </li>
+                    <li>
+                        <a href="{{path_for('bairro')}}">Bairro</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+                    <span>Seguranca</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{path_for('usuario')}}">Cadastro de Usuarios</a>
+                    </li>
+                    <li>
+                        <a href="{{path_for('grupo')}}">Grupos e Permisseos</a>
+                    </li>
+                </ul>
+            </li>
+
+            {#<li>
+                <a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+                    <span>Cadastros Básicos</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">Tipo de Fornecedor</a>
+                    </li>
+                    <li>
+                        <a href="#">Fornecedor</a>
+                    </li>
+                    <li>
+                        <a href="#">Tipo de Cliente</a>
+                    </li>
+                    <li>
+                        <a href="#">Cliente</a>
+                    </li>
+                    <li>
+                        <a href="#">Motorista</a>
+                    </li>
+                    <li>
+                        <a href="#">Carreta</a>
+                    </li>
+                    <li>
+                        <a href="#">Carreta (Financiamento)</a>
+                    </li>
+                    <li>
+                        <a href="#">Produto</a>
+                    </li>
+                    <li>
+                        <a href="#">Tipo de Despesa</a>
+                    </li>
+                    <li>
+                        <a href="#">Parâmetro de Tipo de Despesa</a>
+                    </li>
+                    <li>
+                        <a href="#">Tipo de Receita</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" data-toggle="dropdown" class='dropdown-toggle'>
+                    <span>Lançamentos</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">Viagem</a>
+                    </li>
+                    <li>
+                        <a href="#">Despesa</a>
+                    </li>
+                    <li>
+                        <a href="#">Receita</a>
+                    </li>
+                </ul>
+            </li> #}
+        </ul>
+        <div class="user">
+            {# <ul class="icon-nav">
+                <li class='dropdown'>
+                    <a href="#" class='dropdown-toggle' data-toggle="dropdown">
+                        <i class="fa fa-envelope"></i>
+                        <span class="label label-lightred" id="qtde-alertas"></span>
+                    </a>
+                    <ul class="dropdown-menu pull-right message-ul" id="lista-alerta"></ul>
+                </li>
+            </ul> #}
+            <div class="dropdown">
+
+                {% if user.isAuthenticated() %}
+
+                    <a href="#" class='dropdown-toggle' data-toggle="dropdown">
+                        {% set user = user.getUserSession() %}
+                        {{user.nome}}
+                        <img src="{{ user.urlfoto }}" alt="" width="27px" height="27px">
+                    </a>
+                {% endif %}
+
+                <ul class="dropdown-menu pull-right">
+                    <li>
+                        <a href="{{path_for('usuario.editview',{'id':user.id })}}">Editar Perfil</a>
+                    </li>
+                    <li>
+                        <a href="#">Alterar Senha</a>
+                    </li>
+                    <li>
+                        <a href="{{path_for('logout')}}">Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
