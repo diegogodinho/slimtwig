@@ -1,7 +1,9 @@
 delete from funcionalidade;
 delete from acaofuncionalidade;
+delete from permissao;
 ALTER TABLE funcionalidade AUTO_INCREMENT = 1;
 ALTER TABLE acaofuncionalidade AUTO_INCREMENT = 1;
+ALTER TABLE permissao AUTO_INCREMENT = 1;
 
 /*---Funcionalidades--*/
 INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (1, 'Cadastros Basicos', null, b'1');
@@ -52,8 +54,7 @@ select f.id,
        a.id idacao,
        a.nome as nome_acao, 
        a.metodo,
-       f.pai_id,
-       p.permitir
+       f.pai_id
   from funcionalidade f left join acaofuncionalidade a on f.id = a.funcionalidade_id
                         left join permissao p on a.id = p.acaofuncionalidade_id
                         left join grupo g on g.id = p.grupo_id
