@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 20, 2018 at 04:26 PM
+-- Generation Time: Jun 21, 2018 at 02:23 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -21,6 +21,50 @@ SET time_zone = "+00:00";
 --
 -- Database: `diego`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acaofuncionalidade`
+--
+
+DROP TABLE IF EXISTS `acaofuncionalidade`;
+CREATE TABLE IF NOT EXISTS `acaofuncionalidade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(400) NOT NULL,
+  `url` varchar(4000) NOT NULL,
+  `metodo` varchar(400) NOT NULL,
+  `funcionalidade_id` int(11) NOT NULL,
+  `precisadepermissao` bit(1) NOT NULL DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `acaofuncionalidade`
+--
+
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`, `precisadepermissao`) VALUES
+(1, 'Exibir', 'restrict/usuario', 'get,post', 8, b'1'),
+(2, 'Incluir', 'restrict/usuario/new', 'get,post', 8, b'1'),
+(3, 'Editar', 'restrict/usuario/{id}', 'get,post', 8, b'1'),
+(4, 'Ativar', 'restrict/usuario/actdeact/{id}', 'post', 8, b'1'),
+(5, 'Exibir', 'restrict/tipoimovel', 'get,post', 2, b'1'),
+(6, 'Incluir', 'restrict/tipoimovel/new', 'get,post', 2, b'1'),
+(7, 'Editar', 'restrict/tipoimovel/{id}', 'get,post', 2, b'1'),
+(8, 'Ativar', 'restrict/tipoimovel/actdeact/{id}', 'post', 2, b'1'),
+(9, 'Exibir', 'restrict/itemimovel', 'get,post', 3, b'1'),
+(10, 'Incluir', 'restrict/itemimovel/new', 'get,post', 3, b'1'),
+(11, 'Editar', 'restrict/itemimovel/{id}', 'get,post', 3, b'1'),
+(12, 'Ativar', 'restrict/itemimovel/actdeact/{id}', 'post', 3, b'1'),
+(13, 'Exibir', 'restrict/estado', 'get,post', 4, b'1'),
+(14, 'Incluir', 'restrict/estado/new', 'get,post', 4, b'1'),
+(15, 'Editar', 'restrict/estado/{id}', 'get,post', 4, b'1'),
+(16, 'Ativar', 'restrict/estado/actdeact/{id}', 'post', 4, b'1'),
+(17, 'Exibir', 'restrict/cidade', 'get,post', 5, b'1'),
+(18, 'Incluir', 'restrict/cidade/new', 'get,post', 5, b'1'),
+(19, 'Editar', 'restrict/cidade/{id}', 'get,post', 5, b'1'),
+(20, 'Ativar', 'restrict/cidade/actdeact/{id}', 'post', 5, b'1'),
+(21, 'Exibir Drop Cidade', 'restrict/cidade/getcidadedropdown', 'post', 5, b'0');
 
 -- --------------------------------------------------------
 
@@ -204,20 +248,25 @@ DROP TABLE IF EXISTS `funcionalidade`;
 CREATE TABLE IF NOT EXISTS `funcionalidade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(400) NOT NULL,
-  `url` varchar(400) DEFAULT NULL,
-  `metodo` varchar(400) DEFAULT NULL,
-  `ehmenu` bit(1) NOT NULL DEFAULT b'0',
+  `pai_id` int(2) DEFAULT NULL,
+  `acessar` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `funcionalidade`
 --
 
-INSERT INTO `funcionalidade` (`id`, `nome`, `url`, `metodo`, `ehmenu`) VALUES
-(1, 'Cadastro de Usuarios', '/usuario', 'get', b'1'),
-(2, 'Cadastros Basicos', NULL, NULL, b'1'),
-(3, 'Seguranca', NULL, NULL, b'1');
+INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES
+(1, 'Cadastros Basicos', NULL, b'1'),
+(2, 'Tipo de Imovel', 1, b'1'),
+(3, 'Item de Imovel', 1, b'1'),
+(4, 'Estado', 1, b'1'),
+(5, 'Cidade', 1, b'1'),
+(6, 'Bairro', 1, b'1'),
+(7, 'Seguranca', NULL, b'1'),
+(8, 'Cadastros de Usuarios', 7, b'1'),
+(9, 'Grupos e Permissoes', 7, b'1');
 
 -- --------------------------------------------------------
 
@@ -285,13 +334,10 @@ INSERT INTO `itemimovel` (`id`, `nome`, `ativo`, `possuiqtde`) VALUES
 DROP TABLE IF EXISTS `permissao`;
 CREATE TABLE IF NOT EXISTS `permissao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `funcionalidade_id` int(11) NOT NULL,
   `grupo_id` int(11) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL,
-  `visualizar` bit(1) NOT NULL DEFAULT b'1',
-  `incluir` bit(1) NOT NULL DEFAULT b'0',
-  `alterar` bit(1) NOT NULL DEFAULT b'0',
-  `excluir` bit(1) NOT NULL DEFAULT b'0',
+  `acaofuncionalidade_id` int(11) NOT NULL,
+  `permitir` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

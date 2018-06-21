@@ -43,6 +43,9 @@ require __DIR__ . '/domain/Estado.php';
 require __DIR__ . '/domain/Cidade.php';
 require __DIR__ . '/domain/Bairro.php';
 require __DIR__ . '/domain/TipoUsuario.php';
+require __DIR__ . '/domain/Funcionalidade.php';
+require __DIR__ . '/domain/AcaoFuncionalidade.php';
+require __DIR__ . '/domain/Permissao.php';
 
 /*
 Middleware
@@ -51,6 +54,7 @@ require __DIR__ . '/middleware/Middleware.php';
 require __DIR__ . '/middleware/ValidationErrorsMiddleware.php';
 require __DIR__ . '/middleware/OldMiddleware.php';
 require __DIR__ . '/middleware/AuthorizationMiddleware.php';
+require __DIR__ . '/middleware/PermissionMiddleware.php';
 
 
 

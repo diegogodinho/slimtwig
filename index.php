@@ -9,7 +9,7 @@ require __DIR__ . '/app/references.php';
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
-
+//$config['determineRouteBeforeAppMiddleware'] = true;
 
 $config['db']['host']   = "localhost";
 $config['db']['username']   = "root";

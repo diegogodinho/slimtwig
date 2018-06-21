@@ -66,7 +66,7 @@ $app->group('/restrict', function() {
     $this->get('/estado/{id}', 'EstadoController:EditView')->setName('estado.editview');
     $this->post('/estado/{id}', 'EstadoController:Update')->setName('estado.edit');
     $this->post('/estado/actdeact/{id}', 'EstadoController:ActivateDeactivate')->setName('estado.actdeact');
-    //Estado
+    //Cidade
     $this->get('/cidade', 'CidadeController:IndexView')->setName('cidade.indexview');
     $this->post('/cidade', 'CidadeController:All')->setName('cidade');
     $this->get('/cidade/new', 'CidadeController:CreateView')->setName('cidade.createview');
@@ -88,3 +88,4 @@ $app->group('/restrict', function() {
 })->add(new App\Middleware\AuthorizationMiddleware($container));
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new App\Middleware\OldMiddleware($container));
+$app->add(new App\Middleware\PermissionMiddleware($container));

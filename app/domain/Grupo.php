@@ -9,5 +9,10 @@ class Grupo extends Model {
 
     protected $fillable = ["nome"];
     
-    public $timestamps = false;	
+    public $timestamps = false;
+        
+    public function permissao()
+    {
+        return $this->hasMany('App\Domain\Permissao');
+    }
 }
