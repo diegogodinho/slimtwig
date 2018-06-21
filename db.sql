@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 21, 2018 at 02:23 PM
+-- Generation Time: Jun 21, 2018 at 03:10 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -337,9 +337,36 @@ CREATE TABLE IF NOT EXISTS `permissao` (
   `grupo_id` int(11) DEFAULT NULL,
   `usuario_id` int(11) DEFAULT NULL,
   `acaofuncionalidade_id` int(11) NOT NULL,
-  `permitir` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `permissao`
+--
+
+INSERT INTO `permissao` (`id`, `grupo_id`, `usuario_id`, `acaofuncionalidade_id`) VALUES
+(27, 1, NULL, 8),
+(26, 1, NULL, 7),
+(25, 1, NULL, 5),
+(24, 2, NULL, 11),
+(23, 2, NULL, 6),
+(28, 1, NULL, 10),
+(29, 1, NULL, 12),
+(30, 1, NULL, 9),
+(31, 1, NULL, 15),
+(32, 1, NULL, 16),
+(33, 1, NULL, 13),
+(34, 1, NULL, 14),
+(35, 1, NULL, 20),
+(36, 1, NULL, 17),
+(37, 1, NULL, 18),
+(38, 1, NULL, 19),
+(39, 1, NULL, 21),
+(40, 1, NULL, 4),
+(41, 1, NULL, 1),
+(42, 1, NULL, 2),
+(43, 1, NULL, 3),
+(44, 1, NULL, 22);
 
 -- --------------------------------------------------------
 
