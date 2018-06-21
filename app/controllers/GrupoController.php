@@ -101,10 +101,7 @@ class GrupoController extends CRUDController
 
     public function Update($request, $response)
     {
-
-        $data = $request->getParsedBody();
-        // var_dump($data);
-        // die();
+        $data = $request->getParsedBody();       
 
         $id = (int) $request->getAttribute('id');
         $grupo = Grupo::with('permissao')->find($id);

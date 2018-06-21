@@ -47,11 +47,26 @@ INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade
 /*
 
 
-select f.nome, a.nome,a.metodo
+select f.id,
+       f.nome as nome_funcionalidade, 
+       a.id idacao,
+       a.nome as nome_acao, 
+       a.metodo,
+       f.pai_id,
+       p.permitir
   from funcionalidade f left join acaofuncionalidade a on f.id = a.funcionalidade_id
                         left join permissao p on a.id = p.acaofuncionalidade_id
                         left join grupo g on g.id = p.grupo_id
 where g.id = 1 or g.id is null
+and a.precisadepermissao or a.precisadepermissao is null
 order by f.id
+
+
+
+select funcionalidade.nome as nome_funcionalidade, a.nome as nome_acao,
+                     funcionalidade.pai_id, funcionalidade.id as idfuncionalidade, a.id as idacaofuncionalidade from `funcionalidade` left join `acaofuncionalidade` as `a` on `funcionalidade`.`id` = `a`.`funcionalidade_id` 
+                               left join `permissao` as `p` on `a`.`id` = `p`.`acaofuncionalidade_id` 
+                               left join `grupo` as `g` on `p`.`grupo_id` = `g`.`id` 
+where `` = g.id or `null` =  and `` = a.precisadepermissao or `null`
 
 */
