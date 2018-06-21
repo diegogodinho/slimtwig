@@ -81,6 +81,7 @@ class GrupoController extends CRUDController
             ->whereRaw('(g.id = ?  or g.id is null) ', [(int) $request->getAttribute('id')])
             ->whereRaw('(a.precisadepermissao = ?  or a.precisadepermissao is null )', ['1'])
             ->orderBy('funcionalidade.id')
+            ->orderBy('nome_acao')
             ->select('funcionalidade.nome as nome_funcionalidade',
                 'a.nome as nome_acao',
                 'funcionalidade.pai_id',
