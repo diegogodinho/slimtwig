@@ -17,12 +17,15 @@ INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (7, 'Seg
 INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (8, 'Cadastros de Usuarios', 7, b'1');
 INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (9, 'Grupos e Permissoes', 7, b'1');
 
+
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'home', 'restrict', 'get,post', '8', b'0');
 /*--Acoes Funcionalidades--*/
 /*--Usuario--*/
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir', 'restrict/usuario', 'get,post', '8', b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Incluir','restrict/usuario/new', 'get,post', '8', b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Editar', 'restrict/usuario/{id}', 'get,post', '8', b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Ativar', 'restrict/usuario/actdeact/{id}', 'post', '8', b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Editar Profile', 'restrict/usuario/profile', 'get,post', '8', b'0');
 /*--Tipo imovel--*/
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir', 'restrict/tipoimovel', 'get,post', '2', b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Incluir','restrict/tipoimovel/new', 'get,post', '2', b'1');
@@ -44,30 +47,14 @@ INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Editar', 'restrict/cidade/{id}', 'get,post', '5', b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Ativar', 'restrict/cidade/actdeact/{id}', 'post', '5', b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir Drop Cidade', 'restrict/cidade/getcidadedropdown', 'post', '5', b'0');
-
-
-/*
-
-
-select f.id,
-       f.nome as nome_funcionalidade, 
-       a.id idacao,
-       a.nome as nome_acao, 
-       a.metodo,
-       f.pai_id
-  from funcionalidade f left join acaofuncionalidade a on f.id = a.funcionalidade_id
-                        left join permissao p on a.id = p.acaofuncionalidade_id
-                        left join grupo g on g.id = p.grupo_id
-where g.id = 1 or g.id is null
-and a.precisadepermissao or a.precisadepermissao is null
-order by f.id
-
-
-
-select funcionalidade.nome as nome_funcionalidade, a.nome as nome_acao,
-                     funcionalidade.pai_id, funcionalidade.id as idfuncionalidade, a.id as idacaofuncionalidade from `funcionalidade` left join `acaofuncionalidade` as `a` on `funcionalidade`.`id` = `a`.`funcionalidade_id` 
-                               left join `permissao` as `p` on `a`.`id` = `p`.`acaofuncionalidade_id` 
-                               left join `grupo` as `g` on `p`.`grupo_id` = `g`.`id` 
-where `` = g.id or `null` =  and `` = a.precisadepermissao or `null`
-
-*/
+/*--Bairro--*/
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir', 'restrict/bairro', 'get,post', '6',b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Incluir','restrict/bairro/new', 'get,post', '6', b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Editar', 'restrict/bairro/{id}', 'get,post', '6', b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Ativar', 'restrict/bairro/actdeact/{id}', 'post', '6', b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir Drop Bairro', 'restrict/bairro/getcidadedropdown', 'post', '6', b'0');
+/*--Grupos E Permissoes--*/
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir', 'restrict/grupo', 'get,post', '9',b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Incluir','restrict/grupo/new', 'get,post', '9', b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Editar', 'restrict/grupo/{id}', 'get,post', '9', b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Ativar', 'restrict/grupo/actdeact/{id}', 'post', '9', b'1');

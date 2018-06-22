@@ -14,6 +14,8 @@ $app->group('/restrict', function() {
     $this->post('/usuario', 'UsuarioController:All')->setName('usuario');
     $this->get('/usuario/new', 'UsuarioController:CreateView')->setName('usuario.createview');
     $this->post('/usuario/new', 'UsuarioController:Create')->setName('usuario.create');
+    $this->get('/usuario/profile', 'UsuarioController:ProfileView')->setName('usuario.profileview');
+    $this->post('/usuario/profile', 'UsuarioController:UpdateProfile')->setName('usuario.profile');
     $this->get('/usuario/{id}', 'UsuarioController:EditView')->setName('usuario.editview');
     $this->post('/usuario/{id}', 'UsuarioController:Update')->setName('usuario.edit');
     $this->post('/usuario/actdeact/{id}', 'UsuarioController:ActivateDeactivate')->setName('usuario.actdeact');

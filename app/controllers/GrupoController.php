@@ -41,7 +41,20 @@ class GrupoController extends CRUDController
     //Create
     public function CreateView($request, $response)
     {
-        return $this->view->render($response, 'grupo/create.twig');
+        $acoesfuncionalidades = Funcionalidade::leftJoin('acaofuncionalidade as a', 'funcionalidade.id', 'a.funcionalidade_id')           
+            ->orderBy('funcionalidade.id')
+            ->orderBy('nome_acao')
+            ->selectRaw('funcionalidade.nome as nome_funcionalidade,a.nome as nome_acao, funcionalidade.pai_id')
+            ->selectRaw('funcionalidade.id as idfuncionalidade ,a.id as idacaofuncionalidade, ? as id_permissao',[''])
+            ->get();
+            if (isset($_SESSION['unsaveddata'])) {
+                if ($this->IsItInArray('acoesFuncionalidades', $_SESSION['unsaveddata'])) {
+                    $this->_carregarPermissoesNaoSalvas($acoesfuncionalidades, $_SESSION['unsaveddata']['acoesFuncionalidades']);
+                }
+                unset($_SESSION['unsaveddata']);
+            }
+
+        return $this->view->render($response, 'grupo/create.twig', ['acoesfuncionalidades' => $acoesfuncionalidades]);
     }
 
     public function _create($request, $response, $data)
@@ -51,12 +64,23 @@ class GrupoController extends CRUDController
         ]);
 
         if (!$this->validator->Valid()) {
+            $this->SetUnsavedData($data);
             return $response->withRedirect($this->router->pathFor('grupo.createview'));
         }
 
-        Grupo::create([
+        $newGroup = Grupo::create([
             'nome' => $data['nome'],
         ]);
+
+        $permissoes = [];
+
+        if ($this->IsItInArray('acoesFuncionalidades', $data)) {
+            foreach ($data['acoesFuncionalidades'] as $key => $value) {
+                array_push($permissoes, new \App\Domain\Permissao(['grupo_id' => $grupo->id, 'acaofuncionalidade_id' => $key]));
+            }
+        }
+
+        $newGroup->permissao()->saveMany($permissoes);
 
         return $response->withRedirect($this->router->pathFor('grupo.indexview'));
     }
@@ -64,7 +88,6 @@ class GrupoController extends CRUDController
     //Edit
     public function EditView($request, $response)
     {
-
         $validation = $this->validator->Validate($request, [
             'id' => v::intVal()->positive(),
         ]);
@@ -89,11 +112,23 @@ class GrupoController extends CRUDController
                 'a.id as idacaofuncionalidade',
                 'p.id as id_permissao')
             ->get();
+        if (!isset($_SESSION['unsaveddata'])) {
+            $_SESSION['old'] = [
+                'nome' => $grupo->nome,
+                'id' => $grupo->id,
+            ];
+        } else {
+            if ($this->IsItInArray('acoesFuncionalidades', $_SESSION['unsaveddata'])) {
+                $this->_carregarPermissoesNaoSalvas($acoesfuncionalidades, $_SESSION['unsaveddata']['acoesFuncionalidades']);
+            }
 
-        $_SESSION['old'] = [
-            'nome' => $grupo->nome,
-            'id' => $grupo->id,
-        ];
+            $_SESSION['old'] = [
+                'nome' => $_SESSION['unsaveddata']['nome'],
+                'id' => (int) $request->getAttribute('id'),
+            ];
+            unset($_SESSION['unsaveddata']);
+            
+        }
 
         $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
 
@@ -102,10 +137,19 @@ class GrupoController extends CRUDController
 
     public function Update($request, $response)
     {
-        $data = $request->getParsedBody();       
+        $data = $request->getParsedBody();
 
         $id = (int) $request->getAttribute('id');
         $grupo = Grupo::with('permissao')->find($id);
+
+        $validation = $this->validator->Validate($request, [
+            'nome' => v::notEmpty(),
+        ]);
+
+        if (!$this->validator->Valid()) {           
+            $this->SetUnsavedData($data);
+            return $response->withRedirect($this->router->pathFor('grupo.editview', ["id" => $grupo->id]));
+        }
 
         $grupo->permissao()->delete();
         $permissoes = [];
@@ -117,14 +161,6 @@ class GrupoController extends CRUDController
         }
 
         $grupo->permissao()->saveMany($permissoes);
-
-        $validation = $this->validator->Validate($request, [
-            'nome' => v::notEmpty(),
-        ]);
-
-        if (!$this->validator->Valid()) {
-            return $response->withRedirect($this->router->pathFor('grupo.editview', ["id" => $grupo->id]));
-        }
 
         $grupo->nome = $data['nome'];
         $grupo->save();
@@ -144,5 +180,18 @@ class GrupoController extends CRUDController
     public function _update($request, $response, $data, $entity)
     {
 
+    }
+
+    private function _carregarPermissoesNaoSalvas($permissoesDB, $permissoesNaoSalvas)
+    {
+        foreach ($permissoesDB as $key => &$value) {
+            
+            if (!$this->IsItInArray($value->idacaofuncionalidade, $permissoesNaoSalvas)) {
+                $value->id_permissao = null;
+            }
+            else{
+                $value->id_permissao = 1;
+            }
+        }        
     }
 }

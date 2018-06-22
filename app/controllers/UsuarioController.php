@@ -228,7 +228,7 @@ class UsuarioController extends CRUDController
     public function ActivateDeactivate($request, $response)
     {
         $user = Usuario::find((int) $request->getAttribute('id'));
-        if (is_numeric($user->grupo_id) && (int($user->grupo_id)) > 0) {
+        if (is_numeric($user->grupo_id) && ((int)$user->grupo_id) > 0) {
             $user->ativo = $user->ativo ? 0 : 1;
             $user->save();
             return $response->withStatus(200);
@@ -251,5 +251,110 @@ class UsuarioController extends CRUDController
             return $currentUserFoto->foto->urlrelative;
         }
         return "";
+    }   
+
+    //Edit
+    public function ProfileView($request, $response)
+    {
+        $user = Usuario::with(['foto', 'bairro.cidade.estado'])->find($_SESSION['user']['id']);
+
+        if (!$this->validator->Valid() || empty($user)) {
+            return $response->withRedirect($this->router->pathFor('home'));
+        }
+        
+        $estado = Estado::all();
+        $cidades = [];
+        $bairros = [];
+        $existeBairro = $user->bairro && $user->bairro->exists;
+
+        if (!isset($_SESSION['unsaveddata'])) {
+            $_SESSION['old'] = [
+                'nome' => $user->nome,
+                'email' => $user->email,
+                'login' => $user->login,
+                'id' => $user->id,
+                'urlrelative' => $user->foto && $user->foto->exists ? $user->foto->urlrelative : null,
+                'foto_id' => $user->foto->exists ? $user->foto->id : null,                
+                'cpf' => $user->cpf,
+                'identidade' => $user->identidade,
+                'telefone' => $user->telefone,
+                'telefonecel' => $user->telefonecel,
+                'creci' => $user->creci,
+                'datanascimento' => $user->datanascimento,
+                'dataadmissao' => $user->dataadmissao,
+                'datademissao' => $user->datademissao,                
+                'bairro' => $existeBairro ? $user->bairro->id : null,
+                'cidade' => $existeBairro ? $user->bairro->cidade->id : null,
+                'estado' => $existeBairro ? $user->bairro->cidade->estado_id : null,
+                'endereco' => $user->endereco,
+                'numero' => $user->numero,
+                'complemento' => $user->complemento,
+            ];
+        } else {
+            $_SESSION['old'] = $_SESSION['unsaveddata'];
+            unset($_SESSION['unsaveddata']);
+        }
+
+        if ($this->IsItInArray('estado', $_SESSION['old'])) {
+            $cidades = Cidade::where('estado_id', $_SESSION['old']['estado'])->get();
+        }
+        if ($this->IsItInArray('cidade', $_SESSION['old'])) {
+            $bairros = Bairro::where('cidade_id', $_SESSION['old']['cidade'])->get();
+        }
+
+        $this->container->view->getEnvironment()->addGlobal('old', isset($_SESSION['old']) ? $_SESSION['old'] : null);
+
+        return $this->view->render($response, 'usuario/profile.twig', ['DescricaoLabelBotaoUploadImagem' => 'Carregar foto',            
+            'estados' => $estado,
+            'cidades' => $cidades,
+            'bairros' => $bairros]);
+    }
+
+    public function UpdateProfile($request, $response)
+    {
+        $data = $request->getParsedBody();
+        $user = Usuario::find($_SESSION['user']['id']);
+
+        $validation = $this->validator->Validate($request, [
+            'email' => v::notEmpty()->noWhitespace()->email(),
+            'nome' => v::notEmpty(),
+            'identidade' => v::noWhitespace()->notEmpty(),
+            'cpf' => v::noWhitespace()->notEmpty(),
+            'datanascimento' => v::optional(v::date())->optional(v::length(8, 8)),
+        ]);
+
+        if (!$this->validator->Valid()) {
+            $this->SetUnsavedData($data);
+            return $response->withRedirect($this->router->pathFor('usuario.profileview', ["id" => $user->id]));
+        }
+
+        $user->email = $data['email'];
+        $user->nome = $data['nome'];
+        $fotoChanged = false;
+        $oldFotoID = 0;
+        $newFotoUploaded = !empty($data['foto_id']);
+        if ($newFotoUploaded) {
+            $fotoChanged = $user->foto_id != $data['foto_id'];
+            $oldFotoID = $user->foto_id;
+            $user->foto_id = $data['foto_id'];
+        }
+        
+        $user->cpf = $data['cpf'];
+        $user->identidade = $data['identidade'];
+        $user->telefone = $data['telefone'];
+        $user->telefonecel = $data['telefonecel'];
+        $user->creci = $data['creci'];
+        $user->datanascimento = $data['datanascimento'] != null ? $data['datanascimento'] : null;        
+        $user->bairro_id = $data['bairro'];
+        $user->endereco = $data['endereco'];
+        $user->numero = $data['numero'];
+        $user->complemento = $data['complemento'];
+        $user->save();
+
+        if ($fotoChanged) {
+            $this->FotoController->_DeleteImage($oldFotoID);
+        }
+
+        return $response->withRedirect($this->router->pathFor('usuario.indexview'));
     }
 }
