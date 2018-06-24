@@ -178,6 +178,7 @@ class UsuarioController extends CRUDController
             'datanascimento' => v::optional(v::date())->optional(v::length(8, 8)),
             'dataadmissao' => v::optional(v::date())->optional(v::length(8, 8)),
             'datademissao' => v::optional(v::date())->optional(v::length(8, 8)),
+            'senha' => v::noWhitespace()->notEmpty(),
         ]);
 
         if (!$this->validator->Valid()) {
@@ -211,6 +212,8 @@ class UsuarioController extends CRUDController
         $user->numero = $data['numero'];
         $user->complemento = $data['complemento'];
         $user->ativo = in_array("grupo", $data) ? is_numeric($data['grupo']) && (int($data['grupo'])) > 0 ? 1 : 0 : 0;
+        $user->senha = password_hash($data['senha'], PASSWORD_DEFAULT);
+
 
         $user->save();
 

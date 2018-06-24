@@ -2,11 +2,14 @@
 
 namespace App\Middleware;
 
+
+use App\Domain\TipoUsuario;
+
 class PermissionMiddleware extends Middleware
 {
     public function __invoke($request, $response, $next)
     {
-        // $route = $request->getAttribute('route');
+        $route = $request->getAttribute('route');
         // $routeName = $route->getName();
         // $groups = $route->getGroups();
         // $methods = $route->getMethods();
@@ -20,15 +23,19 @@ class PermissionMiddleware extends Middleware
         //var_dump($request->isXhr());
         //var_dump($request->getUri()->getPath());
         //var_dump($_SESSION['user']['permissoes']);
-        if ($this->_usuarioTemPermissao($request->getUri()->getPath())) {
+        //var_dump($route->getPattern());
+        //die();
+        if ($this->_usuarioTemPermissao($route->getPattern())) {
             $response = $next($request, $response);
         } else {
             if(strpos($headerValueString, 'application/json') !== false || $request->isXhr())
             {
-                $response = $response->withStatus(403)->withJson(new ErrorJson("Desculpe, mas voce nao tem acesso a essa funcionalidade. Por favor contate o administrador do sistema."));
+                $response = $response->withStatus(403)->withJson(new ErrorJson("Desculpe, mas voce nao tem acesso a essa funcionalidade. "+
+                                                                               "Por favor contate o administrador do sistema."));
             }
             else
             {                
+                $this->container->flash->addMessage('message', 'Desculpe mas mas seu usuario nao possui acesso a essa funcionalidade');
                 $response = $response->withRedirect($this->container->router->pathFor('home'));
             }            
         }
@@ -37,9 +44,19 @@ class PermissionMiddleware extends Middleware
 
     private function _usuarioTemPermissao($url)
     {
+        $usuario = $_SESSION['user'];
+        if ($usuario['tipousuario'] >= \App\Domain\TipoUsuario::Gerente)
+        {
+            return true;
+        }
+        // var_dump($_SESSION['user']['permissoes']);
+        // var_dump($url);
+        // die();
+
         foreach ($_SESSION['user']['permissoes'] as $key => $value) {
-            //var_dump($value['url'] .' == '. $url);
-            if ($value['url'] == $url) {
+            var_dump($value['url'] .' == '. $url);
+
+            if ($url == $value['url']) {
                 return true;
             }
         }

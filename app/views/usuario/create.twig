@@ -68,19 +68,18 @@
                                 {% endif %}
                             </div>
                         </div>
-                        {% if not old.id %}
-                            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
-                                <div class="form-group {{ errors.senha ? 'has-error': '' }}">
 
-                                    <label for="senha" class="control-label">Senha</label>
-                                    <input type="password" class="form-control" id="senha" placeholder="Senha" name="senha" value=""/>
-                                    {% if errors.senha %}
-                                        <small class="help-block col-sm-9">{{ errors.senha | first }}</small>
-                                    {% endif %}
-                                </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
+                            <div class="form-group {{ errors.senha ? 'has-error': '' }}">
+
+                                <label for="senha" class="control-label">Senha</label>
+                                <input type="password" class="form-control" id="senha" placeholder="Senha" name="senha" value=""/>
+                                {% if errors.senha %}
+                                    <small class="help-block col-sm-9">{{ errors.senha | first }}</small>
+                                {% endif %}
                             </div>
+                        </div>
 
-                        {% endif %}
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group {{ errors.email ? 'has-error': '' }}">
                                 <label for="email" class="control-label">E-mail</label>
@@ -178,7 +177,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-2  {{ errors.datademissao ? 'has-error': '' }} ">
                             <div class="form-group ">
@@ -255,7 +254,7 @@
                                     <small class="help-block col-sm-9">{{ errors.bairro | first }}</small>
                                 {% endif %}
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4  {{ errors.endereco ? 'has-error': '' }} ">

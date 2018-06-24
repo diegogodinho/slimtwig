@@ -87,7 +87,8 @@ $app->group('/restrict', function() {
     $this->post('/bairro/{id}', 'BairroController:Update')->setName('bairro.edit');
     $this->post('/bairro/actdeact/{id}', 'BairroController:ActivateDeactivate')->setName('bairro.actdeact');
 
-})->add(new App\Middleware\AuthorizationMiddleware($container));
+})->add(new App\Middleware\PermissionMiddleware($container))
+->add(new App\Middleware\AuthorizationMiddleware($container));
+
 $app->add(new App\Middleware\ValidationErrorsMiddleware($container));
 $app->add(new App\Middleware\OldMiddleware($container));
-$app->add(new App\Middleware\PermissionMiddleware($container));
