@@ -7,6 +7,7 @@ use App\Domain\Grupo;
 use App\Domain\Permissao;
 use App\Validation\Validator;
 use Respect\Validation\Validator as v;
+use Illuminate\Database\Capsule\Manager as DB;
 
 class GrupoController extends CRUDController
 {
@@ -99,10 +100,11 @@ class GrupoController extends CRUDController
         $grupo = grupo::find((int) $request->getAttribute('id'));
 
         $acoesfuncionalidades = Funcionalidade::leftJoin('acaofuncionalidade as a', 'funcionalidade.id', 'a.funcionalidade_id')
-            ->leftJoin('permissao as p', 'a.id', 'p.acaofuncionalidade_id')
-            ->leftJoin('grupo as g', 'p.grupo_id', 'g.id')
-            ->whereRaw('(g.id = ?  or g.id is null) ', [(int) $request->getAttribute('id')])
-            ->whereRaw('(a.precisadepermissao = ?  or a.precisadepermissao is null )', ['1'])
+        ->leftJoin(DB::raw('(select p.acaofuncionalidade_id, 
+                                    p.id as id_permissao 
+                               from permissao p left join grupo g on p.grupo_id = g.id  
+                              where g.id = ?) r'),'r.acaofuncionalidade_id','=','a.id')            
+            ->whereRaw('(a.precisadepermissao = ?  or a.precisadepermissao is null )', [$request->getAttribute('id'),'1'])
             ->orderBy('funcionalidade.id')
             ->orderBy('nome_acao')
             ->select('funcionalidade.nome as nome_funcionalidade',
@@ -110,7 +112,7 @@ class GrupoController extends CRUDController
                 'funcionalidade.pai_id',
                 'funcionalidade.id as idfuncionalidade',
                 'a.id as idacaofuncionalidade',
-                'p.id as id_permissao')
+                'r.id_permissao')                
             ->get();
         if (!isset($_SESSION['unsaveddata'])) {
             $_SESSION['old'] = [

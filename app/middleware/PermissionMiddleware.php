@@ -48,18 +48,14 @@ class PermissionMiddleware extends Middleware
         if ($usuario['tipousuario'] >= \App\Domain\TipoUsuario::Gerente)
         {
             return true;
-        }
-        // var_dump($_SESSION['user']['permissoes']);
-        // var_dump($url);
-        // die();
+        }        
 
         foreach ($_SESSION['user']['permissoes'] as $key => $value) {
-            var_dump($value['url'] .' == '. $url);
-
             if ($url == $value['url']) {
                 return true;
             }
         }
+               
         return false;
     }
 }
