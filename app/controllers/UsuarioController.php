@@ -178,7 +178,7 @@ class UsuarioController extends CRUDController
             'datanascimento' => v::optional(v::date())->optional(v::length(8, 8)),
             'dataadmissao' => v::optional(v::date())->optional(v::length(8, 8)),
             'datademissao' => v::optional(v::date())->optional(v::length(8, 8)),
-            'senha' => v::noWhitespace()->notEmpty(),
+            'senha' => v::optional(v::noWhitespace()->notEmpty()),
         ]);
 
         if (!$this->validator->Valid()) {
@@ -195,7 +195,7 @@ class UsuarioController extends CRUDController
             $fotoChanged = $user->foto_id != $data['foto_id'];
             $oldFotoID = $user->foto_id;
             $user->foto_id = $data['foto_id'];
-        }
+        }        
 
         $user->grupo_id = $data['grupo'];
         $user->cpf = $data['cpf'];
@@ -211,9 +211,9 @@ class UsuarioController extends CRUDController
         $user->endereco = $data['endereco'];
         $user->numero = $data['numero'];
         $user->complemento = $data['complemento'];
-        $user->ativo = in_array("grupo", $data) ? is_numeric($data['grupo']) && (int($data['grupo'])) > 0 ? 1 : 0 : 0;
-        $user->senha = password_hash($data['senha'], PASSWORD_DEFAULT);
-
+        $user->ativo = $this->IsItInArray("grupo", $data) ? is_numeric($data['grupo']) && ((int)$data['grupo']) > 0 ? 1 : 0 : 0;
+        if (!empty($data['senha']) && $data['senha'] != null)
+            $user->senha = password_hash($data['senha'], PASSWORD_DEFAULT);
 
         $user->save();
 

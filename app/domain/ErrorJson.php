@@ -3,9 +3,9 @@
 namespace App\Domain;
 
 class ErrorJson {	
-	public $Message;
+	public $mensagem;
 
 	public function __construct($msg) {
-		$this->Message = $msg;
+		$this->mensagem = $msg;
 	}
 }

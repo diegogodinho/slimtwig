@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Middleware;
-
-
 use App\Domain\TipoUsuario;
+use \App\Domain\ErrorJson;
 
 class PermissionMiddleware extends Middleware
 {
@@ -28,10 +27,11 @@ class PermissionMiddleware extends Middleware
         if ($this->_usuarioTemPermissao($route->getPattern())) {
             $response = $next($request, $response);
         } else {
+            $headerValueString = $request->getHeaderLine('Accept');
             if(strpos($headerValueString, 'application/json') !== false || $request->isXhr())
             {
-                $response = $response->withStatus(403)->withJson(new ErrorJson("Desculpe, mas voce nao tem acesso a essa funcionalidade. "+
-                                                                               "Por favor contate o administrador do sistema."));
+                $response = $response->withStatus(406)->withJson(new ErrorJson("Desculpe, mas voce nao tem acesso a essa funcionalidade. 
+                                                                               Por favor contate o administrador do sistema."));
             }
             else
             {                
@@ -55,7 +55,7 @@ class PermissionMiddleware extends Middleware
                 return true;
             }
         }
-               
+
         return false;
     }
 }

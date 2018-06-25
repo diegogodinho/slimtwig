@@ -1,10 +1,14 @@
 {% extends 'default.twig' %}
 
 {% block content %}
-{% include 'templates/messages.twig' %}        
+    <div class="row custom-spacing-top row-custom-nomargin">
+        <div class="col0md-12">
+            {% include 'templates/messages.twig' %}
+        </div>
+    </div>
 {% endblock %}
 {% block title %}
-Home
+    Home
 {% endblock %}
 
 {% block script %}{% endblock %}
