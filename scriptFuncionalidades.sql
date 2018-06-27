@@ -20,6 +20,7 @@ INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (9, 'Gru
 /*Rotas Padrao que todos os usuarios devem ter acesso*/
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'home', '/restrict', 'get,post', '8', b'0');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'home', '/restrict/logout', 'get,post', '8', b'0');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Salvar fotos de Perfil', '/restrict/foto/usuario/save', 'get,post', '8', b'0');
 
 /*--Acoes Funcionalidades--*/
 /*--Usuario--*/
