@@ -9,7 +9,7 @@ class Construtora extends Model
     
     public $timestamps = false;	
 
-    protected $fillable = ["nome", "bairro_id", "endereco", "complemento",'telefone','telefonecel','observacoes'];
+    protected $fillable = ["nome", "bairro_id", "endereco", "complemento",'telefone','telefonecel','observacoes','contato'];
 
     public function bairro()
     {

@@ -82,6 +82,7 @@ class ConstrutoraController extends CRUDController
             'telefone' => $data['telefone'],
             'telefonecel' => $data['telefonecel'],
             'observacoes' => $data['observacoes'],
+            'contato' => $data['contato'],
         ]);
 
         return $response->withRedirect($this->router->pathFor('construtora.indexview'));
@@ -99,7 +100,7 @@ class ConstrutoraController extends CRUDController
             return $response->withRedirect($this->router->pathFor('construtora.indexview'));
         }
 
-        $construtora = construtora::with(['bairro.cidade.estado'])->find((int) $request->getAttribute('id'));
+        $construtora = Construtora::with(['bairro.cidade.estado'])->find((int) $request->getAttribute('id'));
         $estados = Estado::all();
         $cidades = [];
         $bairros = [];
@@ -117,6 +118,7 @@ class ConstrutoraController extends CRUDController
                 'telefone' =>$construtora->telefone,
                 'telefonecel' =>$construtora->telefonecel,
                 'observacoes' =>$construtora->observacoes,
+                'contato' =>$construtora->contato,
             ];
         } else {
             $_SESSION['old'] = $_SESSION['unsaveddata'];
@@ -156,13 +158,14 @@ class ConstrutoraController extends CRUDController
         $construtora->telefone = $data['telefone'];
         $construtora->telefonecel = $data['telefonecel'];
         $construtora->observacoes = $data['observacoes'];
+        $construtora->contato = $data['contato'];
         $construtora->save();
         return $response->withRedirect($this->router->pathFor('construtora.indexview'));
     }
 
     public function _find($id)
     {
-        return construtora::find($id);
+        return Construtora::find($id);
     }
 
     public function Delete($request, $response)

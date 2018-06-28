@@ -90,8 +90,7 @@ $app->group('/restrict', function() {
     $this->get('/construtora', 'ConstrutoraController:IndexView')->setName('construtora.indexview');
     $this->post('/construtora', 'ConstrutoraController:All')->setName('construtora');
     $this->get('/construtora/new', 'ConstrutoraController:CreateView')->setName('construtora.createview');
-    $this->post('/construtora/new', 'ConstrutoraController:Create')->setName('construtora.create');
-    $this->post('/construtora/getbairrodropdown', 'ConstrutoraController:GetBairroDropDownPorCidade')->setName('construtora.bairrodropdown');
+    $this->post('/construtora/new', 'ConstrutoraController:Create')->setName('construtora.create');    
     $this->get('/construtora/{id}', 'ConstrutoraController:EditView')->setName('construtora.editview');
     $this->post('/construtora/{id}', 'ConstrutoraController:Update')->setName('construtora.edit');
     $this->post('/construtora/actdeact/{id}', 'ConstrutoraController:ActivateDeactivate')->setName('construtora.actdeact');
