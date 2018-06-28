@@ -14,15 +14,14 @@
 {% endblock %}
 
 {% block header %}
-<style>
+    <style>
         textarea {
             width: 100%;
             height: 100px;
-        }        
+        }
     </style>
 
 {% endblock %}
-
 
 {% block content %}
     <div class="box-content">
@@ -42,6 +41,15 @@
                                 <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="{{ old.nome }}"/>
                                 {% if errors.nome %}
                                     <small class="help-block col-sm-9">{{ errors.nome | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
+                            <div class="form-group ">
+                                <label for="telefone" class="control-label">Telefone Fixo</label>
+                                <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="{{ old.telefone }}"/>
+                                {% if errors.telefone %}
+                                    <small class="help-block col-sm-9">{{ errors.telefone | first }}</small>
                                 {% endif %}
                             </div>
                         </div>
@@ -125,15 +133,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
-                            <div class="form-group ">
-                                <label for="telefone" class="control-label">Telefone Fixo</label>
-                                <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="{{ old.telefone }}"/>
-                                {% if errors.telefone %}
-                                    <small class="help-block col-sm-9">{{ errors.telefone | first }}</small>
-                                {% endif %}
-                            </div>
-                        </div>
+
                         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
                             <div class="form-group ">
 
@@ -146,13 +146,13 @@
                         </div>
                     </div>
                     <div class="row">
-                            <div class="form-group ">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-                                    <label for="observacoes" class="control-label">Observacoes</label>
-                                    <textarea name="observacoes" id="observacoes">{{ old.observacoes }}</textarea>
-                                </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                                <label for="observacoes" class="control-label">Observacoes</label>
+                                <textarea name="observacoes" id="observacoes">{{ old.observacoes }}</textarea>
                             </div>
                         </div>
+                    </div>
                     <div class="row form-group">
                         <div class="col-sm-10 custom-spacing-top custom-margin-left">
                             <a type="button" class="btn btn-default" href="{{ path_for('construtora.indexview') }}">Voltar</a>
