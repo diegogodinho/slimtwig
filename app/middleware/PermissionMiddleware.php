@@ -55,6 +55,7 @@ class PermissionMiddleware extends Middleware
                 return true;
             }
         }
+        var_dump($url);
 
         return false;
     }

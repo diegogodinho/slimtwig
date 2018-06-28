@@ -55,8 +55,9 @@ $container['CidadeController'] = function($container) {
 $container['BairroController'] = function($container) {
     return new App\Controllers\BairroController($container);
 };
-
-
+$container['ConstrutoraController'] = function($container) {
+    return new App\Controllers\ConstrutoraController($container);
+};
 
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [

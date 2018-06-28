@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 21, 2018 at 03:10 PM
+-- Generation Time: Jun 28, 2018 at 11:57 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -37,34 +37,51 @@ CREATE TABLE IF NOT EXISTS `acaofuncionalidade` (
   `funcionalidade_id` int(11) NOT NULL,
   `precisadepermissao` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `acaofuncionalidade`
 --
 
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`, `precisadepermissao`) VALUES
-(1, 'Exibir', 'restrict/usuario', 'get,post', 8, b'1'),
-(2, 'Incluir', 'restrict/usuario/new', 'get,post', 8, b'1'),
-(3, 'Editar', 'restrict/usuario/{id}', 'get,post', 8, b'1'),
-(4, 'Ativar', 'restrict/usuario/actdeact/{id}', 'post', 8, b'1'),
-(5, 'Exibir', 'restrict/tipoimovel', 'get,post', 2, b'1'),
-(6, 'Incluir', 'restrict/tipoimovel/new', 'get,post', 2, b'1'),
-(7, 'Editar', 'restrict/tipoimovel/{id}', 'get,post', 2, b'1'),
-(8, 'Ativar', 'restrict/tipoimovel/actdeact/{id}', 'post', 2, b'1'),
-(9, 'Exibir', 'restrict/itemimovel', 'get,post', 3, b'1'),
-(10, 'Incluir', 'restrict/itemimovel/new', 'get,post', 3, b'1'),
-(11, 'Editar', 'restrict/itemimovel/{id}', 'get,post', 3, b'1'),
-(12, 'Ativar', 'restrict/itemimovel/actdeact/{id}', 'post', 3, b'1'),
-(13, 'Exibir', 'restrict/estado', 'get,post', 4, b'1'),
-(14, 'Incluir', 'restrict/estado/new', 'get,post', 4, b'1'),
-(15, 'Editar', 'restrict/estado/{id}', 'get,post', 4, b'1'),
-(16, 'Ativar', 'restrict/estado/actdeact/{id}', 'post', 4, b'1'),
-(17, 'Exibir', 'restrict/cidade', 'get,post', 5, b'1'),
-(18, 'Incluir', 'restrict/cidade/new', 'get,post', 5, b'1'),
-(19, 'Editar', 'restrict/cidade/{id}', 'get,post', 5, b'1'),
-(20, 'Ativar', 'restrict/cidade/actdeact/{id}', 'post', 5, b'1'),
-(21, 'Exibir Drop Cidade', 'restrict/cidade/getcidadedropdown', 'post', 5, b'0');
+(1, 'home', '/restrict', 'get,post', 8, b'0'),
+(2, 'home', '/restrict/logout', 'get,post', 8, b'0'),
+(3, 'Salvar fotos de Perfil', '/restrict/foto/usuario/save', 'get,post', 8, b'0'),
+(4, 'Exibir', '/restrict/usuario', 'get,post', 8, b'1'),
+(5, 'Incluir', '/restrict/usuario/new', 'get,post', 8, b'1'),
+(6, 'Editar', '/restrict/usuario/{id}', 'get,post', 8, b'1'),
+(7, 'Ativar', '/restrict/usuario/actdeact/{id}', 'post', 8, b'1'),
+(8, 'Editar Profile', '/restrict/usuario/profile', 'get,post', 8, b'0'),
+(9, 'Exibir', '/restrict/tipoimovel', 'get,post', 2, b'1'),
+(10, 'Incluir', '/restrict/tipoimovel/new', 'get,post', 2, b'1'),
+(11, 'Editar', '/restrict/tipoimovel/{id}', 'get,post', 2, b'1'),
+(12, 'Ativar', '/restrict/tipoimovel/actdeact/{id}', 'post', 2, b'1'),
+(13, 'Exibir', '/restrict/itemimovel', 'get,post', 3, b'1'),
+(14, 'Incluir', '/restrict/itemimovel/new', 'get,post', 3, b'1'),
+(15, 'Editar', '/restrict/itemimovel/{id}', 'get,post', 3, b'1'),
+(16, 'Ativar', '/restrict/itemimovel/actdeact/{id}', 'post', 3, b'1'),
+(17, 'Exibir', '/restrict/estado', 'get,post', 4, b'1'),
+(18, 'Incluir', '/restrict/estado/new', 'get,post', 4, b'1'),
+(19, 'Editar', '/restrict/estado/{id}', 'get,post', 4, b'1'),
+(20, 'Ativar', '/restrict/estado/actdeact/{id}', 'post', 4, b'1'),
+(21, 'Exibir', '/restrict/cidade', 'get,post', 5, b'1'),
+(22, 'Incluir', '/restrict/cidade/new', 'get,post', 5, b'1'),
+(23, 'Editar', '/restrict/cidade/{id}', 'get,post', 5, b'1'),
+(24, 'Ativar', '/restrict/cidade/actdeact/{id}', 'post', 5, b'1'),
+(25, 'Exibir Drop Cidade', '/restrict/cidade/getcidadedropdown', 'post', 5, b'0'),
+(26, 'Exibir', '/restrict/bairro', 'get,post', 6, b'1'),
+(27, 'Incluir', '/restrict/bairro/new', 'get,post', 6, b'1'),
+(28, 'Editar', '/restrict/bairro/{id}', 'get,post', 6, b'1'),
+(29, 'Ativar', '/restrict/bairro/actdeact/{id}', 'post', 6, b'1'),
+(30, 'Exibir Drop Bairro', '/restrict/bairro/getcidadedropdown', 'post', 6, b'0'),
+(31, 'Exibir', '/restrict/grupo', 'get,post', 9, b'1'),
+(32, 'Incluir', '/restrict/grupo/new', 'get,post', 9, b'1'),
+(33, 'Editar', '/restrict/grupo/{id}', 'get,post', 9, b'1'),
+(34, 'Ativar', '/restrict/grupo/actdeact/{id}', 'post', 9, b'1'),
+(35, 'Exibir', '/restrict/construtora', 'get,post', 10, b'1'),
+(36, 'Incluir', '/restrict/construtora/new', 'get,post', 10, b'1'),
+(37, 'Editar', '/restrict/construtora/{id}', 'get,post', 10, b'1'),
+(38, 'Ativar', '/restrict/construtora/actdeact/{id}', 'post', 10, b'1');
 
 -- --------------------------------------------------------
 
@@ -144,6 +161,31 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `construtora`
+--
+
+DROP TABLE IF EXISTS `construtora`;
+CREATE TABLE IF NOT EXISTS `construtora` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(4000) NOT NULL,
+  `bairro_id` int(11) DEFAULT NULL,
+  `endereco` varchar(4000) DEFAULT NULL,
+  `complemento` varchar(4000) DEFAULT NULL,
+  `ativo` bit(1) NOT NULL DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `construtora`
+--
+
+INSERT INTO `construtora` (`id`, `nome`, `bairro_id`, `endereco`, `complemento`, `ativo`) VALUES
+(1, 'mrv', 638, 'Av dos engenheiros 190', '', b'1'),
+(2, 'Test', 639, 'Rua lisboa 190 parque recreio contagem', '', b'0');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `endereco`
 --
 
@@ -214,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `foto` (
   `urlrelative` varchar(4000) NOT NULL,
   `isWaterMark` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=226 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `foto`
@@ -223,7 +265,6 @@ CREATE TABLE IF NOT EXISTS `foto` (
 INSERT INTO `foto` (`id`, `name`, `physicaldirectory`, `urlrelative`, `isWaterMark`) VALUES
 (161, 'fbb6e784ace61849.png', 'C:\\wamp64\\www\\slimtwig\\uploads\\fbb6e784ace61849.png', 'http://localhost:8080/slimtwig/uploads/fbb6e784ace61849.png', b'1'),
 (195, 'd9f942f3d8860c31.png', 'C:\\wamp64\\www\\slimtwig\\uploads\\d9f942f3d8860c31.png', 'http://localhost:8080/slimtwig/uploads/d9f942f3d8860c31.png', b'0'),
-(211, '46ba2ce45266ce8b.png', 'C:\\wamp64\\www\\slimtwig\\uploads\\46ba2ce45266ce8b.png', 'http://localhost:8080/slimtwig/uploads/46ba2ce45266ce8b.png', b'0'),
 (212, '754b2de5e5fef9af.png', 'C:\\wamp64\\www\\slimtwig/uploads/754b2de5e5fef9af.png', 'http://localhost:8080/slimtwig/uploads/754b2de5e5fef9af.png', b'0'),
 (213, '202903872bbd9c35.png', 'C:\\wamp64\\www\\slimtwig/uploads/202903872bbd9c35.png', 'http://localhost:8080/slimtwig/uploads/202903872bbd9c35.png', b'0'),
 (214, '2fd9802c5292e6d1.png', 'C:\\wamp64\\www\\slimtwig/uploads/2fd9802c5292e6d1.png', 'http://localhost:8080/slimtwig/uploads/2fd9802c5292e6d1.png', b'0'),
@@ -236,7 +277,8 @@ INSERT INTO `foto` (`id`, `name`, `physicaldirectory`, `urlrelative`, `isWaterMa
 (221, '00f906074743469a.png', 'C:\\wamp64\\www\\slimtwig/uploads/00f906074743469a.png', 'http://localhost:8080/slimtwig/uploads/00f906074743469a.png', b'0'),
 (222, '8dbcfd0c38e7c52c.png', 'C:\\wamp64\\www\\slimtwig/uploads/8dbcfd0c38e7c52c.png', 'http://localhost:8080/slimtwig/uploads/8dbcfd0c38e7c52c.png', b'0'),
 (223, 'e7bce073c0a45734.png', 'C:\\wamp64\\www\\slimtwig/uploads/e7bce073c0a45734.png', 'http://localhost:8080/slimtwig/uploads/e7bce073c0a45734.png', b'0'),
-(224, 'd24d8036882b22c6.png', 'C:\\wamp64\\www\\slimtwig/uploads/d24d8036882b22c6.png', 'http://localhost:8080/slimtwig/uploads/d24d8036882b22c6.png', b'0');
+(224, 'd24d8036882b22c6.png', 'C:\\wamp64\\www\\slimtwig/uploads/d24d8036882b22c6.png', 'http://localhost:8080/slimtwig/uploads/d24d8036882b22c6.png', b'0'),
+(225, '7b5173aff6db36f1.png', 'C:\\wamp64\\www\\slimtwig/uploads/7b5173aff6db36f1.png', 'http://localhost:8080/slimtwig/uploads/7b5173aff6db36f1.png', b'0');
 
 -- --------------------------------------------------------
 
@@ -251,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `funcionalidade` (
   `pai_id` int(2) DEFAULT NULL,
   `acessar` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `funcionalidade`
@@ -264,6 +306,7 @@ INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES
 (4, 'Estado', 1, b'1'),
 (5, 'Cidade', 1, b'1'),
 (6, 'Bairro', 1, b'1'),
+(10, 'Construtora', 1, b'1'),
 (7, 'Seguranca', NULL, b'1'),
 (8, 'Cadastros de Usuarios', 7, b'1'),
 (9, 'Grupos e Permissoes', 7, b'1');
@@ -279,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `grupo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(400) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `grupo`
@@ -338,35 +381,37 @@ CREATE TABLE IF NOT EXISTS `permissao` (
   `usuario_id` int(11) DEFAULT NULL,
   `acaofuncionalidade_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `permissao`
 --
 
 INSERT INTO `permissao` (`id`, `grupo_id`, `usuario_id`, `acaofuncionalidade_id`) VALUES
-(27, 1, NULL, 8),
-(26, 1, NULL, 7),
-(25, 1, NULL, 5),
-(24, 2, NULL, 11),
-(23, 2, NULL, 6),
-(28, 1, NULL, 10),
-(29, 1, NULL, 12),
-(30, 1, NULL, 9),
-(31, 1, NULL, 15),
-(32, 1, NULL, 16),
-(33, 1, NULL, 13),
-(34, 1, NULL, 14),
-(35, 1, NULL, 20),
-(36, 1, NULL, 17),
-(37, 1, NULL, 18),
-(38, 1, NULL, 19),
-(39, 1, NULL, 21),
-(40, 1, NULL, 4),
-(41, 1, NULL, 1),
-(42, 1, NULL, 2),
-(43, 1, NULL, 3),
-(44, 1, NULL, 22);
+(1, 2, NULL, 12),
+(2, 2, NULL, 9),
+(3, 2, NULL, 10),
+(4, 2, NULL, 16),
+(5, 2, NULL, 13),
+(6, 2, NULL, 14),
+(7, 2, NULL, 20),
+(8, 2, NULL, 17),
+(9, 2, NULL, 18),
+(10, 2, NULL, 24),
+(11, 2, NULL, 21),
+(12, 2, NULL, 22),
+(13, 2, NULL, 29),
+(14, 2, NULL, 26),
+(15, 2, NULL, 27),
+(16, 2, NULL, 7),
+(17, 2, NULL, 4),
+(18, 2, NULL, 5),
+(19, 2, NULL, 34),
+(20, 2, NULL, 31),
+(21, 2, NULL, 32),
+(22, 2, NULL, 38),
+(23, 2, NULL, 35),
+(24, 2, NULL, 36);
 
 -- --------------------------------------------------------
 
@@ -440,17 +485,16 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idfoto` (`foto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `login`, `senha`, `grupo_id`, `ativo`, `foto_id`, `tipousuario`, `cpf`, `identidade`, `datanascimento`, `creci`, `dataadmissao`, `datademissao`, `telefone`, `telefonecel`, `observacoes`, `bairro_id`, `endereco`, `numero`, `complemento`, `created_at`, `updated_at`) VALUES
-(1, 'Diego', 'diego@diego.com', 'diego', '$2y$10$rLLSnN1Aeog1VPJw90PHzebCsXyCoe06SIpvdA4KPSotXi8syJFr.', 2, b'1', 212, 0, '07641813607', 'MG-11.627.842', NULL, '', NULL, NULL, '', '', 'Ola Teste', NULL, 'Rua Lisboa 190, Parque Recreio', '190', '', '0000-00-00 00:00:00', '2018-06-20 09:12:13'),
-(33, 'Thiago', 'thiago@vitalimobiliaria.com.br', 'thiago', '$2y$10$UmmDsl2UjfFhoRLfVrr79.DRz1Ilrenl2s5HrbCWCLCFm5iP3x2c.', NULL, b'1', 211, 0, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, '0000-00-00 00:00:00', '2018-06-15 14:01:08'),
-(51, '44314', 'test@test.com', '1234321423', '$2y$10$EAwC7HDkJiXhyQsTQSiK7e1a5IsUJtQnZ87HYmLH8xPZ0pMBtV/pa', NULL, b'1', 0, 1, '44343143343', 'sd-41.231.243', NULL, '', NULL, NULL, '', '', '', NULL, '', '', '', '2018-06-20 09:21:48', '2018-06-20 09:21:48'),
-(52, 'nogrupo', 'nogrupo@nogrupo.com', 'nogrupo', '$2y$10$7zcCRfJXYZ35UOrKEaAPMu1QZVcAfphJfb4WamIC/jxFOb.cekO1a', NULL, b'0', 0, 1, '43243232243', 'sa-21.312.323', NULL, '3223123', NULL, NULL, '2313213213', '13232113232', '', NULL, '', '', '', '2018-06-20 12:34:03', '2018-06-20 12:34:03');
+(1, 'Diego', 'diego@diego.com', 'diego', '$2y$10$rLLSnN1Aeog1VPJw90PHzebCsXyCoe06SIpvdA4KPSotXi8syJFr.', 2, b'1', 212, 3, '07641813607', 'MG-11.627.842', NULL, '', NULL, NULL, '', '', 'Ola Teste', NULL, 'Rua Lisboa 190, Parque Recreio', '190', '', '0000-00-00 00:00:00', '2018-06-20 09:12:13'),
+(2, 'Thiago', 'thiago@vitalimobiliaria.com.br', 'thiago', '$2y$10$NGjc4OuHftvjZ1WQZjDEJet60xXIjfsCjgTczu/kCS1.N1Ihon2bi', 2, b'1', 225, 0, '99999999999', 'kk-00.000.000', '1984-05-26', '', NULL, NULL, '', '', '', 639, '', '', '', '0000-00-00 00:00:00', '2018-06-28 10:38:09'),
+(53, 'test', 'aaaa@aaa.com', 'aaa', '$2y$10$o53Ud9Ey.jAXbKkm.IOkW.CpTkJaBTAuUY3yZkSawdUmRR6uzBQRi', NULL, b'0', 0, 1, '21321321213', 'da-12.321.332', NULL, '', NULL, NULL, '3221332132', '', '', NULL, '', '', '', '2018-06-28 10:27:31', '2018-06-28 10:27:31');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,55 @@
+{% extends 'default.twig' %}
+{% block title %}
+    Construtoras
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        <a href="{{path_for('construtora')}}">Construtoras</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="row custom-spacing-top">
+        <div class="col-lg-1">
+            <a href="{{ path_for('construtora.createview') }}" class="btn btn-primary">Nova Construtora</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="fa fa-table"></i>
+                        Construtoras
+                    </h3>
+                </div>
+                <div class="box-content nopadding">
+                    <input type="hidden" id="Titulo" value="Bairro"/>
+
+                    <table class="table table-hover table-nomargin table-bordered order-column datatable" data-path="{{path_for('construtora')}}" data-path-actdeact="{{ path_for('construtora.actdeact',{'id' : 0 }) }}" data-path-edit="{{ path_for('construtora.editview',{'id' : 0 }) }}" id="construtoratable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>                                
+                                <th>Telefone</th>   
+                                <th>Status</th>     
+                                <th class="text-center"></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{{base_url()}}/app/template/interno/js/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="{{base_url()}}/app/scriptsjs/construtora/index.js"></script>
+    {% if errors %}
+        {# <script type="text/javascript">
+            $(function () {
+                //$('#modal-validation-errors').modal('show');
+            });
+        </script> #}
+    {% endif %}
+
+{% endblock %}

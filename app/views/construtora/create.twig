@@ -1,0 +1,174 @@
+{% extends 'default.twig' %}
+{% block title %}
+    Construtora
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        {% if old.id %}
+            <a href="{{ path_for('construtora.editview',{ id: old.id }) }}">Manter Construtora</a>
+        {% else  %}
+            <a href="{{ path_for('construtora.createview') }}">Manter Construtora</a>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block header %}
+<style>
+        textarea {
+            width: 100%;
+            height: 100px;
+        }        
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="box-content">
+        <h4 class="page-header">Manter Construtora</h4>
+        <div class="custom-box">
+            {% if old.id %}
+                <form id="construtoraform" novalidate="novalidate" role="form" action="{{ path_for('construtora.edit',{ id: old.id }) }}" method="post">
+                {% else %}
+                    <form id="construtoraform" novalidate="novalidate" role="form" action="{{ path_for('construtora.create') }}" method="post">
+                    {% endif %}
+                    <input type="hidden" nome="id" value="{{ old.id }}"/>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <div class="form-group {{ errors.nome ? 'has-error': '' }}">
+
+                                <label for="nome" class="control-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="{{ old.nome }}"/>
+                                {% if errors.nome %}
+                                    <small class="help-block col-sm-9">{{ errors.nome | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.estado ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="nome" class="control-label">Estado</label>
+                                <select class="form-control" id="estado_id" name="estado">
+                                    <option disabled="disabled" selected="selected" value="value"></option>
+                                    {% for estado in estados %}
+                                        {% set selected = '' %}
+                                        {% if (estado.id == old.estado) %}
+                                            {% set selected = 'selected' %}
+                                        {% endif %}
+                                        <option value="{{estado.id}}" {{ selected }}>{{estado.nome}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if errors.estado %}
+                                    <small class="help-block col-sm-9">{{ errors.estado | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.cidade ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="cidade" class="control-label">Cidade</label>
+                                <div id="areaCidadeDropDown">
+                                    <select class="form-control" id="cidade" name="cidade">
+                                        <option disabled="disabled" selected="selected"></option>
+                                        {% for cidade in cidades %}
+                                            {% set selected = '' %}
+                                            {% if (cidade.id == old.cidade) %}
+                                                {% set selected = 'selected' %}
+                                            {% endif %}
+                                            <option value="{{cidade.id}}" {{ selected }}>{{cidade.nome}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% if errors.cidade %}
+                                    <small class="help-block col-sm-9">{{ errors.cidade | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3  {{ errors.bairro ? 'has-error': '' }} ">
+                            <div class="form-group ">
+                                <label for="bairro" class="control-label">Bairro</label>
+                                <div id="areaBairroDropDown">
+                                    <select class="form-control" id="bairro" name="bairro">
+                                        <option disabled="disabled" selected="selected"></option>
+                                        {% for bairro in bairros %}
+                                            {% set selected = '' %}
+                                            {% if (bairro.id == old.bairro) %}
+                                                {% set selected = 'selected' %}
+                                            {% endif %}
+                                            <option value="{{bairro.id}}" {{ selected }}>{{bairro.nome}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                {% if errors.bairro %}
+                                    <small class="help-block col-sm-9">{{ errors.bairro | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <div class="form-group {{ errors.endereco ? 'has-error': '' }}">
+                                <label for="endereco" class="control-label">Endereco</label>
+                                <input type="text" class="form-control" id="nome" placeholder="Endereco" name="endereco" value="{{ old.endereco }}"/>
+                                {% if errors.endereco %}
+                                    <small class="help-block col-sm-9">{{ errors.endereco | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <div class="form-group {{ errors.complemento ? 'has-error': '' }}">
+                                <label for="complemento" class="control-label">Complemento</label>
+                                <input type="text" class="form-control" id="nome" placeholder="Complemento" name="complemento" value="{{ old.complemento }}"/>
+                                {% if errors.complemento %}
+                                    <small class="help-block col-sm-9">{{ errors.complemento | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
+                            <div class="form-group ">
+                                <label for="telefone" class="control-label">Telefone Fixo</label>
+                                <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="{{ old.telefone }}"/>
+                                {% if errors.telefone %}
+                                    <small class="help-block col-sm-9">{{ errors.telefone | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-3 ">
+                            <div class="form-group ">
+
+                                <label for="telefonecel" class="control-label">Telefone Celular</label>
+                                <input type="text" class="form-control" id="telefonecel" placeholder="Telefone Celular" name="telefonecel" value="{{ old.telefonecel }}"/>
+                                {% if errors.telefonecel %}
+                                    <small class="help-block col-sm-9">{{ errors.telefonecel | first }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="form-group ">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                                    <label for="observacoes" class="control-label">Observacoes</label>
+                                    <textarea name="observacoes" id="observacoes">{{ old.observacoes }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row form-group">
+                        <div class="col-sm-10 custom-spacing-top custom-margin-left">
+                            <a type="button" class="btn btn-default" href="{{ path_for('construtora.indexview') }}">Voltar</a>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <input type="hidden" id="urlCidadeDropDown" value="{{path_for('cidade.cidadedropdown')}}">
+        <input type="hidden" id="urlBairroDropDown" value="{{path_for('bairro.bairrodropdown')}}">
+
+    {% endblock %}
+
+    {% block script %}
+        <script src="{{base_url()}}/vendor/igorescobar/jquery-mask-plugin/src/jquery.mask.js"></script>
+        <script src="{{base_url()}}/app/scriptsjs/Comum.js"></script>
+        <script src="{{base_url()}}/app/scriptsjs/construtora/create.js"></script>
+    {% endblock %}

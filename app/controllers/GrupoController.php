@@ -44,7 +44,7 @@ class GrupoController extends CRUDController
     {
         $acoesfuncionalidades = Funcionalidade::leftJoin('acaofuncionalidade as a', 'funcionalidade.id', 'a.funcionalidade_id')           
             ->orderBy('funcionalidade.id')
-            ->orderBy('nome_acao')
+            ->orderBy('a.id')
             ->selectRaw('funcionalidade.nome as nome_funcionalidade,a.nome as nome_acao, funcionalidade.pai_id')
             ->selectRaw('funcionalidade.id as idfuncionalidade ,a.id as idacaofuncionalidade, ? as id_permissao',[''])
             ->get();
@@ -106,7 +106,7 @@ class GrupoController extends CRUDController
                               where g.id = ?) r'),'r.acaofuncionalidade_id','=','a.id')            
             ->whereRaw('(a.precisadepermissao = ?  or a.precisadepermissao is null )', [$request->getAttribute('id'),'1'])
             ->orderBy('funcionalidade.id')
-            ->orderBy('nome_acao')
+            ->orderBy('a.id')
             ->select('funcionalidade.nome as nome_funcionalidade',
                 'a.nome as nome_acao',
                 'funcionalidade.pai_id',

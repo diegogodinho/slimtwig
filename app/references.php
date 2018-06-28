@@ -29,6 +29,7 @@ require __DIR__ . '/controllers/GrupoController.php';
 require __DIR__ . '/controllers/EstadoController.php';
 require __DIR__ . '/controllers/CidadeController.php';
 require __DIR__ . '/controllers/BairroController.php';
+require __DIR__ . '/controllers/ConstrutoraController.php';
 /*
 Domain
 */
@@ -46,6 +47,7 @@ require __DIR__ . '/domain/TipoUsuario.php';
 require __DIR__ . '/domain/Funcionalidade.php';
 require __DIR__ . '/domain/AcaoFuncionalidade.php';
 require __DIR__ . '/domain/Permissao.php';
+require __DIR__ . '/domain/Construtora.php';
 
 /*
 Middleware
