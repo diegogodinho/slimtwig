@@ -55,8 +55,17 @@ $container['CidadeController'] = function($container) {
 $container['BairroController'] = function($container) {
     return new App\Controllers\BairroController($container);
 };
+
 $container['ConstrutoraController'] = function($container) {
     return new App\Controllers\ConstrutoraController($container);
+};
+
+$container['ProprietarioController'] = function($container) {
+    return new App\Controllers\ProprietarioController($container);
+};
+
+$container['MidiaController'] = function($container) {
+    return new App\Controllers\MidiaController($container);
 };
 
 $container['view'] = function($container) {

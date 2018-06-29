@@ -94,6 +94,14 @@ $app->group('/restrict', function() {
     $this->get('/construtora/{id}', 'ConstrutoraController:EditView')->setName('construtora.editview');
     $this->post('/construtora/{id}', 'ConstrutoraController:Update')->setName('construtora.edit');
     $this->post('/construtora/actdeact/{id}', 'ConstrutoraController:ActivateDeactivate')->setName('construtora.actdeact');
+    //Midia
+    $this->get('/midia', 'MidiaController:IndexView')->setName('midia.indexview');
+    $this->post('/midia', 'MidiaController:All')->setName('midia');
+    $this->get('/midia/new', 'MidiaController:CreateView')->setName('midia.createview');
+    $this->post('/midia/new', 'MidiaController:Create')->setName('midia.create');    
+    $this->get('/midia/{id}', 'MidiaController:EditView')->setName('midia.editview');
+    $this->post('/midia/{id}', 'MidiaController:Update')->setName('midia.edit');
+    $this->post('/midia/actdeact/{id}', 'MidiaController:ActivateDeactivate')->setName('midia.actdeact');
 
 })->add(new App\Middleware\PermissionMiddleware($container))
 ->add(new App\Middleware\AuthorizationMiddleware($container));

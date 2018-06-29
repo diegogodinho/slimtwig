@@ -1,0 +1,55 @@
+{% extends 'default.twig' %}
+{% block title %}
+    Tags
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        <a href="{{path_for('usuario')}}">Usuarios</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="row custom-spacing-top">
+        <div class="col-lg-1">
+            <a href="{{ path_for('usuario.createview') }}" class="btn btn btn-primary">Novo Usuario</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box box-color box-bordered">
+                <div class="box-title">
+                    <h3>
+                        <i class="fa fa-table"></i>Usuarios</h3>
+                </div>
+                <div class="box-content nopadding">
+                    <table class="table table-hover table-nomargin table-bordered order-column datatable" data-path="{{path_for('usuario')}}" data-path-actdeact="{{ path_for('usuario.actdeact',{'id' : 0 }) }}" data-path-edit="{{ path_for('usuario.editview',{'id' : 0 }) }}" id="usertable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Login</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{{base_url()}}/app/template/interno/js/plugins/datatables/jquery.dataTables.js"></script>
+<script src="{{base_url()}}/app/scriptsjs/usuario/index.js"></script>   
+
+    {% if errors %}
+        <script type="text/javascript">
+            $(function () {
+                //$('#modal-validation-errors').modal('show');
+            });
+        </script>
+    {% endif %}
+
+{% endblock %}

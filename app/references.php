@@ -30,6 +30,8 @@ require __DIR__ . '/controllers/EstadoController.php';
 require __DIR__ . '/controllers/CidadeController.php';
 require __DIR__ . '/controllers/BairroController.php';
 require __DIR__ . '/controllers/ConstrutoraController.php';
+require __DIR__ . '/controllers/ProprietarioController.php';
+require __DIR__ . '/controllers/MidiaController.php';
 /*
 Domain
 */
@@ -48,6 +50,8 @@ require __DIR__ . '/domain/Funcionalidade.php';
 require __DIR__ . '/domain/AcaoFuncionalidade.php';
 require __DIR__ . '/domain/Permissao.php';
 require __DIR__ . '/domain/Construtora.php';
+require __DIR__ . '/domain/Proprietario.php';
+require __DIR__ . '/domain/Midia.php';
 
 /*
 Middleware

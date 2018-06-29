@@ -1,0 +1,58 @@
+{% extends 'default.twig' %}
+{% block title %}
+    Midia
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <i class="fa fa-angle-right"></i>
+        {% if old.id %}
+            <a href="{{ path_for('midia.editview',{ id: old.id }) }}">Manter Midia</a>
+        {% else  %}
+            <a href="{{ path_for('midia.createview') }}">Manter Midia</a>
+        {% endif %}
+
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="box-content">
+        <h4 class="page-header">Manter Midia</h4>
+        <div class="custom-box">
+            {% if old.id %}
+                <form novalidate="novalidate" role="form" action="{{ path_for('midia.edit',{ id: old.id }) }}" method="post">
+                {% else %}
+                    <form novalidate="novalidate" role="form" action="{{ path_for('midia.create') }}" method="post">
+                    {% endif %}
+                    <input type="hidden" name="id" value="{{ old.id }}"/>
+                    <div class="form-group {{ errors.nome ? 'has-error': '' }}">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <label for="inputEmail3" class="control-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" autocomplete="new-password" placeholder="Nome" name="nome" value="{{ old.nome }}"/>
+                            {% if errors.nome %}
+                                <small class="help-block    ">{{ errors.nome | first }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-10 custom-spacing-top custom-margin-left">
+                            <a type="button" class="btn btn-default" href="{{ path_for('midia.indexview') }}">Voltar</a>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    {% endblock %}
+
+    {% block script %}
+
+        {% if errors %}
+            <script type="text/javascript">
+                $(function () {
+                    //$('#modal-validation-errors').modal('show');
+                });
+            </script>
+        {% endif %}
+
+    {% endblock %}
