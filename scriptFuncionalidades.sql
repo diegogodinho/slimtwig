@@ -22,6 +22,8 @@ INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (null, '
 select @idBairro := LAST_INSERT_ID();
 INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (null, 'Construtora', @idCadastrosBasicos, b'1');
 select @idConstrutora := LAST_INSERT_ID();
+INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (null, 'Propaganda Vitrine', @idCadastrosBasicos, b'1');
+select @idPropagandaVitrine := LAST_INSERT_ID();
 
 INSERT INTO `funcionalidade` (`id`, `nome`, `pai_id`, `acessar`) VALUES (null, 'Seguranca', null, b'1');
 select @idSeguranca := LAST_INSERT_ID();
@@ -68,6 +70,11 @@ INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Incluir','/restrict/construtora/new', 'get,post', @idConstrutora, b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Editar', '/restrict/construtora/{id}', 'get,post', @idConstrutora, b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Ativar', '/restrict/construtora/actdeact/{id}', 'post', @idConstrutora, b'1');
+/*--Propaganda Vitrine--*/
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir', '/restrict/propagandavitrine', 'get,post', @idPropagandaVitrine,b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Incluir','/restrict/propagandavitrine/new', 'get,post', @idPropagandaVitrine, b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Editar', '/restrict/propagandavitrine/{id}', 'get,post', @idPropagandaVitrine, b'1');
+INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Ativar', '/restrict/propagandavitrine/actdeact/{id}', 'post', @idPropagandaVitrine, b'1');
 /*--Usuario--*/
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Exibir', '/restrict/usuario', 'get,post', @idCadastrosDeUsuarios, b'1');
 INSERT INTO `acaofuncionalidade` (`id`, `nome`, `url`, `metodo`, `funcionalidade_id`,`precisadepermissao`) VALUES (null, 'Incluir','/restrict/usuario/new', 'get,post', @idCadastrosDeUsuarios, b'1');

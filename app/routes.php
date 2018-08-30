@@ -102,6 +102,14 @@ $app->group('/restrict', function() {
     $this->get('/midia/{id}', 'MidiaController:EditView')->setName('midia.editview');
     $this->post('/midia/{id}', 'MidiaController:Update')->setName('midia.edit');
     $this->post('/midia/actdeact/{id}', 'MidiaController:ActivateDeactivate')->setName('midia.actdeact');
+    //Propaganda Vitrine
+    $this->get('/propagandavitrine', 'PropagandaVitrineController:IndexView')->setName('propagandavitrine.indexview');
+    $this->post('/propagandavitrine', 'PropagandaVitrineController:All')->setName('propagandavitrine');
+    $this->get('/propagandavitrine/new', 'PropagandaVitrineController:CreateView')->setName('propagandavitrine.createview');
+    $this->post('/propagandavitrine/new', 'PropagandaVitrineController:Create')->setName('propagandavitrine.create');
+    $this->get('/propagandavitrine/{id}', 'PropagandaVitrineController:EditView')->setName('propagandavitrine.editview');
+    $this->post('/propagandavitrine/{id}', 'PropagandaVitrineController:Update')->setName('propagandavitrine.edit');
+    $this->post('/propagandavitrine/actdeact/{id}', 'PropagandaVitrineController:ActivateDeactivate')->setName('propagandavitrine.actdeact');
 
 })->add(new App\Middleware\PermissionMiddleware($container))
 ->add(new App\Middleware\AuthorizationMiddleware($container));

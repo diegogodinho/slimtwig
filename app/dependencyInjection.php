@@ -68,6 +68,10 @@ $container['MidiaController'] = function($container) {
     return new App\Controllers\MidiaController($container);
 };
 
+$container['PropagandaVitrineController'] = function($container) {
+    return new App\Controllers\PropagandaVitrineController($container);
+};
+
 $container['view'] = function($container) {
     $view = new \Slim\Views\Twig(__DIR__ . '/views', [
         'cache' => false,
